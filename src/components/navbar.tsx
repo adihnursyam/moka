@@ -88,7 +88,7 @@ export function Navbar() {
 
       {/* Mobile Navbar Placeholder (Your existing logic for mobile can go here) */}
       {isMobile && (
-        <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden">
+        <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref}>
           {/* Example Mobile Structure */}
           <div className="w-full p-4 px-8 flex items-center justify-between h-16">
             <Link href='/' className='h-full'>
@@ -136,9 +136,9 @@ export function Navbar() {
             } // Close menu when not selected
             }
           >
-            <AccordionItem value='root-navbar' ref={ref}>
+            <AccordionItem value='root-navbar'>
               <AccordionContent className='text-white px-8'>
-                <div className={`flex flex-col gap-4 mt-8`}>
+                <div className={`flex flex-col gap-4 my-4`}>
                   {navLinks.map((link) => (
                     <Link
                       key={link.label}

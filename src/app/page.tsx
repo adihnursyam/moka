@@ -28,7 +28,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id='section-1' className='min-h-screen bg-dgb-50 grid place-items-center px-8 md:px-32'>
+      <section id='section-1' className='min-h-screen bg-dgb-50 grid place-items-center px-8 md:px-32 py-12'>
         <div className="flex gap-8 md:gap-24 w-full max-sm:flex-col-reverse">
           {/* circles */}
           <div className="relative aspect-square md:min-w-[45%] md:max-w-[45%]">
