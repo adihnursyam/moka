@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Page({
-  params: {name},
+export default async function Page({
+  params,
 }: Readonly<{
-  params: { name: string };
+  params: Promise<{ name: string }>;
 }>) {
+
+  const { name } = await params;
+
   return (
     <main className="h-screen overflow-hidden bg-[url(/babancong.png)] bg-cover relative bg-center">
       <div className='w-full h-full pointer-events-none absolute z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800' />
