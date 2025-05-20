@@ -5,7 +5,7 @@ import { Separator } from './ui/separator';
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-linear-to-br from-dgb to-fb md:h-72 relative pb-2 text-white flex flex-col justify-between">
+    <footer className="w-full bg-linear-to-br from-dgb to-fb md:min-h-72 relative pb-2 text-white flex flex-col justify-between">
       <div className="flex max-sm:flex-col justify-between px-6 md:px-12 py-12 md:pt-16 gap-x-20 gap-y-8">
         <div className="space-y-8 md:w-1/2">
           <Image

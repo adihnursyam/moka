@@ -63,3 +63,198 @@ export const news = [
     link: '/berita/pelatihan-public-speaking-pamoka',
   },
 ];
+
+
+export const finalists = [
+  {
+    name: 'Dikri Faturohman',
+    title: 'Jajaka Pinilih 2023',
+  },
+  {
+    name: 'Nurunisa',
+    title: 'Mojang Pinilih 2023',
+  },
+  {
+    name: 'Nabil Nazwa',
+    title: 'Jajaka Wakil I 2023',
+  },
+  {
+    name: 'Arni Kinanti Asri',
+    title: 'Mojang Wakil I 2023',
+  },
+  {
+    name: 'Angga M. Rizki',
+    title: 'Jajaka Wakil II 2023',
+  },
+  {
+    name: 'Renisa Nur Aliza',
+    title: 'Mojang Wakil II 2023',
+  },
+  {
+    name: 'Hisam Sambadi',
+    title: 'Jajaka Harapan I 2023',
+  },
+  {
+    name: 'Oktavia',
+    title: 'Mojang Harapan I 2023',
+  },
+  {
+    name: 'Farhan Sidik Hasan',
+    title: 'Jajaka Harapan II 2023',
+  },
+  {
+    name: 'Amanda Tristianti',
+    title: 'Mojang Harapan II 2023',
+  },
+  {
+    name: 'Tegar Tantangan',
+    title: 'Jajaka Harapan III 2023',
+  },
+  {
+    name: 'Nurul Alfa Rahmat',
+    title: 'Mojang Harapan III 2023',
+  },
+  {
+    name: 'Al Kahfi Ramadhan',
+    title: 'Jajaka Pinilih Rumaja 2023',
+  },
+  {
+    name: 'Talitha Mughni',
+    title: 'Mojang Pinilih Rumaja 2023',
+  },
+  {
+    name: 'Mohamad Rapli',
+    title: 'Jajaka Wakil I Rumaja 2023',
+  },
+  {
+    name: 'Febrina Putri Firdaus',
+    title: 'Mojang Wakil I Rumaja 2023',
+  },
+  {
+    name: 'M. Bagas Saputra',
+    title: 'Jajaka Wakil II Rumaja 2023',
+  },
+  {
+    name: 'Keyla Permata Dini',
+    title: 'Mojang Wakil II Rumaja 2023',
+  },
+  {
+    name: 'Hafizh Alif Fakhratama',
+    title: 'Jajaka Harapan I Rumaja 2023',
+  },
+  {
+    name: 'Kayla Nisa Hanan',
+    title: 'Mojang Harapan I Rumaja 2023',
+  },
+  {
+    name: 'Agung Setiawan',
+    title: 'Jajaka Harapan II Rumaja 2023',
+  },
+  {
+    name: 'Saharani Nurul Aghni',
+    title: 'Mojang Harapan II Rumaja 2023',
+  },
+  {
+    name: 'Nicolas Saputra',
+    title: 'Jajaka Harapan III Rumaja 2023',
+  },
+  {
+    name: 'Fadninta Alana Qolbi',
+    title: 'Mojang Harapan III Rumaja 2023',
+  },
+  {
+    name: 'Moch Afdal Hambali',
+    title: 'Jajaka Mmitran 2023',
+  },
+  {
+    name: 'Patonah',
+    title: 'Mojang Mmitran 2023',
+  },
+  {
+    name: 'Adi Haditya Nursyam',
+    title: 'Jajaka Calakan 2023',
+  },
+  {
+    name: 'Adhyaa Putri Rayhanum',
+    title: 'Mojang Calakan 2023',
+  },
+  {
+    name: 'Naila Alivia Choerunnisa',
+    title: 'Mojang Kameumeut 2023',
+  },
+  {
+    name: 'Dede Restu',
+    title: 'Jajaka Kameumeut 2023',
+  },
+  {
+    name: 'Annisa Purnama Sari',
+    title: 'Mojang Kameumeut Rumaja 2023',
+  },
+  {
+    name: 'M Haiqal Firdaus',
+    title: 'Jajaka Kameumeut Rumaja 2023',
+  },
+  {
+    name: 'Azeng Virginiawati',
+    title: 'Mojang Parigel 2023',
+  },
+  {
+    name: 'Wildan M Qurtubi',
+    title: 'Jajaka Parigel 2023',
+  },
+  {
+    name: 'Syaila Alya',
+    title: 'Mojang Parigel Rumaja 2023',
+  },
+  {
+    name: 'Gilang Nugraha',
+    title: 'Jajaka Parigel Rumaja 2023',
+  },
+  {
+    name: 'Aulia Siti Humaira',
+    title: 'Mojang Motekar 2023',
+  },
+  {
+    name: 'M Taufan Amarullah',
+    title: 'Jajaka Motekar 2023',
+  },
+  {
+    name: 'Nisrina Shofa Ramadani',
+    title: 'Mojang Motekar Rumaja 2023',
+  },
+  {
+    name: 'Angga Irsan Attala',
+    title: 'Jajaka Motekar Rumaja 2023',
+  },
+  {
+    name: 'Raynatha Velga',
+    title: 'Mojang Gandes 2023',
+  },
+  {
+    name: 'Sandika Adi Nugraha',
+    title: 'Jajaka Kewes 2023',
+  },
+  {
+    name: 'Nabila Azma Padila',
+    title: 'Mojang Gandes Rumaja 2023',
+  },
+  {
+    name: 'Muhammad Mutakhir',
+    title: 'Jajaka Kewes Rumaja 2023',
+  },
+];
+
+export const sponsors = [
+  {
+    src: '/sponsors/qwest-communications-logo.png',
+    name: 'Qwest Communications',
+  },
+  { src: '/sponsors/iveco-logo-black-and-white-1.png', name: 'Iveco' },
+  { src: '/sponsors/fx4-off-road-logo.png', name: 'FX4 Off-Road' },
+  { src: '/sponsors/zwave-logo-vector.svg', name: 'Z-Wave' },
+  { src: '/sponsors/coca-cola-logo.png', name: 'Coca-Cola' },
+  { src: '/sponsors/chanel-logo.png', name: 'Chanel' },
+  { src: '/sponsors/adidas-logo.png', name: 'Adidas' },
+  { src: '/sponsors/citibank-logo.png', name: 'Citibank' },
+  { src: '/sponsors/audi-logo.png', name: 'Audi' },
+];

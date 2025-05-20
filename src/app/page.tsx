@@ -75,7 +75,7 @@ export default function Home() {
           <Carousel className='w-full' opts={{ align: "start", loop: true }}>
             <CarouselContent className='md:-ml-10'>
               {news.map((item, index) => (
-                <CarouselItem key={item.link + index} className='md:basis-1/4 md:md:pl-10'>
+                <CarouselItem key={item.link + index} className='md:basis-1/4 md:pl-10'>
                   <NewsCard news={item} />
                 </CarouselItem>))}
             </CarouselContent>
