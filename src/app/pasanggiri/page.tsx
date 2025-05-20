@@ -29,7 +29,7 @@ export default function Pasanggiri() {
   const [year, setYear] = useState(2025)
 
   return (
-    <main className="relative bg-[url(/art-center-1.png)] bg-fixed bg-cover bg-center bg-no-repeat text-white max-sm:overflow-x-hidden">
+    <main className="relative bg-[url(/art-center-1.png)] bg-fixed bg-size-[auto_100lvh] bg-center bg-no-repeat text-white max-sm:overflow-x-hidden">
       <section className='relative h-[90vh] text-white font-montserrat'>
         <m.div className='relative z-0 w-full h-full'>
           <Image src='/galdin.png' alt='' width={1920} height={1080} className='w-full h-full object-cover' />
