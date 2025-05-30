@@ -64,7 +64,6 @@ export const news = [
   },
 ];
 
-
 export const finalists = [
   {
     name: 'Dikri Faturohman',
@@ -257,4 +256,11 @@ export const sponsors = [
   { src: '/sponsors/adidas-logo.png', name: 'Adidas' },
   { src: '/sponsors/citibank-logo.png', name: 'Citibank' },
   { src: '/sponsors/audi-logo.png', name: 'Audi' },
+];
+
+export const categories = [
+  { name: 'Mojang Rumaja', slug: 'mojang-rumaja' },
+  { name: 'Jajaka Rumaja', slug: 'jajaka-rumaja' },
+  { name: 'Mojang Dewasa', slug: 'mojang-dewasa' },
+  { name: 'Jajaka Dewasa', slug: 'jajaka-dewasa' },
 ];

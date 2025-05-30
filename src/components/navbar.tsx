@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { categories } from '@/lib/data';
 
 const navLinks: { href: string, label: string, isPopover?: boolean }[] = [
   { href: '/', label: 'Beranda' },
@@ -82,23 +83,16 @@ export function Navbar() {
             {navLinks.map((link) => link.isPopover ? (
               <Popover key={link.label}>
                 <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all'>{link.href}</PopoverTrigger>
-                <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white'>
-                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
-                    <div className="">Mojang Rumaja</div>
-                    <div className="text-[#dedede]">Dancing in the dark</div>
-                  </Link>
-                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
-                    <div className="">Jajaka Rumaja</div>
-                    <div className="text-[#dedede]">Dancing in the dark</div>
-                  </Link>
-                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
-                    <div className="">Mojang Dewasa</div>
-                    <div className="text-[#dedede]">Dancing in the dark</div>
-                  </Link>
-                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
-                    <div className="">Jajaka Dewasa</div>
-                    <div className="text-[#dedede]">Dancing in the dark</div>
-                  </Link>
+                <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
+                  {categories.map((category) => (
+                    <Link
+                      key={category.slug+"-navbar-popover"}
+                      href={`/voting/${category.slug}`}
+                      className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+                    >
+                      <div className="">{category.name}</div>
+                    </Link>
+                  ))}
                 </PopoverContent>
               </Popover>
             ) : (
