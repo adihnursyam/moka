@@ -2,6 +2,7 @@ import { typography } from '@/components/custom/typography';
 import { Crosshair } from 'lucide-react';
 import Image from 'next/image';
 import ProfileGrid from './profile-grid';
+import YouTubeEmbed from '@/components/youtube-embed';
 
 export default function AboutUs() {
   return (
@@ -81,6 +82,17 @@ export default function AboutUs() {
           showOnDesktop={6}
           isRight
         />
+      </section>
+
+      <section id='gallery' className="min-h-screen bg-cover bg-[url(/bagendit.jpg)] bg-no-repeat bg-center px-8 py-12 md:px-24 md:py-16 relative">
+        {/* overlay */}
+        <div className="bg-dgb-50/90 backdrop-opacity-40 w-full h-full left-0 top-0 absolute z-0 pointer-events-auto">
+        </div>
+        <typography.h1 className='md:w-1/2 isolate mb-8'>Gallery</typography.h1>
+        <div className="max-w-3xl mx-auto"><YouTubeEmbed
+          id="5w0ORZ0XUkE"
+          title="Mojang Jajaka Kabupaten Garut 2023 - Grand Final"
+        /></div>
       </section>
     </main>
   )

@@ -11,9 +11,10 @@ export default function Home() {
     <main className="min-h-screen">
       <section className='h-screen overflow-hidden bg-[url(/babancong.png)] bg-cover relative bg-center' id='hero'>
         <div className='w-full h-full pointer-events-none absolute z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800' />
-        <div className="absolute top-1/2 md:left-20 left-12 text-white max-w-1/2">
-          <h1 className="font-montserrat mb-6">Adiluhung Nyambuang Kabinekasan</h1>
-          <Link href="https://instagram.com/mokagarut" className='rounded-full text-xl font-semibold px-6 py-1 bg-fb'>Get To Know Us</Link>
+        <div className="absolute top-9/20 md:left-20 left-12 text-white max-w-1/2">
+          <h1 className="font-montserrat">Paguyuban Mojang Jajaka Kabupaten Garut</h1>
+          <p className="italic mt-3 text-2xl">Nu Nyunda Tur Nyakola</p>
+          {/* <Link href="https://instagram.com/mokagarut" className='rounded-full text-xl font-semibold px-6 py-1 bg-fb'>Get To Know Us</Link> */}
         </div>
 
         {/* people */}

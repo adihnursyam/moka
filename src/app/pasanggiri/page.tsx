@@ -29,7 +29,7 @@ export default function Pasanggiri() {
   const [year, setYear] = useState(2025)
 
   return (
-    <main className="relative bg-[url(/art-center-1.png)] bg-fixed bg-size-[auto_100lvh] bg-center bg-no-repeat text-white max-sm:overflow-x-hidden">
+    <main className="relative bg-[url(/art-center-1.png)] bg-fixed md:bg-size-[100lvw_100lvh] bg-size-[auto_100lvh] bg-center bg-no-repeat text-white max-sm:overflow-x-hidden">
       <section className='relative h-[90vh] text-white font-montserrat'>
         <m.div className='relative z-0 w-full h-full'>
           <Image src='/galdin.png' alt='' width={1920} height={1080} className='w-full h-full object-cover' />
@@ -48,6 +48,7 @@ export default function Pasanggiri() {
           ))}
         </div>
       </section>
+
       <section className='relative md:px-20 md:py-20 px-6 py-8'>
         <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-4">Let&apos;s Vote</h2>
         <div className="flex max-sm:flex-col justify-between w-full gap-6 max-sm:items-end">
@@ -103,28 +104,21 @@ export default function Pasanggiri() {
 
         <Accordion type="single" collapsible className='bg-white/35 backdrop-blur mt-8 rounded-2xl px-6'>
           <AccordionItem value="item-1" className='border-b-[0.5px] border-white'>
-            <AccordionTrigger className='text-md'>Finalist</AccordionTrigger>
+            <AccordionTrigger className='text-md'>Semi Finalis</AccordionTrigger>
             <AccordionContent className='text-black'>
               <DataTable columns={standingColumn} data={finalists} />
             </AccordionContent>
 
           </AccordionItem>
           <AccordionItem value="item-2" className='border-b-[0.5px] border-white'>
-            <AccordionTrigger className='text-md'>Semi Finalist</AccordionTrigger>
+            <AccordionTrigger className='text-md'>Finalis</AccordionTrigger>
             <AccordionContent>
 
             </AccordionContent>
 
           </AccordionItem>
           <AccordionItem value="item-2" className='border-b-[0.5px] border-white'>
-            <AccordionTrigger className='text-md'>Best of 44</AccordionTrigger>
-            <AccordionContent>
-
-            </AccordionContent>
-
-          </AccordionItem>
-          <AccordionItem value="item-2" className='border-b-[0.5px] border-white'>
-            <AccordionTrigger className='text-md'>Audition</AccordionTrigger>
+            <AccordionTrigger className='text-md'>Pemenang</AccordionTrigger>
             <AccordionContent>
 
             </AccordionContent>

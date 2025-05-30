@@ -5,18 +5,25 @@ import { useState, useEffect, useRef, RefObject } from 'react';
 import Image from 'next/image';
 import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
 import { Button } from './custom/button'; // Assuming this path is correct
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'motion/react'; // Import motion
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact Us' },
-  { href: '/pasanggiri', label: 'Pasanggiri' },
+const navLinks: { href: string, label: string, isPopover?: boolean }[] = [
+  { href: '/', label: 'Beranda' },
+  { href: '/tentang', label: 'Tentang' },
+  // { href: '/kontak', label: 'Kontak Kami' },
+  { href: '/rangkaian-kegiatan', label: 'Rangkaian Kegiatan' },
+  { href: 'voting', label: 'Voting', isPopover: true },
 ];
 
 export function Navbar() {
@@ -72,7 +79,29 @@ export function Navbar() {
             <Image src='/logo-orange.png' alt='logo' width={100} height={60} className='h-full w-auto object-contain' />
           </Link>
           <div className="flex gap-8 font-montserrat">
-            {navLinks.map((link) => (
+            {navLinks.map((link) => link.isPopover ? (
+              <Popover key={link.label}>
+                <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all'>{link.href}</PopoverTrigger>
+                <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white'>
+                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
+                    <div className="">Mojang Rumaja</div>
+                    <div className="text-[#dedede]">Dancing in the dark</div>
+                  </Link>
+                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
+                    <div className="">Jajaka Rumaja</div>
+                    <div className="text-[#dedede]">Dancing in the dark</div>
+                  </Link>
+                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
+                    <div className="">Mojang Dewasa</div>
+                    <div className="text-[#dedede]">Dancing in the dark</div>
+                  </Link>
+                  <Link href='/voting/test' className="px-4 py-2 rounded-lg transition-all hover:bg-white/10">
+                    <div className="">Jajaka Dewasa</div>
+                    <div className="text-[#dedede]">Dancing in the dark</div>
+                  </Link>
+                </PopoverContent>
+              </Popover>
+            ) : (
               <Link
                 key={link.label}
                 href={link.href}
@@ -82,7 +111,7 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <Button>Register</Button>
+          <Button>Daftar</Button>
         </motion.nav>
       )}
 
@@ -139,22 +168,42 @@ export function Navbar() {
             <AccordionItem value='root-navbar'>
               <AccordionContent className='text-white px-8'>
                 <div className={`flex flex-col gap-4 my-4`}>
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      className="font-medium text-fb hover:text-fb-500 transition-all"
-                      onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                  {navLinks.map((link) => link.isPopover ?
+                    (<Accordion key={link.label} type='single' collapsible className='w-full'>
+                      <AccordionItem value='voting' className='py-0'>
+                        <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all p-0'>Voting</AccordionTrigger>
+                        <AccordionContent>
+                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
+                            <div className="">Mojang Rumaja</div>
+                          </Link>
+                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
+                            <div className="">Jajaka Rumaja</div>
+                          </Link>
+                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
+                            <div className="">Mojang Dewasa</div>
+                          </Link>
+                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
+                            <div className="">Jajaka Dewasa</div>
+                          </Link>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                    ) : (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        className="font-medium text-fb hover:text-fb-500 transition-all"
+                        onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
                   <Link
                     href='/register'
                     className="w-full text-fb rounded-md font-semibold"
                     onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
                   >
-                    Register
+                    Daftar
                   </Link>
                 </div>
               </AccordionContent>
