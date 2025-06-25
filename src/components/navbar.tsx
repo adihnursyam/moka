@@ -1,11 +1,11 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect, useRef, RefObject } from 'react';
+import { useState, useEffect, useRef, RefObject, ReactNode } from 'react';
 import Image from 'next/image';
 import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
-import { Button } from './custom/button'; // Assuming this path is correct
-import { motion } from 'motion/react'; // Import motion
+// import { Button } from './custom/button'; 
+import { motion } from 'motion/react';
 import {
   Accordion,
   AccordionContent,
@@ -19,12 +19,12 @@ import {
 } from "@/components/ui/popover"
 import { categories } from '@/lib/data';
 
-const navLinks: { href: string, label: string, isPopover?: boolean }[] = [
+const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode }[] = [
   { href: '/', label: 'Beranda' },
   { href: '/tentang', label: 'Tentang' },
   // { href: '/kontak', label: 'Kontak Kami' },
-  { href: '/rangkaian-kegiatan', label: 'Rangkaian Kegiatan' },
-  { href: 'voting', label: 'Voting', isPopover: true },
+  { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion /> },
+  { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion /> },
 ];
 
 export function Navbar() {
@@ -82,18 +82,8 @@ export function Navbar() {
           <div className="flex gap-8 font-montserrat">
             {navLinks.map((link) => link.isPopover ? (
               <Popover key={link.label}>
-                <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all'>{link.href}</PopoverTrigger>
-                <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
-                  {categories.map((category) => (
-                    <Link
-                      key={category.slug+"-navbar-popover"}
-                      href={`/voting/${category.slug}`}
-                      className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
-                    >
-                      <div className="">{category.name}</div>
-                    </Link>
-                  ))}
-                </PopoverContent>
+                <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all'>{link.label}</PopoverTrigger>
+                {link.content || <VotingPopover />}
               </Popover>
             ) : (
               <Link
@@ -105,7 +95,20 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <Button>Daftar</Button>
+          <Popover>
+            <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all border border-fb py-1.5 px-3 rounded-md'>Hasil Voting</PopoverTrigger>
+            <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
+              {categories.map((category) => (
+                <Link
+                  key={category.slug + "-navbar-popover"}
+                  href={`/voting/hasil/${category.slug}`}
+                  className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+                >
+                  <div className="">{category.name}</div>
+                </Link>
+              ))}
+            </PopoverContent>
+          </Popover>
         </motion.nav>
       )}
 
@@ -161,24 +164,13 @@ export function Navbar() {
           >
             <AccordionItem value='root-navbar'>
               <AccordionContent className='text-white px-8'>
-                <div className={`flex flex-col gap-4 my-4`}>
+                <div className={`my-4 flex flex-col`}>
                   {navLinks.map((link) => link.isPopover ?
                     (<Accordion key={link.label} type='single' collapsible className='w-full'>
-                      <AccordionItem value='voting' className='py-0'>
-                        <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all p-0'>Voting</AccordionTrigger>
-                        <AccordionContent>
-                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
-                            <div className="">Mojang Rumaja</div>
-                          </Link>
-                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
-                            <div className="">Jajaka Rumaja</div>
-                          </Link>
-                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
-                            <div className="">Mojang Dewasa</div>
-                          </Link>
-                          <Link href='/voting/test' className="px-1 transition-all hover:bg-white/10">
-                            <div className="">Jajaka Dewasa</div>
-                          </Link>
+                      <AccordionItem value='voting' className='py-1.5'>
+                        <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all p-0'>{link.label}</AccordionTrigger>
+                        <AccordionContent className='pb-0 pt-1.5 *:py-1.5 *:px-4'>
+                          {link.accordion || <VotingAccordion />}
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
@@ -186,25 +178,120 @@ export function Navbar() {
                       <Link
                         key={link.label}
                         href={link.href}
-                        className="font-medium text-fb hover:text-fb-500 transition-all"
+                        className="font-medium text-fb hover:text-fb-500 transition-all py-1.5"
                         onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
                       >
                         {link.label}
                       </Link>
                     ))}
-                  <Link
-                    href='/register'
-                    className="w-full text-fb rounded-md font-semibold"
-                    onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                  >
-                    Daftar
-                  </Link>
+                  <Accordion className='w-full' type='single' collapsible>
+                    <AccordionItem value='hasil-voting'>
+                      <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
+                      <AccordionContent className=''>
+                        {categories.map((category) => (
+                          <div className="py-1.5 px-4"
+                            key={category.slug + "-navbar-accordion"}>
+                            <Link
+                              href={`/voting/hasil/${category.slug}`}
+                              className=""
+                              onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
+                            >
+                              <div className="">{category.name}</div>
+                            </Link>
+                          </div>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </nav>
       )}
+    </>
+  );
+}
+
+function VotingPopover() {
+  return (
+    <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
+      {categories.map((category) => (
+        <Link
+          key={category.slug + "-navbar-popover"}
+          href={`/voting/${category.slug}`}
+          className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+        >
+          <div className="">{category.name}</div>
+        </Link>
+      ))}
+    </PopoverContent>
+  );
+}
+
+function VotingAccordion() {
+  return (
+    <>
+      <div>
+        <Link href='/voting/mojang-rumaja' className="">
+          Mojang Rumaja
+        </Link>
+      </div>
+      <div>
+        <Link href='/voting/jajaka-rumaja' className="">
+          Jajaka Rumaja
+        </Link>
+      </div>
+      <div>
+        <Link href='/voting/mojang-dewasa' className="">
+          Mojang Dewasa
+        </Link>
+      </div>
+      <div>
+        <Link href='/voting/jajaka-dewasa' className="">
+          Jajaka Dewasa
+        </Link>
+      </div>
+    </>
+  )
+}
+
+const rangkaianKegiatan = [
+  "Audisi",
+  "Semifinal",
+  "Pra-Karantina",
+  "Unjuk Kabisa",
+  "Karantina",
+  "Gala Dinner",
+  "Grand Final",
+]
+
+function RangkaianKegiatanPopover() {
+  return (
+    <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
+      {rangkaianKegiatan.map((kegiatan, index) => (
+        <Link
+          key={index + "-navbar-popover"}
+          href={`/rangkaian-kegiatan/${kegiatan.toLowerCase().replace(/\s+/g, '-')}`}
+          className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+        >
+          <div className="">{kegiatan}</div>
+        </Link>
+      ))}
+    </PopoverContent>
+  );
+}
+
+function RangkaianKegiatanAccordion() {
+  return (
+    <>
+      {rangkaianKegiatan.map((kegiatan, index) => (
+        <div key={index + "-accordion"} className="py-1.5">
+          <Link href={`/rangkaian-kegiatan/${kegiatan.toLowerCase().replace(/\s+/g, '-')}`} className="">
+            {kegiatan}
+          </Link>
+        </div>
+      ))}
     </>
   );
 }

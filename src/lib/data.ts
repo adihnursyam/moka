@@ -1,3 +1,79 @@
+const MD = [
+  { no: 1, name: 'Alfiah Ainun Mardatilah' },
+  { no: 2, name: 'Cecilia Clairin Rimayansyah' },
+  { no: 3, name: 'Gestie Alfiah Soumi' },
+  { no: 4, name: 'Ghaida Salsabila' },
+  { no: 5, name: 'Inneu Rahmawati' },
+  { no: 6, name: 'Kirana Ajeng Pratiwi' },
+  { no: 7, name: 'Marsha Azkia Fauziah' },
+  { no: 8, name: 'Novi Nurdiyanti' },
+  { no: 9, name: 'Puput Andini' },
+  { no: 10, name: 'Raani Yuliani' },
+  { no: 11, name: 'Rachil' },
+  { no: 12, name: 'Rida Faridah' },
+  { no: 13, name: 'Rosa Nursyamsiah' },
+  { no: 14, name: 'Tiara Febrianti' },
+  { no: 15, name: 'Viola Fitri Rahayu' },
+  { no: 16, name: 'Zihan Nur Aulia' },
+];
+
+const JD = [
+  { no: 1, name: 'Ade Nugraha' },
+  { no: 2, name: 'Alam Muharam' },
+  { no: 3, name: 'Arya Nugraha' },
+  { no: 4, name: 'Deka Arianda' },
+  { no: 5, name: 'Deni Septiaji' },
+  { no: 6, name: 'Hamim Nuryadi' },
+  { no: 7, name: 'M Habib An Nazar' },
+  { no: 8, name: 'Marcel Laksono Putra' },
+  { no: 9, name: 'Mirza Raihan Pamugar' },
+  { no: 10, name: 'Mohamad Febrian Zilham Sopandi' },
+  { no: 11, name: 'Muhammad Alvin Maulana' },
+  { no: 12, name: 'Muhammad Exsel Al Syiamudawan' },
+  { no: 13, name: 'Rendy Ahmad Mutaqin' },
+  { no: 14, name: 'Rizki Bagus Hidayatulloh' },
+  { no: 15, name: 'Ujang Sulton' },
+  { no: 16, name: 'Wildan Septi Ramadhan' },
+];
+
+const JR = [
+  { no: 1, name: 'Akbar Abdul Rojak' },
+  { no: 2, name: 'Al Fauzan Bintang Setiawan' },
+  { no: 3, name: 'Dhafin Mochamad Ramdhani' },
+  { no: 4, name: 'Fadhil Arya Rachman' },
+  { no: 5, name: 'Fahri Nuryadin Putra' },
+  { no: 6, name: 'Hafiz Firza' },
+  { no: 7, name: 'Hardhika Wahyu Kusuma' },
+  { no: 8, name: 'Jamian Rava Benati' },
+  { no: 9, name: 'M Nazril Abdullah' },
+  { no: 10, name: 'Muhamad Satria Sunda' },
+  { no: 11, name: 'Muhammad Bintang Kevin Alyuva' },
+  { no: 12, name: 'Nandang Soleh' },
+  { no: 13, name: 'Raditya Rizqullah' },
+  { no: 14, name: 'Rd Muhammad Kaisyar Al-Hasby' },
+  { no: 15, name: 'Rillo Faiq Mochammad Wibowo' },
+  { no: 16, name: 'Zaidan Salim Jundan' },
+];
+
+const MR = [
+  { no: 1, name: 'Arella Kireida Andriani' },
+  { no: 2, name: 'Cinta Putri Vidianta' },
+  { no: 3, name: 'Cinta Shafa Shahasya' },
+  { no: 4, name: 'Davina Apriliana' },
+  { no: 5, name: 'Disty Hutami Dwi Aryani' },
+  { no: 6, name: 'Khaila Elysia Afandie' },
+  { no: 7, name: 'Mutiara Ramadhani' },
+  { no: 8, name: 'Nazhira Putri Syawalina Oktaviani' },
+  { no: 9, name: 'Nazwa Aulia Qurota Ayuni' },
+  { no: 10, name: 'Nurlaifatul Fajar Hafidhoh' },
+  { no: 11, name: 'Rahmatunnisa Muliawati' },
+  { no: 12, name: 'Rivani Marva Haura' },
+  { no: 13, name: 'Syaila Zahratunnisa' },
+  { no: 14, name: 'Vina Faulina' },
+  { no: 15, name: 'Zahra Kirana Rizkya Metta' },
+  { no: 16, name: 'Zelinda Naflah Firyal' },
+];
+
 export const news = [
   {
     title:
@@ -258,9 +334,10 @@ export const sponsors = [
   { src: '/sponsors/audi-logo.png', name: 'Audi' },
 ];
 
-export const categories = [
-  { name: 'Mojang Rumaja', slug: 'mojang-rumaja' },
-  { name: 'Jajaka Rumaja', slug: 'jajaka-rumaja' },
-  { name: 'Mojang Dewasa', slug: 'mojang-dewasa' },
-  { name: 'Jajaka Dewasa', slug: 'jajaka-dewasa' },
+export const categories: {name: string, slug: string, list: typeof MR, abrev: 'MR' | 'JR' | 'MD' | 'JD'}[] = [
+  { name: 'Mojang Rumaja', slug: 'mojang-rumaja', list: MR, abrev: 'MR' },
+  { name: 'Jajaka Rumaja', slug: 'jajaka-rumaja', list: JR, abrev: 'JR' },
+  { name: 'Mojang Dewasa', slug: 'mojang-dewasa', list: MD, abrev: 'MD' },
+  { name: 'Jajaka Dewasa', slug: 'jajaka-dewasa', list: JD, abrev: 'JD' },
 ];
+
