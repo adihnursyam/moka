@@ -1,4 +1,7 @@
 export const pengurus = [
+  { posisi: 'Ketua Pengawas', nama: 'Cecep' },
+  { posisi: 'Pengawas', nama: 'Kiki Syarief' },
+  { posisi: 'Pengawas', nama: 'Khaerul' },
   { posisi: 'Ketua Umum', nama: 'Nurman Purnama Gumilar' },
   { posisi: 'Wakil Ketua I', nama: 'Salawat Fatih Ibrahim' },
   { posisi: 'Wakil Ketua II', nama: 'Yudhan Triyana' },
