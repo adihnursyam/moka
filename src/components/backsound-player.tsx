@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import useSound from 'use-sound';
 
 // Path to your background music file in the public directory
-const backgroundMusicPath = '/sounds/moka.mp3';
+const backgroundMusicPath = '/audio/pamoka.mp3';
 
 const BacksoundPlayer: React.FC = () => {
   const [play, { stop, sound }] = useSound(backgroundMusicPath, {
@@ -29,8 +29,8 @@ const BacksoundPlayer: React.FC = () => {
     // The `onload` callback above also contributes to this.
     // If the sound is already loaded when the component mounts, play() will be called.
     if (sound && !sound.playing()) {
-      sound.mute(true); // Ensure it's muted
-      play();
+      // sound.mute(true); 
+      sound.play();
       console.log('Initial play attempt (muted) from useEffect.');
     }
 

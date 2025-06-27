@@ -96,7 +96,12 @@ export default async function Home() {
             <CarouselPrevious className='bg-transparent max-sm:hidden' />
             <CarouselNext className='bg-transparent max-sm:hidden' />
           </Carousel>
-          <div className="mt-4 w-full md:hidden">
+          <div className="md:hidden w-full flex justify-center gap-2">
+            {[1, 2, 3].map((_, i) => (
+              <div className="h-3 w-3 rounded-full bg-stone-700/50" key={'bullet' + i}></div>
+            ))}
+          </div>
+          <div className="md:mt-4 w-full md:hidden">
             <typography.p className='w-full text-right text-[#505050]'>Geser untuk melihat berita lain.</typography.p>
           </div>
         </div>

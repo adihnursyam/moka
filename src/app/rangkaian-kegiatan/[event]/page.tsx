@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel"
 import { rangkaianKegiatan, logoNames } from '@/lib/data';
 import SponsorItem from './sponsor';
+import BacksoundPlayer from '@/components/backsound-player';
 
 export default function Page({
   params,
@@ -49,8 +50,8 @@ export default function Page({
         ]}>
           <CarouselContent className="relative w-screen h-[90vh] ml-0 cursor-grab active:cursor-grabbing">
             {Array.from({ length: 6 }, (_, i) => (
-              <CarouselItem key={"rk-"+event+"-"+i} className="relative w-screen h-full pl-0">
-                <Image src={'/rangkaian-kegiatan/'+event+"/"+(i+1)+".jpg"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover'/>
+              <CarouselItem key={"rk-" + event + "-" + i} className="relative w-screen h-full pl-0">
+                <Image src={'/rangkaian-kegiatan/' + event + "/" + (i + 1) + ".jpg"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover' />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -74,7 +75,7 @@ export default function Page({
       </section>
 
 
-{/* 
+      {/* 
       <section className='relative md:px-20 md:py-20 px-6 py-8'>
         <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-4 place-self-end">Hasil Seleksi</h2>
         <p className="max-w-lg text-right place-self-end">For any inquiries. collaborations, or just to say hello, we&apos;d love to hear from you! Reach out. and let&apos;s connect</p>
@@ -94,11 +95,11 @@ export default function Page({
         <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-8 md:mb-16 md:place-self-center">Sponsor Kami</h2>
         <div className="w-full flex flex-wrap gap-6 md:gap-12 justify-center">
           {logoNames.map((sponsor, index) => (
-            <SponsorItem key={index + sponsor} title={sponsor} src={'/sponsors/'+sponsor} size='lg' />
+            <SponsorItem key={index + sponsor} title={sponsor} src={'/sponsors/' + sponsor} size='lg' />
           ))}
         </div>
       </section>
-
+      <BacksoundPlayer />
     </main>
   )
 }

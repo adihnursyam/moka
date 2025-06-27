@@ -38,7 +38,7 @@ export default async function VotingPage({ params }: Readonly<{ params: Promise<
                   </div>
 
                   <div className="flex items-center md:pl-4 text-black flex-1 font-medium">
-                    <p className="font-montserrat pr-6 group-hover:text-white transition duration-500">{finalist.name}</p>
+                    <p className="font-montserrat pr-6 group-hover:text-white transition duration-500 font-semibold leading-4">{finalist.name}</p>
                   </div>
                 </div>
               </div>

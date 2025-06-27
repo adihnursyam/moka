@@ -21,7 +21,17 @@ const MD = [
       '1st Winner of Trinitas Film Festival 5.0',
     ],
   },
-  { no: 3, name: 'Gestie Alfiah Soumi', description: '', achievements: [] },
+  {
+    no: 3,
+    name: 'Gestie Alfiah Soumi',
+    description:
+      'Simkuring Gestie Alfiah Soumi, wanoja asal Wanaraja nu bogoh kana seni, bisnis, jeung budaya. Resep makeup, nyanyi, jeung tari. Kalawan sumanget, abdi badé ngangkat ajén budaya Sunda sarta ngawanohkeun poténsi pariwisata Garut ka dunya kalayan inovasi jeung rasa tanggung jawab.',
+    achievements: [
+      'Juara 2 lomba menyanyi tingkat kab garut 2022',
+      'Juara 1 lomba fashion show tingkat smk',
+      'Juara 2 Lomba menyanyi 2023 galaksi',
+    ],
+  },
   {
     no: 4,
     name: 'Ghaida Salsabila',
@@ -56,7 +66,17 @@ const MD = [
       'Juara 2 Dandim Cup Taekwondo Kabupaten Garut (2017)',
     ],
   },
-  { no: 7, name: 'Marsha Azkia Fauziah', description: '', achievements: [] },
+  {
+    no: 7,
+    name: 'Marsha Azkia Fauziah',
+    description:
+      'Simkuring resep ngulik hal anyar minangka kasempetan pikeun ngamekarkeun kaparigelan diri. Simkuring miboga rasa kairut nu gede pikeun ngamumule kabudayaan sunda katut pariwisata jeung ekonomi kreatif nu aya di sabudeureun Kab. Garut ngaliwatan social media.  Dina kasempetan ieu, simkuring miharep bisa jadi tuturus anyar dina lumangsungna titis waris kabudayaan sunda.',
+    achievements: [
+      'Juara 3 Solo Vokal tingkat Kab. Garut 2021',
+      'Juara 3 katut Favorit Vocal Solo tingkat Kab. Garut 2021',
+      'Pinunjul 2 Pasanggiri Kawih Mang Koko',
+    ],
+  },
   {
     no: 8,
     name: 'Novi Nurdiyanti',
@@ -205,7 +225,17 @@ const JD = [
     ],
   },
   { no: 7, name: 'M Habib An Nazar', description: '', achievements: [] },
-  { no: 8, name: 'Marcel Laksono Putra', description: '', achievements: [] },
+  {
+    no: 8,
+    name: 'Marcel Laksono Putra',
+    description:
+      'Saya pribadi yang disiplin, cepat belajar, dan suka tantangan. Terbiasa bekerja dalam tim maupun individu, serta selalu berusaha memberikan hasil terbaik dalam setiap tugas yang diemban',
+    achievements: [
+      'Medali Perak Taekwondo tingkat nasional UIN Championship 5 2023',
+      'Medali Perunggu Taekwondo tingkat nasional BTO OPEN 2023',
+      'Ranking 40 besar terbaik duta hukum ham jabar dari 2.410 pelajar se jawa barat',
+    ],
+  },
   {
     no: 9,
     name: 'Mirza Raihan Pamugar',
@@ -284,7 +314,17 @@ const JD = [
       'JUARA 1 CONTENT CHALLENGE PERHUMAS MUDA BANDUNG',
     ],
   },
-  { no: 16, name: 'Wildan Septi Ramadhan', description: '', achievements: [] },
+  {
+    no: 16,
+    name: 'Wildan Septi Ramadhan',
+    description:
+      'Saya lulusan Ilmu Komputer UPI yang pekerja keras dan haus akan pembelajaran baru. Berbekal kemampuan sebagai social media specialist, saya siap menjadi Nonoman Sunda sekaligus role model di Kabupaten Garut untuk mengembangkan potensi budaya, pariwisata, dan ekonomi kreatif secara inovatif dan berkelanjutan.',
+    achievements: [
+      'Mendali Perunggu - Pekan Kreativitas Mahasiswa (PKM) Tingkat Nasional, Kategori Best Poster 2024',
+      'Mendali Perunggu - Pekan Kreativitas Mahasiswa(PKM) Tingkat Nasional, Kategori Best Presentation 2024',
+      'Pertukaran Mahasiswa Merdeka Angkatan 3 ke Universitas Syi’ah Kuala Aceh 2024',
+    ],
+  },
 ];
 
 const JR = [
