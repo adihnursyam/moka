@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef, RefObject, ReactNode } from 'react';
 import Image from 'next/image';
 import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
@@ -28,6 +29,7 @@ const navLinks: { href: string, label: string, isPopover?: boolean, content?: Re
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -71,6 +73,7 @@ export function Navbar() {
       {/* Desktop Navbar */}
       {!isMobile && (
         <motion.nav
+          key={pathname + "-navbar"} // Ensure it re-renders on route change
           className="flex fixed max-sm:hidden w-[calc(100vw-4rem)] items-center justify-between px-8 py-4 shadow-md rounded-full mx-8 mt-2 bg-white/20 backdrop-blur-sm h-20 z-[999]" // Ensure z-index is high
           initial={{ y: 0 }}
           animate={{ y: isNavbarVisible ? 0 : '-120%' }} // Slide up more than 100% to be fully hidden
@@ -114,7 +117,7 @@ export function Navbar() {
 
       {/* Mobile Navbar Placeholder (Your existing logic for mobile can go here) */}
       {isMobile && (
-        <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref}>
+        <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref} key={pathname + "-mobile-navbar"}>
           {/* Example Mobile Structure */}
           <div className="w-full p-4 px-8 flex items-center justify-between h-16">
             <Link href='/' className='h-full'>

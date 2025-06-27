@@ -46,7 +46,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
 
         {/* Styles for title, description, and link are PRESERVED */}
         <h3 className="font-montserrat font-medium mb-3 text-gray-800 line-clamp-2">
-          <Link href={link} className="hover:text-dgb dark:hover:text-dgb transition-colors duration-200">
+          <Link href={link} className="hover:text-dgb dark:hover:text-dgb transition-colors duration-200" target='_blank'>
             {title}
           </Link>
         </h3>
@@ -56,6 +56,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
         <div className="mt-auto pt-2">
           <Link
             href={link}
+            target='_blank'
             className="text-sm font-medium text-dgb hover:underline focus:outline-none focus:ring-2 focus:ring-dgb focus:ring-offset-2 dark:focus:ring-offset-neutral-900 rounded-sm flex items-center gap-1"
           >
             Selengkapnya <ArrowRight className='w-4 -rotate-45' />

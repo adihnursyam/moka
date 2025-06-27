@@ -4,8 +4,27 @@ import Image from 'next/image';
 import ProfileGrid from './profile-grid';
 import YouTubeEmbed from '@/components/youtube-embed';
 import { misi } from '@/lib/data';
+import { pengurus } from '@/lib/organogram';
 
 export default function AboutUs() {
+  const pengurusData = pengurus.map((item) => ({
+    imageUrl: `/pengurus/${item.nama}.png`,
+    name: item.nama,
+    position: item.posisi,
+  }));
+
+  const ytIds = [
+    "5w0ORZ0XUkE",
+    "PEx2wVwReX4",
+    "Str4439U-OM",
+    "f6rmvU8o6CI",
+    "I-R_T7cULcI",
+    "05GxYCSbhg4",
+    "qG8qy-QUxKY",
+    "pWTQEm_gCaY",
+    "S4NanSPqf00",
+  ]
+
   return (
     <main className="min-h-screen relative">
       <Image src='/hero-about.jpg' alt='' width='1920' height='768' className="z-0 isolate w-full h-[75vh] relative object-cover object-center opacity-40 top-0" />
@@ -62,17 +81,13 @@ export default function AboutUs() {
         {/* pamoka */}
         <typography.h1 className='md:w-1/2 isolate'>Pengurus Paguyuban Mojang Jajaka Kabupaten Garut</typography.h1>
         <ProfileGrid
-          data={Array.from({ length: 12 }, (_, i) => ({
-            imageUrl: `/torso-${i%6 + 1}.png`,
-            name: `Member ${i + 1}`,
-            position: (i%2 === 0 ? 'Mojang':'Jajaka') +` ${Math.round((i + 1)/2)}`,
-          }))}
+          data={pengurusData}
           showOnMobile={3}
           showOnDesktop={6}
         />
 
         {/* moka */}
-        <typography.h1 className='md:w-1/2 isolate place-self-end text-right mt-20'>Mojang Jajaka Kabupaten Garut</typography.h1>
+        {/* <typography.h1 className='md:w-1/2 isolate place-self-end text-right mt-20'>Mojang Jajaka Kabupaten Garut</typography.h1>
         <ProfileGrid
           data={Array.from({ length: 12 }, (_, i) => ({
             imageUrl: `/torso-${i%6 + 1}.png`,
@@ -82,7 +97,7 @@ export default function AboutUs() {
           showOnMobile={3}
           showOnDesktop={6}
           isRight
-        />
+        /> */}
       </section>
 
       <section id='gallery' className="min-h-screen bg-cover bg-[url(/bagendit.jpg)] bg-no-repeat bg-center px-8 py-12 md:px-24 md:py-16 relative">
@@ -90,10 +105,13 @@ export default function AboutUs() {
         <div className="bg-dgb-50/90 backdrop-opacity-40 w-full h-full left-0 top-0 absolute z-0 pointer-events-auto">
         </div>
         <typography.h1 className='md:w-1/2 isolate mb-8'>Gallery</typography.h1>
-        <div className="max-w-3xl mx-auto"><YouTubeEmbed
-          id="5w0ORZ0XUkE"
-          title="Mojang Jajaka Kabupaten Garut 2023 - Grand Final"
-        /></div>
+        <div className="max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {ytIds.map((id, index) => (
+              <YouTubeEmbed key={index} id={id} title='' />
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   )

@@ -23,7 +23,7 @@ export default async function Home() {
         </div>
 
         {/* people */}
-        <div className="bottom-0 absolute right-8 h-[50vh] max-sm:hidden">
+        <div className="bottom-0 absolute right-8 h-[60vh] max-sm:hidden">
           <Image
             src="/hero.png"
             alt=""
@@ -46,9 +46,9 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-            <Image src='/program-1.png' alt='' width={300} height={500} className='absolute left-6 object-cover w-7/20 h-1/2 top-6 rounded-b-full' />
-            <Image src='/program-2.png' alt='' width={300} height={500} className='absolute object-cover w-7/20 aspect-square right-6 rounded-bl-full top-6 rounded-t-full' />
-            <Image src='/program-3.png' alt='' width={300} height={500} className='absolute object-cover w-7/20 h-1/2 bottom-6 rounded-t-full right-6' />
+            <Image src='/program-1.jpg' alt='' width={300} height={500} className='absolute left-6 object-cover w-7/20 h-1/2 top-6 rounded-b-full' />
+            <Image src='/program-2.jpg' alt='' width={300} height={500} className='absolute object-cover w-7/20 aspect-square right-6 rounded-bl-full top-6 rounded-t-full' />
+            <Image src='/program-3.jpg' alt='' width={300} height={500} className='absolute object-cover w-7/20 h-1/2 bottom-6 rounded-t-full right-6' />
             <Image src='/bagendit.jpg' alt='' width={300} height={500} className='absolute object-cover h-7/20 w-9/20 bottom-6 rounded-r-full left-6' />
           </div>
 
@@ -74,7 +74,7 @@ export default async function Home() {
         </div>
 
         <div className="flex isolate w-full max-sm:flex-col gap-y-4 mb-12">
-          <typography.h1 className='min-w-1/5 md:w-min'>News and Update</typography.h1>
+          <typography.h1 className='min-w-1/5 md:w-min'>Berita dan Update</typography.h1>
           <div className="w-full"></div>
           <div className="space-y-6 min-w-1/2">
             <typography.p>Tetap terinformasi dengan perkembangan terkini agar Anda tetap terupdate.</typography.p>
@@ -97,7 +97,7 @@ export default async function Home() {
             <CarouselNext className='bg-transparent max-sm:hidden' />
           </Carousel>
           <div className="mt-4 w-full md:hidden">
-            <typography.p className='w-full text-right text-[#505050]'>Swipe to see more news</typography.p>
+            <typography.p className='w-full text-right text-[#505050]'>Geser untuk melihat berita lain.</typography.p>
           </div>
         </div>
       </section>

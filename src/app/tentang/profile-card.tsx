@@ -114,9 +114,9 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ imageUrl, name, positi
   return (
     <div className="rounded-lg p-4 sm:p-6 flex flex-col w-full max-w-xs mx-auto isolate font-montserrat">
       {/* Image container with ornament */}
-      <div className="relative bg-dgb-100 w-full aspect-square mb-4 overflow-hidden">
+      <div className="relative bg-[url(/organo-bg.png)] bg-cover w-full aspect-square mb-4 overflow-hidden">
         {/* Background Ornament */}
-        <BackgroundOrnament type={selectedOrnamentType} color="text-white" /> {/* Example color, adjust as needed */}
+        <BackgroundOrnament type={selectedOrnamentType} color="text-white" />
 
         {/* Person's Image */}
         <div className="relative w-full h-full overflow-hidden z-10 md:p-6 p-4"> {/* Ensure image is above ornament */}

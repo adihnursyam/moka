@@ -12,7 +12,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
-import { rangkaianKegiatan, sponsors } from '@/lib/data';
+import { rangkaianKegiatan, logoNames } from '@/lib/data';
 import SponsorItem from './sponsor';
 
 export default function Page({
@@ -39,7 +39,8 @@ export default function Page({
   const kegiatan = rangkaianKegiatan.find(k => k.label.toLowerCase().replace(" ", "-") === event);
 
   return (
-    <main className="relative bg-[url(/art-center-1.png)] bg-fixed md:bg-size-[100lvw_100lvh] bg-size-[auto_100lvh] bg-center bg-no-repeat text-white max-sm:overflow-x-hidden">
+    <main className="relative text-white max-sm:overflow-x-hidden">
+      <div className="fixed w-full h-full top-0 left-0 -z-1 bg-[url(/art-center-1.png)] bg-fixed bg-size-[auto_100lvh] bg-center"></div>
       <section className='relative h-[90vh] text-white font-montserrat'>
         <Carousel setApi={setApi} opts={{
           loop: true,
@@ -90,10 +91,10 @@ export default function Page({
       </section> */}
 
       <section className="md:px-20 md:py-20 px-6 py-8">
-        <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-8 md:mb-16 md:place-self-center">Our Sponsor</h2>
+        <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-8 md:mb-16 md:place-self-center">Sponsor Kami</h2>
         <div className="w-full flex flex-wrap gap-6 md:gap-12 justify-center">
-          {sponsors.map((sponsor, index) => (
-            <SponsorItem key={index + sponsor.name} title={sponsor.name} src={sponsor.src} size='lg' />
+          {logoNames.map((sponsor, index) => (
+            <SponsorItem key={index + sponsor} title={sponsor} src={'/sponsors/'+sponsor} size='lg' />
           ))}
         </div>
       </section>
