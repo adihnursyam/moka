@@ -6,6 +6,7 @@ import { inter, montserrat } from '@/style/font';
 import { ScrollToTopButton } from '@/components/scroll-to-top';
 import Lenis from '@/components/lenis';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: "PAMOKA Garut",
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Lenis />
         {children}
         <ScrollToTopButton />
+        <Toaster />
         <Footer />
       </body>
     </html>

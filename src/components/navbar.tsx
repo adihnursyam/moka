@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { categories } from '@/lib/data';
+import { categories, rangkaianKegiatan } from '@/lib/data';
 
 const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode }[] = [
   { href: '/', label: 'Beranda' },
@@ -256,26 +256,16 @@ function VotingAccordion() {
   )
 }
 
-const rangkaianKegiatan = [
-  "Audisi",
-  "Semifinal",
-  "Pra-Karantina",
-  "Unjuk Kabisa",
-  "Karantina",
-  "Gala Dinner",
-  "Grand Final",
-]
-
 function RangkaianKegiatanPopover() {
   return (
     <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
       {rangkaianKegiatan.map((kegiatan, index) => (
         <Link
           key={index + "-navbar-popover"}
-          href={`/rangkaian-kegiatan/${kegiatan.toLowerCase().replace(/\s+/g, '-')}`}
+          href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`}
           className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
         >
-          <div className="">{kegiatan}</div>
+          <div className="">{kegiatan.label}</div>
         </Link>
       ))}
     </PopoverContent>
@@ -287,8 +277,8 @@ function RangkaianKegiatanAccordion() {
     <>
       {rangkaianKegiatan.map((kegiatan, index) => (
         <div key={index + "-accordion"} className="py-1.5">
-          <Link href={`/rangkaian-kegiatan/${kegiatan.toLowerCase().replace(/\s+/g, '-')}`} className="">
-            {kegiatan}
+          <Link href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`} className="">
+            {kegiatan.label}
           </Link>
         </div>
       ))}

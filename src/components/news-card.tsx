@@ -71,6 +71,12 @@ export const getBadgeInfo = (newsDate: Date): {
   badgeText: string; // This will be the formatted date
   color: 'bg-transparent px-0' | 'bg-[#adfa1d]' | 'bg-[#444] text-[#eee]' | 'border border-dgb bg-transparent'; // Standard Shadcn/ui badge variants
 } => {
+  if (!newsDate || !(newsDate instanceof Date) || isNaN(newsDate.getTime())) {
+    return {
+      badgeText: '-',
+      color: 'bg-transparent px-0', // Default to transparent if date is invalid
+    }
+  }
   const today = new Date();
 
   // Normalize dates for comparison

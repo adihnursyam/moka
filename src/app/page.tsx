@@ -4,9 +4,14 @@ import { typography } from '@/components/custom/typography';
 import { NewsCard } from '@/components/news-card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Button } from '@/components/custom/button';
-import { news } from '@/lib/data';
+// import { news } from '@/lib/data';
+import { newsUrls } from '@/lib/news';
+import { fetchAndParseNews } from '@/lib/metadata-fetcher';
 
-export default function Home() {
+export default async function Home() {
+  const newsPromises = newsUrls.map(url => fetchAndParseNews(url));
+  const newsData = await Promise.all(newsPromises)
+
   return (
     <main className="min-h-screen">
       <section className='h-screen overflow-hidden bg-[url(/babancong.png)] bg-cover relative bg-center' id='hero'>
@@ -18,19 +23,21 @@ export default function Home() {
         </div>
 
         {/* people */}
-        <div className="bottom-0 absolute right-20 w-[40%] max-sm:hidden">
+        <div className="bottom-0 absolute right-8 h-[50vh] max-sm:hidden">
           <Image
-            src="/hero-p.png"
+            src="/hero.png"
             alt=""
             width={1000}
             height={1000}
-            className="w-full h-auto object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
       </section>
 
-      <section id='section-1' className='min-h-screen bg-dgb-50 grid place-items-center px-8 md:px-32 py-12'>
-        <div className="flex gap-8 md:gap-24 w-full max-sm:flex-col-reverse">
+      <section id='section-1' className='min-h-screen bg-[url(/programs.jpg)] bg-cover grid place-items-center px-8 md:px-32 py-12 relative'>
+        <div className="bg-dgb-50/90 backdrop-opacity-40 w-full h-full left-0 top-0 absolute z-0 pointer-events-auto">
+        </div>
+        <div className="flex gap-8 md:gap-24 w-full max-sm:flex-col-reverse isolate">
           {/* circles */}
           <div className="relative aspect-square md:min-w-[45%] md:max-w-[45%]">
             <div className="w-full aspect-square rounded-full border border-fb-400 p-12">
@@ -49,12 +56,14 @@ export default function Home() {
           {/* texts */}
           <div className="space-y-6">
             <typography.t1 className=''>Our Program</typography.t1>
-            <typography.h1 className='md:max-w-[calc(16*24px)]'>Here Are Things We’ve Been Doing These Time</typography.h1>
+            <typography.h1 className='md:max-w-[calc(16*24px)]'>Program Unggulan Paguyuban Mojang Jajaka Kabupaten Garut</typography.h1>
             <ul className="text-[#505050] text-medium list-disc font-inter pl-6 space-y-2">
-              <li className="list-outside">Organizing the Mojang Jajaka Competition to select Garut&apos;s best young ambassadors.</li>
-              <li className="list-outside">Leading the active and innovative promotion of Garut Regency&apos;s tourism, culture, and creative economy.</li>
-              <li className="list-outside">Developing the potential of Garut&apos;s youth while preserving and advancing Sundanese culture.</li>
-              <li className="list-outside">Promoting Garut&apos;s Excellence: Echoing tourism, culture, and creative economy to a broader level.</li>
+              <li className="list-outside">Pasanggiri Mojang Jajaka Kabupaten Garut.</li>
+              <li className="list-outside">MOKA Uninga: Mojang Jajaka <span className='italic'>Ulin Ngaprak Garut</span>.</li>
+              <li className="list-outside">Balakecrakan: Buka Bersama <span className='italic'>Lampahan Kanggo Ngakeun Rukun Atikan Maparin Kaberkahan</span>.</li>
+              <li className="list-outside">Hurub Guyub: Miara Hubungan, Ngabudikeun Guyub.</li>
+              <li className="list-outside">Berseka: Bersama Sehat Bareng Moka Garut.</li>
+              <li className="list-outside">Karmisun: <span className='italic'>Kartu Miara Kasundaan</span>.</li>
             </ul>
           </div>
         </div>
@@ -68,17 +77,21 @@ export default function Home() {
           <typography.h1 className='min-w-1/5 md:w-min'>News and Update</typography.h1>
           <div className="w-full"></div>
           <div className="space-y-6 min-w-1/2">
-            <typography.p>Stay informed with the latest developments on the events to keep you engaged.</typography.p>
-            <Link href="/news" className='rounded-md font-semibold px-6 py-1.5 text-dgb border border-dgb'>See All News</Link>
+            <typography.p>Tetap terinformasi dengan perkembangan terkini agar Anda tetap terupdate.</typography.p>
+            {/* <Link href="/news" className='rounded-md font-semibold px-6 py-1.5 text-dgb border border-dgb'>Lihat Semua</Link> */}
           </div>
         </div>
         <div className="flex flex-col gap-8 isolate w-full items-center">
-          <Carousel className='w-full' opts={{ align: "start", loop: true }}>
+          <Carousel className='w-full' opts={{ align: "start" }}>
             <CarouselContent className='md:-ml-10'>
-              {news.map((item, index) => (
-                <CarouselItem key={item.link + index} className='md:basis-1/4 md:pl-10'>
-                  <NewsCard news={item} />
-                </CarouselItem>))}
+              {newsData.map((item, i) => {
+                if (!item) return null; // Skip null items
+                return (
+                  <CarouselItem key={item.link + i} className='md:basis-1/4 md:pl-10'>
+                    <NewsCard news={item} />
+                  </CarouselItem>
+                );
+              })}
             </CarouselContent>
             <CarouselPrevious className='bg-transparent max-sm:hidden' />
             <CarouselNext className='bg-transparent max-sm:hidden' />
@@ -101,10 +114,10 @@ export default function Home() {
           </div>
           <div className="md:w-9/20 space-y-6">
             <typography.t1 className=''>Come Join Us</typography.t1>
-            <typography.h1 className=''>Participate and Be a Part of Us at Mojang Jajaka Kab. Garut</typography.h1>
-            <typography.p className='text-[#505050] text-justify'>We are a community of young ambassadors dedicated to promoting the culture, tourism, and creative economy of Garut Regency. Join us in our mission to preserve and advance Sundanese culture while developing the potential of Garut&apos;s youth.</typography.p>
-            <Link href='/register'>
-              <Button>Register
+            <typography.h1 className=''>Mari Bergabung Bersama Kami di Mojang Jajaka Kab. Garut</typography.h1>
+            <typography.p className='text-[#505050] text-justify'>Apakah kamu generasi muda Garut yang berbakat, cerdas, berwawasan luas, dan memiliki jiwa kepemimpinan serta cinta terhadap budaya Sunda? Inilah saatnya kamu unjuk diri dan jadi representasi anak muda terbaik Kabupaten Garut di ajang <strong>Pasanggiri Mojang Jajaka Kabupaten Garut 2025!</strong></typography.p>
+            <Link href='https://linktr.ee/mokagarut?fbclid=PAQ0xDSwLLAKNleHRuA2FlbQIxMQABpw2gC_fOT2itRpmmK5AsSHkaDqOu4-BC0du__5tC4c43H3SO4IlcW9Q7OLLd_aem_qcMFicl7PRVKHE-aba_AkA' target='_blank'>
+              <Button>Daftar
               </Button></Link>
           </div>
         </div>

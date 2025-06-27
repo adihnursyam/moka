@@ -1,13 +1,18 @@
 "use client";
 
-import { m } from 'motion/react';
 import Image from 'next/image';
-import { use, useState } from 'react';
-
-import { cn } from '@/lib/utils';
-import { DataTable } from '@/components/data-table';
-import { standingColumn } from './column';
-import { finalists, sponsors } from '@/lib/data';
+import { use, useEffect, useState } from 'react';
+import Autoplay from "embla-carousel-autoplay"
+// import { cn } from '@/lib/utils';
+// import { DataTable } from '@/components/data-table';
+// import { standingColumn } from './column';
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
+import { rangkaianKegiatan, sponsors } from '@/lib/data';
 import SponsorItem from './sponsor';
 
 export default function Page({
@@ -16,31 +21,59 @@ export default function Page({
   params: Promise<{ event: string }>;
 }>) {
   const { event } = use(params);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0)
+  useEffect(() => {
+    if (!api) {
+      return
+    }
 
-  const [Index, setIndex] = useState(1)
-  const [year, setYear] = useState(2025)
+    // setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
+  // const [year, setYear] = useState(2025)
+  const kegiatan = rangkaianKegiatan.find(k => k.label.toLowerCase().replace(" ", "-") === event);
 
   return (
     <main className="relative bg-[url(/art-center-1.png)] bg-fixed md:bg-size-[100lvw_100lvh] bg-size-[auto_100lvh] bg-center bg-no-repeat text-white max-sm:overflow-x-hidden">
       <section className='relative h-[90vh] text-white font-montserrat'>
-        <m.div className='relative z-0 w-full h-full'>
-          <Image src='/galdin.png' alt='' width={1920} height={1080} className='w-full h-full object-cover' />
-        </m.div>
-        <div className="absolute z-1 w-full h-full bg-linear-to-r from-black/65 via-black/65 to-transparent top-0 left-0"></div>
+        <Carousel setApi={setApi} opts={{
+          loop: true,
+        }} plugins={[
+          Autoplay({ delay: 3000, stopOnInteraction: false }),
+        ]}>
+          <CarouselContent className="relative w-screen h-[90vh] ml-0 cursor-grab active:cursor-grabbing">
+            {Array.from({ length: 6 }, (_, i) => (
+              <CarouselItem key={"rk-"+event+"-"+i} className="relative w-screen h-full pl-0">
+                <Image src={'/rangkaian-kegiatan/'+event+"/"+(i+1)+".jpg"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover'/>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        <div className="absolute z-1 w-full pointer-events-none h-full bg-linear-to-r from-black/65 via-black/65 max-sm:via-100% to-transparent top-0 left-0"></div>
 
-        <div className="absolute md:max-w-sm md:left-20 left-8 top-1/2 w-full z-10 h-fit -translate-y-1/2">
+        <div className="absolute md:max-w-sm md:left-20 left-8 top-1/2 w-full max-w-[calc(100vw-4rem)] z-10 h-fit -translate-y-1/2 pointer-events-none space-y-4">
           <h2 className="font-montserrat text-5xl font-semibold text-white capitalize">
-            {event}
+            {kegiatan?.label}
           </h2>
+          <p className="">
+            {kegiatan?.desc}
+          </p>
         </div>
 
         <div className="absolute z-10 md:left-20 left-8 bottom-20 flex gap-2 h-2">
-          {Array.from({ length: 4 }, (_, i) => (
-            <button key={i} onClick={() => setIndex(i + 1)} className={`h-2 rounded-full transition-all ${Index === i + 1 ? 'bg-white w-12' : 'bg-white/40 w-6'}`}></button>
+          {Array.from({ length: 6 }, (_, i) => (
+            <button key={i} onClick={() => api?.scrollTo(i)} className={`h-2 rounded-full transition-all ${current === i ? 'bg-white w-12' : 'bg-white/40 w-6'}`}></button>
           ))}
         </div>
       </section>
 
+
+{/* 
       <section className='relative md:px-20 md:py-20 px-6 py-8'>
         <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-4 place-self-end">Hasil Seleksi</h2>
         <p className="max-w-lg text-right place-self-end">For any inquiries. collaborations, or just to say hello, we&apos;d love to hear from you! Reach out. and let&apos;s connect</p>
@@ -54,7 +87,7 @@ export default function Page({
         <div className="md:mt-8 mt-6">
           <DataTable columns={standingColumn} data={finalists} />
         </div>
-      </section>
+      </section> */}
 
       <section className="md:px-20 md:py-20 px-6 py-8">
         <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-8 md:mb-16 md:place-self-center">Our Sponsor</h2>

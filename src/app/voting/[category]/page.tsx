@@ -14,12 +14,13 @@ export default async function VotingPage({ params }: Readonly<{ params: Promise<
 
   return (
     <main className="min-h-screen overflow-hidden bg-[url(/babancong.png)] bg-fixed bg-size-[auto_100lvh] relative bg-center">
-      <div className='w-full h-full fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800' />
-      <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/semifinal.jpg)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)]">
-        <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Voting {category?.name} Kameumeut 2025</typography.h1>
-        <p className='max-w-2xl mt-4 text-[#ddd]'>Silakan pilih kandidat favorit Anda untuk kategori <span className='text-fb font-medium capitalize'>{category?.name}</span>. Setiap suara Anda sangat berarti bagi mereka!</p>
+      <div className='w-full h-full fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
+      <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/dewasa.jpg)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)]">
+        <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Star Voting {category?.name} 2025</typography.h1>
+        <p className='max-w-2xl mt-4 text-[#ddd]'>STAR Voting adalah salah satu bentuk penilaian publik dalam rangkaian seleksi Semifinalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025.Hal ini memberikan ruang bagi masyarakat untuk secara langsung memberikan dukungan kepada para semifinalis favoritnya, dan turut andil dalam menentukan siapa yang layak melaju ke tahap Finalis. <br />
+        Melalui mekanisme voting ini, akan dipilih 1 pasang semifinalis dari masing-masing kategori (Rumaja dan Dewasa) yang memperoleh akumulasi voting tertinggi. Mereka akan melaju sebagai Finalis melalui jalur STAR VOTING, menjadi bagian dari Top 36 Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025.</p>
       </div>
-      <section className="md:px-20 md:py-20 relative px-8 py-12">
+      <section className="md:px-20 md:py-16 relative px-8 py-12">
         <typography.h1 className='text-center md:mb-12 mb-8 text-white text-3xl md:text-5xl'>Pasanggiri Mojang Jajaka 2025 Mempersembahkan</typography.h1>
         <div className="grid md:gap-6 gap-3 grid-cols-2 md:grid-cols-3">
           {finalists.map((finalist) => (
