@@ -14,7 +14,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-      <section className='h-screen overflow-hidden bg-[url(/babancong.png)] bg-cover relative bg-center' id='hero'>
+      <section className='h-screen overflow-hidden bg-[url(/babancong.webp)] bg-cover relative bg-center' id='hero'>
         <div className='w-full h-full pointer-events-none absolute z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800' />
         <div className="absolute top-9/20 md:left-20 left-12 text-white max-w-1/2">
           <h1 className="font-montserrat">Paguyuban Mojang Jajaka Kabupaten Garut</h1>
@@ -30,6 +30,7 @@ export default async function Home() {
             width={1000}
             height={1000}
             className="w-full h-full object-cover"
+            blurDataURL='/hero_blur.png'
           />
         </div>
       </section>
@@ -115,6 +116,7 @@ export default async function Home() {
               width={1000}
               height={1000}
               className="w-full h-auto object-cover rounded-bl-[65%]"
+              priority
             />
           </div>
           <div className="md:w-9/20 space-y-6">

@@ -15,6 +15,7 @@ import {
 import { rangkaianKegiatan, logoNames } from '@/lib/data';
 import SponsorItem from './sponsor';
 import BacksoundPlayer from '@/components/backsound-player';
+import BG from '@/components/next-image-bg';
 
 export default function Page({
   params,
@@ -41,7 +42,7 @@ export default function Page({
 
   return (
     <main className="relative text-white max-sm:overflow-x-hidden">
-      <div className="fixed w-full h-[100lvh] top-0 left-0 -z-1 bg-[url(/art-center-1.png)] bg-fixed bg-cover bg-center"></div>
+      <BG src='/art-center-1.webp' />
       <section className='relative h-[90vh] text-white font-montserrat'>
         <Carousel setApi={setApi} opts={{
           loop: true,

@@ -18,6 +18,7 @@ import {
 import InputForm from './input-form';
 import { prisma } from '../server/prisma';
 import { unstable_cache } from 'next/cache';
+import BG from '@/components/next-image-bg';
 
 // This is a Server Component. It runs on the server.
 export default async function ProtectedPage() {
@@ -80,7 +81,7 @@ export default async function ProtectedPage() {
   // If hasAccess is true, render your protected content (which can also be a Server Component)
   return (
     <main className="min-h-screen overflow-hidden bg-center px-6 pt-24 md:px-20 md:pt-32 pb-8 font-montserrat text-white">
-      <div className="fixed w-full h-full top-0 left-0 -z-1 bg-[url(/babancong.png)] bg-fixed bg-cover bg-center"></div>
+      <BG />
       <div className='w-full h-full pointer-events-none fixed z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 left-0 top-0' />
       <div className="isolate relative z-10 bg-white/5 backdrop-blur-md rounded-3xl p-6 md:p-8">
         <Accordion type="single" collapsible className='isolate'>

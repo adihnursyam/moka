@@ -58,14 +58,14 @@ export default function AboutUs() {
           </div>
 
           <div className="w-full min-h-1/2 flex justify-end">
-            <div className="w-8/10 max-sm:w-9/10 pl-20 pr-12 py-8 flex md:grid md:grid-cols-5 bg-linear-to-bl from-dgb-300 via-dgb-300 via-30% to-fb-300 rounded-tl-[80px] max-sm:items-center gap-8 max-sm:flex-col">
+            <div className="w-9/10 max-sm:w-9/10 pl-20 pr-12 py-8 flex md:grid md:grid-cols-5 bg-linear-to-bl from-dgb-300 via-dgb-300 via-30% to-fb-300 rounded-tl-[80px] max-sm:items-center gap-8 max-sm:flex-col">
               {misi.map((misi_, i) => (
                 <div key={"sdadas" + i} className="text-white font-montserrat">
                   <div className="flex gap-2 items-center mb-2">
                     <Crosshair className='w-4 h-4' />
                     <h4 className=''>Misi {i + 1}</h4>
                   </div>
-                  <p className="text-sm">
+                  <p className="text-sm max-sm:text-justify">
                     {misi_}
                   </p>
                 </div>
