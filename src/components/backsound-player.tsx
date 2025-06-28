@@ -9,7 +9,7 @@ const backgroundMusicPath = '/audio/pamoka.mp3';
 
 const BacksoundPlayer: React.FC = () => {
   const [play, { stop, sound }] = useSound(backgroundMusicPath, {
-    volume: 0.2, // Adjust desired volume (this will be applied when unmuted by user interaction)
+    volume: 0.1, // Adjust desired volume (this will be applied when unmuted by user interaction)
     loop: true, // Loop the background music indefinitely
     muted: true, // IMPORTANT: Start muted to comply with autoplay policies
     onload: () => {

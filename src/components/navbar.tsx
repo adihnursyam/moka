@@ -20,18 +20,18 @@ import {
 } from "@/components/ui/popover"
 import { categories, rangkaianKegiatan } from '@/lib/data';
 
-const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode }[] = [
-  { href: '/', label: 'Beranda' },
-  { href: '/tentang', label: 'Tentang' },
-  // { href: '/kontak', label: 'Kontak Kami' },
-  { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion /> },
-  { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion /> },
-];
-
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
+
+  const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode }[] = [
+    { href: '/', label: 'Beranda' },
+    { href: '/tentang', label: 'Tentang' },
+  // { href: '/kontak', label: 'Kontak Kami' },
+    { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
+    { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
+  ];
 
   // State for navbar visibility on scroll (desktop)
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -115,10 +115,9 @@ export function Navbar() {
         </motion.nav>
       )}
 
-      {/* Mobile Navbar Placeholder (Your existing logic for mobile can go here) */}
+      {/* Mobile Navbar */}
       {isMobile && (
         <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref} key={pathname + "-mobile-navbar"}>
-          {/* Example Mobile Structure */}
           <div className="w-full p-4 px-8 flex items-center justify-between h-16">
             <Link href='/' className='h-full'>
               <Image src='/logo-orange.png' alt='logo' width={80} height={40} className='h-full w-auto object-contain' />
@@ -172,7 +171,7 @@ export function Navbar() {
                     (<Accordion key={link.label} type='single' collapsible className='w-full'>
                       <AccordionItem value='voting' className='py-1.5'>
                         <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all p-0'>{link.label}</AccordionTrigger>
-                        <AccordionContent className='pb-0 pt-1.5 *:py-1.5 *:px-4'>
+                        <AccordionContent className='pb-0 pt-1.5 *:*:py-1.5 *:px-4 w-full'>
                           {link.accordion || <VotingAccordion />}
                         </AccordionContent>
                       </AccordionItem>
@@ -192,11 +191,11 @@ export function Navbar() {
                       <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
                       <AccordionContent className=''>
                         {categories.map((category) => (
-                          <div className="py-1.5 px-4"
+                          <div className="*:py-1.5 px-4 w-full"
                             key={category.slug + "-navbar-accordion"}>
                             <Link
                               href={`/voting/hasil/${category.slug}`}
-                              className=""
+                              className="w-full flex"
                               onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
                             >
                               <div className="">{category.name}</div>
@@ -216,7 +215,7 @@ export function Navbar() {
   );
 }
 
-function VotingPopover() {
+function VotingPopover({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }) {
   return (
     <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
       {categories.map((category) => (
@@ -224,6 +223,12 @@ function VotingPopover() {
           key={category.slug + "-navbar-popover"}
           href={`/voting/${category.slug}`}
           className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+          onClick={() => {
+            if (setIsMobileMenuOpen) {
+              setIsMobileMenuOpen(false); // Close mobile menu if applicable
+            }
+          }
+          }
         >
           <div className="">{category.name}</div>
         </Link>
@@ -232,26 +237,52 @@ function VotingPopover() {
   );
 }
 
-function VotingAccordion() {
+function VotingAccordion(
+  { setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }
+) {
   return (
     <>
-      <div>
-        <Link href='/voting/mojang-rumaja' className="">
+      <div className='w-full'>
+        <Link href='/voting/mojang-rumaja' className="w-full flex"
+          onClick={() => {
+            if (setIsMobileMenuOpen) {
+              setIsMobileMenuOpen(false);
+            }
+          }}
+        >
           Mojang Rumaja
         </Link>
       </div>
-      <div>
-        <Link href='/voting/jajaka-rumaja' className="">
+      <div className='w-full'>
+        <Link href='/voting/jajaka-rumaja' className="w-full flex"
+          onClick={() => {
+            if (setIsMobileMenuOpen) {
+              setIsMobileMenuOpen(false);
+            }
+          }}
+        >
           Jajaka Rumaja
         </Link>
       </div>
-      <div>
-        <Link href='/voting/mojang-dewasa' className="">
+      <div className='w-full'>
+        <Link href='/voting/mojang-dewasa' className="w-full flex"
+          onClick={() => {
+            if (setIsMobileMenuOpen) {
+              setIsMobileMenuOpen(false);
+            }
+          }}
+        >
           Mojang Dewasa
         </Link>
       </div>
-      <div>
-        <Link href='/voting/jajaka-dewasa' className="">
+      <div className='w-full'>
+        <Link href='/voting/jajaka-dewasa' className="w-full flex"
+          onClick={() => {
+            if (setIsMobileMenuOpen) {
+              setIsMobileMenuOpen(false);
+            }
+          }}
+        >
           Jajaka Dewasa
         </Link>
       </div>
@@ -259,7 +290,7 @@ function VotingAccordion() {
   )
 }
 
-function RangkaianKegiatanPopover() {
+function RangkaianKegiatanPopover({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }) {
   return (
     <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
       {rangkaianKegiatan.map((kegiatan, index) => (
@@ -267,6 +298,11 @@ function RangkaianKegiatanPopover() {
           key={index + "-navbar-popover"}
           href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`}
           className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+          onClick={() => {
+            if (setIsMobileMenuOpen) {
+              setIsMobileMenuOpen(false);
+            }
+          }}
         >
           <div className="">{kegiatan.label}</div>
         </Link>
@@ -275,12 +311,18 @@ function RangkaianKegiatanPopover() {
   );
 }
 
-function RangkaianKegiatanAccordion() {
+function RangkaianKegiatanAccordion({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }) {
   return (
     <>
       {rangkaianKegiatan.map((kegiatan, index) => (
-        <div key={index + "-accordion"} className="py-1.5">
-          <Link href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`} className="">
+        <div key={index + "-accordion"} className="w-full">
+          <Link href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`} className="flex"
+            onClick={() => {
+              if (setIsMobileMenuOpen) {
+                setIsMobileMenuOpen(false);
+              }
+            }}
+          >
             {kegiatan.label}
           </Link>
         </div>

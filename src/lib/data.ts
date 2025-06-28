@@ -1020,7 +1020,7 @@ export const logoNames: string[] = [
   'ASKARA WEDDING.png',
   'ASTIGA.png',
   'BALDY.png',
-  'BANK BJBR.png',
+  'BANK BJB.png',
   'BASO ACI ACAY.png',
   'CASANDRA.png',
   'CHOCODOT.png',

@@ -82,8 +82,8 @@ export default function AboutUs() {
         <typography.h1 className='md:w-1/2 isolate'>Pengurus Paguyuban Mojang Jajaka Kabupaten Garut</typography.h1>
         <ProfileGrid
           data={pengurusData}
-          showOnMobile={3}
-          showOnDesktop={6}
+          showOnMobile={6}
+          showOnDesktop={9}
         />
 
         {/* moka */}

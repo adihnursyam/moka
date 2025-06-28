@@ -41,7 +41,7 @@ export default function Page({
 
   return (
     <main className="relative text-white max-sm:overflow-x-hidden">
-      <div className="fixed w-full h-full top-0 left-0 -z-1 bg-[url(/art-center-1.png)] bg-fixed bg-size-[auto_100lvh] bg-center"></div>
+      <div className="fixed w-full h-[100lvh] top-0 left-0 -z-1 bg-[url(/art-center-1.png)] bg-fixed bg-cover bg-center"></div>
       <section className='relative h-[90vh] text-white font-montserrat'>
         <Carousel setApi={setApi} opts={{
           loop: true,
