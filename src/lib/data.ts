@@ -136,7 +136,17 @@ const MD = [
       'Top 20 Mojang Jajaka 2023',
     ],
   },
-  { no: 14, name: 'Tiara Febrianti', description: '', achievements: [] },
+  {
+    no: 14,
+    name: 'Tiara Febrianti',
+    description:
+      'Saya merupakan perempuan Sunda yang lahir dan besar di Kecamatan Cisompet. Mahasiswa tingkat akhir Institut Teknologi Garut prodi Teknik Informatika mendalami bidang ilmu Data Science dan Artificial Intelligence. Memiliki keahlian bidang akademik, komunikasi dan kepemimpinan. Pengalaman organisasi Muda Lestari Fellowship, Gekrafs Kampus Jawa Barat, dan Paguyuban Putra Putri Pertanian Jawa Barat.',
+    achievements: [
+      'Delegasi Provinsi Jawa Barat Program Pertukaran Pemuda Antar Provinsi KEMENPORA RI 2024',
+      'Kader Pemimpin Muda Nasional KEMENPORA RI 2023',
+      'Winner Putri Pertanian Jawa Barat 2022',
+    ],
+  },
   {
     no: 15,
     name: 'Viola Fitri Rahayu',
@@ -276,9 +286,9 @@ const JD = [
     description:
       'Seorang mahasiswa aktif Fakultas Ekonomi yang antusias dan bermotivasi tinggi dalam menawarkan pertumbuhan dan perkembangan serta memiliki komunikasi dan ide-ide kreatif yang memiliki semangat untuk menjadi representasi generasi muda yang berwawasan, berkarakter, dan mampu mempromosikan pariwisata serta melestarikan budaya Sunda secara kreatif dan berkelanjutan  dengan membawa Garut menuju puncak kehormatan.',
     achievements: [
+      'Purna Paskibraka Kabupaten Garut 2018 dan Pengurus PPI',
       'Lolos MSIB Batch 6 sebagai Program, Content, and Production  Event Management di PT Asa Kreasi Interasia',
       'Lolos MSIB Batch 7 sebagai Business Consultant di Asosiasi Pengusaha Indonesia',
-      'Menjadi bagian dari Asisten Laboratorium di Fakultas Ekonomi Universitas Garut',
     ],
   },
   {
@@ -498,7 +508,16 @@ const JR = [
 ];
 
 const MR = [
-  { no: 1, name: 'Arella Kireida Andriani', description: '', achievements: [] },
+  {
+    no: 1,
+    name: 'Arella Kireida Andriani',
+    description:
+      'saya adalah rumaja yang humble dan sangat senang berbaur dengan teman baru,saya senang sekali mempercantik diri saya teladan,komunikatif,berwawasan luas,berjiwa sosial,dan siap mempromosikan budaya sunda dan tanggung jawab,',
+    achievements: [
+      'lomba paskibra smp sederajat dengan harapan 3',
+      'lomba fashion show di sekolah dengan juara 2',
+    ],
+  },
   {
     no: 2,
     name: 'Cinta Putri Vidianta',

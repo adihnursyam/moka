@@ -35,7 +35,7 @@ export default async function Page({
         <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full space-y-4 max-sm:pb-8">
           <Image src={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-84 max-sm:max-w-64 mx-auto' />
           <div className="text-white md:max-w-lg lg:max-w-xl space-y-2 md:space-y-4 mt-auto md:pb-20 max-sm:px-6 max-sm:text-sm">
-            <div className="flex gap-6">
+            <div className="flex gap-6 items-center">
               <div className="flex flex-col justify-center gap-1.5">
                 <div className="">
                   <p className="font-montserrat text-[#DCDCDC] capitalize">{category.name}</p>
@@ -47,8 +47,9 @@ export default async function Page({
                 <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md md:hidden' href={qrPath} download={`qr-${finalist.name}`}>Unduh QR</Link>
               </div>
               <div className="">
-                <p className="w-full text-center mb-2 md:hidden">1 poin: Rp2000,-</p>
                 <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-32 h-32 border border-dgb md:hidden' />
+                <p className="w-full text-center md:hidden">1 poin: Rp2000,-</p>
+                <p className="w-full text-center md:hidden">(berlaku kelipatan)</p>
               </div>
             </div>
             <div className="flex max-sm:flex-col w-full justify-between gap-8 items-center md:mt-8 mt-6">
@@ -61,7 +62,7 @@ export default async function Page({
                 </ul>
               </ScrollArea>
               <div className="min-w-40 flex flex-col items-center justify-center gap-2 max-sm:hidden">
-                <p className="">Scan QR untuk Vote</p>
+                <p className="">Pindai QR untuk Vote</p>
                 <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-40 h-40 border border-dgb' />
                 <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md mt-2' href={qrPath} download={`qr-${finalist.name}`}>Unduh</Link>
               </div>

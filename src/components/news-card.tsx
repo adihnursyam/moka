@@ -4,6 +4,17 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge'; // Adjust path if your ui components are elsewhere
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export interface NewsItem {
   title: string;
@@ -11,6 +22,7 @@ export interface NewsItem {
   imageUrl: string;
   date: Date;
   link: string;
+  type?: 'file' | 'link';
 }
 
 interface NewsCardProps {
@@ -18,10 +30,10 @@ interface NewsCardProps {
 }
 
 export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
-  const { title, description, imageUrl, date, link } = news;
+  const { title, description, imageUrl, date, link, type } = news;
 
   // Get badge text (formatted date) and variant
-  const { badgeText,  color} = getBadgeInfo(date);
+  const { badgeText, color } = getBadgeInfo(date);
 
   return (
     <article className="overflow-hidden flex flex-col h-full">
@@ -54,13 +66,33 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
           {description}
         </p>
         <div className="mt-auto pt-2">
-          <Link
+          {type !== 'file' ? (<Link
             href={link}
             target='_blank'
-            className="text-sm font-medium text-dgb hover:underline focus:outline-none focus:ring-2 focus:ring-dgb focus:ring-offset-2 dark:focus:ring-offset-neutral-900 rounded-sm flex items-center gap-1"
+            className="text-sm font-medium text-dgb hover:underline focus:outline-none rounded-sm flex items-center gap-1"
           >
             Selengkapnya <ArrowRight className='w-4 -rotate-45' />
-          </Link>
+          </Link>)
+            :
+            (<AlertDialog>
+              <AlertDialogTrigger
+                className="text-sm font-medium text-dgb hover:underline focus:outline-none rounded-sm flex items-center gap-1"
+              >
+                Selengkapnya <ArrowRight className='w-4 -rotate-45' />
+              </AlertDialogTrigger>
+              <AlertDialogContent className=''>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Tekan tombol lanjut untuk mendownload file {title}.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Batal</AlertDialogCancel>
+                  <AlertDialogAction className='bg-dgb'>Lanjut</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>)}
         </div>
       </div>
     </article>
@@ -96,9 +128,9 @@ export const getBadgeInfo = (newsDate: Date): {
     color = 'border border-dgb bg-transparent'; // Prominent (e.g., primary color)
   } else if (diffDays === 0) { // Today's news
     color = 'bg-[#adfa1d]'; // Prominent
-  } else if (diffDays <= 7) { // News within the last 7 days (1-7 days ago)
+  } else if (diffDays <= 30) { // News within the last 7 days (1-7 days ago)
     color = 'bg-[#adfa1d]'; // Still prominent
-  } else if (diffDays <= 30) { // News between 8 and 30 days ago
+  } else if (diffDays <= 180) { // News between 8 and 30 days ago
     color = 'bg-[#444] text-[#eee]'; // Less prominent (e.g., gray or secondary color)
   } else { // Older news (more than 30 days ago)
     color = 'bg-transparent px-0'; // Muted (e.g., just a border)
