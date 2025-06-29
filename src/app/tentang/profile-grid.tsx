@@ -6,7 +6,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
-export default function ProfileGrid({ data, showOnDesktop = 6, showOnMobile = 3, isRight = false }: { data: { imageUrl: string, name: string, position: string }[], showOnMobile: number, showOnDesktop: number, isRight?: boolean }) {
+export default function ProfileGrid({ data, showOnDesktop = 6, showOnMobile = 3, isRight = false }: { data: { imageUrl: string, name: string, position: string, gender: 'L' | 'P' }[], showOnMobile: number, showOnDesktop: number, isRight?: boolean }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [showAll, setShowAll] = useState(false);
 
@@ -28,6 +28,7 @@ export default function ProfileGrid({ data, showOnDesktop = 6, showOnMobile = 3,
                   imageUrl={item.imageUrl}
                   name={item.name}
                   position={item.position}
+                  gender={item.gender}
                   ornamentId={i} // Example id, replace with actual data
                 />
               ))}

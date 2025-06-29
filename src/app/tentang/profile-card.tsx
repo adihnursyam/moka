@@ -17,6 +17,7 @@ export interface ProfileCardProps {
   // If you pass the same id to multiple cards, they will have the same ornament.
   // Best to use a unique ID from your data, e.g., person.id
   ornamentId?: string | number;
+  gender: 'L' | 'P'; // Optional, if you want
 }
 
 // --- Ornament Types & Components ---
@@ -91,7 +92,7 @@ const BackgroundOrnament: React.FC<OrnamentProps> = ({ type, className, color = 
 };
 
 // --- Main ProfileCard Component ---
-export const ProfileCard: React.FC<ProfileCardProps> = ({ imageUrl, name, position, ornamentId }) => {
+export const ProfileCard: React.FC<ProfileCardProps> = ({ imageUrl, name, position, ornamentId, gender }) => {
   // Memoize the selected ornament type to prevent it from changing on every re-render
   // unless ornamentId changes (or if ornamentId is not provided, it's random on mount).
   const selectedOrnamentType = useMemo(() => {
@@ -132,7 +133,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ imageUrl, name, positi
 
       {/* Name */}
       <h3 className="font-semibold mb-1 text-lg md:text-xl">
-        {name}
+        {(gender === "L" ? "Kang " : "Teh " ) + name}
       </h3>
 
       {/* Position */}

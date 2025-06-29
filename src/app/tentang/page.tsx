@@ -11,6 +11,7 @@ export default function AboutUs() {
     imageUrl: `/pengurus/${item.nama}.png`,
     name: item.nama,
     position: item.posisi,
+    gender: item.gender
   }));
 
   const ytIds = [

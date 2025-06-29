@@ -1,5 +1,6 @@
 import BG from '@/components/next-image-bg';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 import { categories } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,18 +32,24 @@ export default async function Page({
       <div className='w-full h-full pointer-events-none z-0 bg-radial-[at_50%_50%] fixed top-0 left-0 from-transparent to-90% to-dgb-800' />
       <div className="relative z-1 bg-white/50 backdrop-blur-[2px] md:h-3/4 min-h-[80vh] mx-6 rounded-3xl top-28 md:top-28 md:mx-20 md:rounded-[64px] overflow-hidden mb-36">
         <div className="absolute top-0 -z-1 bg-linear-120 from-black/50 via-black/50 to-fb-300/40 via-60% w-full h-full"></div>
-        <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full space-y-8 max-sm:pb-8">
-          <Image src={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-72 max-sm:max-w-56 mx-auto' />
+        <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full space-y-4 max-sm:pb-8">
+          <Image src={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-84 max-sm:max-w-64 mx-auto' />
           <div className="text-white md:max-w-lg lg:max-w-xl space-y-2 md:space-y-4 mt-auto md:pb-20 max-sm:px-6 max-sm:text-sm">
             <div className="flex gap-6">
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center gap-1.5">
                 <div className="">
                   <p className="font-montserrat text-[#DCDCDC] capitalize">{category.name}</p>
-                  <h2 className="capitalize md:text-5xl text-xl font-semibold mb-4">{name.split("-").join(" ")}</h2>
+                  <h2 className="capitalize md:text-5xl text-xl font-semibold mb-1.5">{name.split("-").join(" ")}</h2>
+                  <Separator className='bg-white'/>
                 </div>
+                <p className="text-center mt-1.5 md:hidden">Pindai QR untuk Vote</p>
+                <p className="text-center text-xs md:hidden">----- atau -----</p>
                 <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md md:hidden' href={qrPath} download={`qr-${finalist.name}`}>Unduh QR</Link>
               </div>
-              <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-32 h-32 border border-dgb md:hidden' />
+              <div className="">
+                <p className="w-full text-center mb-2 md:hidden">1 poin: Rp2000,-</p>
+                <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-32 h-32 border border-dgb md:hidden' />
+              </div>
             </div>
             <div className="flex max-sm:flex-col w-full justify-between gap-8 items-center md:mt-8 mt-6">
               <ScrollArea className="space-y-4 md:h-[35vh] h-[30vh]">
@@ -53,9 +60,10 @@ export default async function Page({
                   ))}
                 </ul>
               </ScrollArea>
-              <div className="min-w-40 flex flex-col items-center justify-center gap-4 max-sm:hidden">
+              <div className="min-w-40 flex flex-col items-center justify-center gap-2 max-sm:hidden">
+                <p className="">Scan QR untuk Vote</p>
                 <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-40 h-40 border border-dgb' />
-                <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md' href={qrPath} download={`qr-${finalist.name}`}>Unduh</Link>
+                <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md mt-2' href={qrPath} download={`qr-${finalist.name}`}>Unduh</Link>
               </div>
             </div>
           </div>
