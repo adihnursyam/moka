@@ -583,7 +583,9 @@ const MR = [
     name: 'Nazhira Putri Syawalina Oktaviani',
     description:
       'Sampurasun, Nepangkeun wasta simkuring Nazhira Putri Syawalina Oktaviani, padumukan simkuring di Perum Dano Asri Kacamatan Cikajang. Ayeuna simkuring nuju nyuprih elmu di SMA Negeri 4 Garut kelas 11. Hobi simkuring nyaeta tari, kukituna simkuring ngiringan organisasi kesenian di sakola khusus na dibidang tari. Sakitu wawanohan ti simkuring, haturnuhun..',
-    achievements: ['Cerdat Cermat bidang IPA (Juara 1)'],
+    achievements: ['Juara Umum 2 Kelas 9',
+      'Ranking 3 Kelas 10',
+      'Rangking 1 Kelas 11'],
   },
   {
     no: 9,
@@ -598,7 +600,7 @@ const MR = [
   },
   {
     no: 10,
-    name: 'Nurlaifatul Fajar Hafidhoh',
+    name: 'Nurlailatul Fajar Hafidhoh',
     description:
       'Nama saya Nurlaila saya sekolah di SMK Plus Al-Falah Biru teknik kimia industri, hobi saya membaca, menulis dan public speaking, motivasi saya mengikuti kegiatan pasanggiri mojang jajaka adalah ingin mengembangkan bakat dan minat saya sebagai pemuda pemudi Sunda yang berprestasi',
     achievements: [
