@@ -1,24 +1,10 @@
 // app/your-protected-page/page.tsx
 import { cookies } from 'next/headers'; // This works only in Server Components/Server Actions/Route Handlers
 import PasswordPrompt from '@/components/PasswordPrompt'; // Adjust path if needed
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import InputForm from './input-form';
 import { prisma } from '../server/prisma';
 import { unstable_cache } from 'next/cache';
 import BG from '@/components/next-image-bg';
+import AdminClient from './client';
 
 // This is a Server Component. It runs on the server.
 export default async function ProtectedPage() {
@@ -83,39 +69,7 @@ export default async function ProtectedPage() {
     <main className="min-h-screen overflow-hidden bg-center px-6 pt-24 md:px-20 md:pt-32 pb-8 font-montserrat text-white">
       <BG />
       <div className='w-full h-full pointer-events-none fixed z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 left-0 top-0' />
-      <div className="isolate relative z-10 bg-white/5 backdrop-blur-md rounded-3xl p-6 md:p-8">
-        <Accordion type="single" collapsible className='isolate'>
-          {categories.map((category) => (
-            <AccordionItem key={category.abrev} value={category.abrev}>
-              <AccordionTrigger className="text-lg font-semibold">
-                {category.abrev}
-              </AccordionTrigger>
-              <AccordionContent>
-                <Table>
-                  <TableHeader className='**:text-white'>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead className=''>Tanggal</TableHead>
-                      <TableHead>Pemasukan</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {category.list.map((finalist) => (
-                      <TableRow key={finalist.name}>
-                        <TableCell>
-                          {finalist.name}
-                        </TableCell>
-                        <InputForm name={finalist.name} dates={finalist.votePerDate} />
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-
+      <AdminClient categories={categories} />
     </main>
   );
 }

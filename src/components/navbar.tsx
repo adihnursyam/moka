@@ -80,7 +80,7 @@ export function Navbar() {
           transition={{ duration: 0.4, ease: 'easeInOut' }}
         >
           <Link href='/' className='h-full'>
-            <Image src='/logo-orange.png' alt='logo' width={100} height={60} className='h-full w-auto object-contain' />
+            <Image src='/logo-orange.png' alt='logo' width={100} height={60} className='h-full w-auto object-contain' priority/>
           </Link>
           <div className="flex gap-8 font-montserrat">
             {navLinks.map((link) => link.isPopover ? (
@@ -120,7 +120,7 @@ export function Navbar() {
         <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref} key={pathname + "-mobile-navbar"}>
           <div className="w-full p-4 px-8 flex items-center justify-between h-16">
             <Link href='/' className='h-full'>
-              <Image src='/logo-orange.png' alt='logo' width={80} height={40} className='h-full w-auto object-contain' />
+              <Image src='/logo-orange.png' alt='logo' width={80} height={40} className='h-full w-auto object-contain' priority/>
             </Link>
             <button
               className='md:hidden w-8 h-8 flex flex-col justify-center items-center z-[60]'

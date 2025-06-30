@@ -23,7 +23,7 @@ export default async function VotingPage({ params }: Readonly<{ params: Promise<
           STAR Voting memberi ruang bagi masyarakat untuk secara langsung memberi dukungan kepada para semifinalis favoritnya, dan turut andil dalam menentukan siapa yang layak melaju ke tahap Finalis. Melalui mekanisme ini, akan dipilih 1 pasang semifinalis dari masing-masing kategori (Rumaja dan Dewasa) yang memperoleh akumulasi voting tertinggi. Mereka akan melaju sebagai Finalis melalui jalur STAR VOTING, menjadi bagian dari Top 36 Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025.
           <br />
           <br />
-          STAR Voting bersifat tidak memaksa, artinya masyarakat secara sukarela memberikan dukungan kepada semifinalis favoritnya. Setiap Rp2000,- akan memberikan 1 suara kepada semifinalis pilihan, berlaku kelipatan. STAR Voting dimulai pada tanggal <strong>29 Juni 2025 pukul 00.00 WIB</strong> dan berakhir pada tanggal <strong>12 Juli 2025 pukul 23.59 WIB.</strong>
+          STAR Voting bersifat tidak memaksa, artinya masyarakat secara sukarela memberikan dukungan kepada semifinalis favoritnya. Setiap Rp2000,- akan memberikan 1 suara kepada semifinalis pilihan, berlaku kelipatan. STAR Voting dimulai pada tanggal <strong>29 Juni 2025 pukul 00.00 WIB</strong> dan berakhir pada tanggal <strong>11 Juli 2025 pukul 23.59 WIB.</strong>
         </p>
       </div>
       <section className="md:px-20 md:py-16 relative px-8 py-12">

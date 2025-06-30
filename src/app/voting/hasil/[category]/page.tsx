@@ -1,5 +1,5 @@
 "use client";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { chartConfig } from './chart';
 import { useMediaQuery } from 'usehooks-ts';
@@ -21,7 +21,7 @@ export default function HasilPage({
     startTransition(async () => {
       try {
         const data = await getSemifinalistData(category?.abrev || '');
-        setChartData(data);
+        setChartData(data.sort((a, b) => b.vote - a.vote));
       } catch (error) {
         console.error("Error fetching semifinalist data:", error);
       }
@@ -52,7 +52,9 @@ export default function HasilPage({
               axisLine={false}
             />
             <XAxis type='number' unit='%' />
-            <Bar dataKey="vote" fill="var(--color-fb)" radius={4} />
+            <Bar dataKey="vote" fill="var(--color-fb)" radius={4} >
+              <LabelList dataKey="vote" position="right" formatter={(value) => `${value}%`} fill="#fff" />
+            </Bar>
           </BarChart>
         </ChartContainer>
       </section>
