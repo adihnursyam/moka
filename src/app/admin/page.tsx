@@ -54,7 +54,7 @@ export default async function ProtectedPage() {
     }
     return acc;
   }, [] as {
-    abrev: string;
+    abrev: typeof semifinalists[0]['category'];
     list: typeof semifinalists;
   }[]);
 

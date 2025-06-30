@@ -26,12 +26,12 @@ export default function InputForm({ name, id, value, total }: { name: string, id
   return (
     <>
       <TableCell>
-        <form className="flex gap-2 h-8" onSubmit={(e) => {
+        <form className="flex gap-2 h-8 items-center" onSubmit={(e) => {
           e.preventDefault();
           execute({ id, income: income || 0 })
         }}>
           <Input type='number' value={income} onChange={(v) => setInput(parseInt(v.target.value))} placeholder='Vote' required
-            className='w-28'
+            className='w-20'
           />
           <button className="bg-green-500 rounded-md grid place-items-center h-8 w-10 cursor-pointer" onClick={() => {
             execute({ id, income: income || 0 })
@@ -40,7 +40,7 @@ export default function InputForm({ name, id, value, total }: { name: string, id
           </button>
         </form>
       </TableCell >
-      <TableCell>
+      <TableCell className='text-center'>
         {total}
       </TableCell>
     </>
