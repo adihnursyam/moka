@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/app/server/prisma';
+import { prisma } from '@/server/prisma';
 
 export async function getSemifinalistData(category: string) {
   const data = await prisma.semifinalist.findMany({

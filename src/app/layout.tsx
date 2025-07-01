@@ -9,8 +9,11 @@ import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
-  title: "PAMOKA Garut",
-  description: "Official website of Paguyuban Mojang Jajaka Kabupaten Garut",
+  title: {
+    default: "PAMOKA Garut",
+    template: "%s | MOKA Garut",
+  },
+  description: "Official website Paguyuban Mojang Jajaka Kabupaten Garut",
 };
 
 export default function RootLayout({

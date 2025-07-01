@@ -1,12 +1,16 @@
 // app/your-protected-page/page.tsx
 import { cookies } from 'next/headers'; // This works only in Server Components/Server Actions/Route Handlers
 import PasswordPrompt from '@/components/PasswordPrompt'; // Adjust path if needed
-import { prisma } from '../server/prisma';
+import { prisma } from '../../server/prisma';
 import { unstable_cache } from 'next/cache';
 import BG from '@/components/next-image-bg';
 import AdminClient from './client';
 
 // This is a Server Component. It runs on the server.
+export const metadata = {
+  title: "Admin Page",
+};
+
 export default async function ProtectedPage() {
   const cookieStore = await cookies(); // Get the cookie store on the server
   const hasAccessCookie = cookieStore.get(process.env.PASSWORD_COOKIE_NAME || 'hasPageAccess');

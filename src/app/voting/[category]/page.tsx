@@ -3,6 +3,12 @@ import { typography } from '@/components/custom/typography';
 import Link from 'next/link';
 import Image from 'next/image';
 import BG from '@/components/next-image-bg';
+
+export const metadata = {
+  title: "Star Voting",
+  description: "Star Voting untuk Pasanggiri Mojang Jajaka Kabupaten Garut 2025",
+}
+
 export default async function VotingPage({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
   const { category: catt } = await params;
 
@@ -16,7 +22,7 @@ export default async function VotingPage({ params }: Readonly<{ params: Promise<
   return (
     <main className="min-h-screen overflow-hidden relative">
       <BG />
-      <div className='w-full h-full fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
+      <div className='w-full h-[100lvh] fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
       <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/dewasa.jpg)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)] text-sm">
         <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Star Voting {category?.name} 2025</typography.h1>
         <p className='max-w-3xl mt-4 text-[#ddd]'>

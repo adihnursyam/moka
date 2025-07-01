@@ -29,7 +29,7 @@ export default async function Page({
   return (
     <main className="h-screen max-sm:h-auto min-h-screen overflow-hidden relative">
       <BG />
-      <div className='w-full h-full pointer-events-none z-0 bg-radial-[at_50%_50%] fixed top-0 left-0 from-transparent to-90% to-dgb-800' />
+      <div className='w-full h-[100lvh] pointer-events-none z-0 bg-radial-[at_50%_50%] fixed top-0 left-0 from-transparent to-90% to-dgb-800' />
       <div className="relative z-1 bg-white/50 backdrop-blur-[2px] md:h-3/4 min-h-[80vh] mx-6 rounded-3xl top-28 md:top-28 md:mx-20 md:rounded-[64px] overflow-hidden mb-36">
         <div className="absolute top-0 -z-1 bg-linear-120 from-black/50 via-black/50 to-fb-300/40 via-60% w-full h-full"></div>
         <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full space-y-4 max-sm:pb-8">

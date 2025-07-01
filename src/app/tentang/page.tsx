@@ -6,6 +6,10 @@ import YouTubeEmbed from '@/components/youtube-embed';
 import { misi } from '@/lib/data';
 import { pengurus } from '@/lib/organogram';
 
+export const metadata = {
+  title: "Tentang Kami",
+}
+
 export default function AboutUs() {
   const pengurusData = pengurus.map((item) => ({
     imageUrl: `/pengurus/${item.nama}.png`,
