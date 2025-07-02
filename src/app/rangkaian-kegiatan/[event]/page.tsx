@@ -52,13 +52,12 @@ export default function Page({
           <CarouselContent className="relative w-screen h-[90vh] ml-0 cursor-grab active:cursor-grabbing">
             {Array.from({ length: 6 }, (_, i) => (
               <CarouselItem key={"rk-" + event + "-" + i} className="relative w-screen h-full pl-0">
-                <Image src={'/rangkaian-kegiatan/' + event + "/" + (i + 1) + ".jpg"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover' />
+                <Image src={'/rangkaian-kegiatan/' + event + "/" + (i + 1) + ".webp"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover' />
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
         <div className="absolute z-1 w-full pointer-events-none h-full bg-linear-to-r from-black/65 via-black/65 max-sm:via-100% to-transparent top-0 left-0"></div>
-
         <div className="absolute md:max-w-sm md:left-20 left-8 top-1/2 w-full max-w-[calc(100vw-4rem)] z-10 h-fit -translate-y-1/2 pointer-events-none space-y-4">
           <h2 className="font-montserrat text-5xl font-semibold text-white capitalize">
             {kegiatan?.label}

@@ -25,7 +25,7 @@ export default async function Home() {
         {/* people */}
         <div className="bottom-0 absolute right-8 h-[60vh] max-sm:hidden">
           <Image
-            src="/hero.png"
+            src="/hero.webp"
             alt=""
             width={1000}
             height={1000}
@@ -47,10 +47,10 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-            <Image src='/program-1.jpg' alt='' width={300} height={500} className='absolute left-6 object-cover w-7/20 h-1/2 top-6 rounded-b-full' />
-            <Image src='/program-2.jpg' alt='' width={300} height={500} className='absolute object-cover w-7/20 aspect-square right-6 rounded-bl-full top-6 rounded-t-full' />
-            <Image src='/program-3.jpg' alt='' width={300} height={500} className='absolute object-cover w-7/20 h-1/2 bottom-6 rounded-t-full right-6' />
-            <Image src='/bagendit.jpg' alt='' width={300} height={500} className='absolute object-cover h-7/20 w-9/20 bottom-6 rounded-r-full left-6' />
+            <Image src='/program-1.webp' alt='' width={300} height={500} className='absolute left-6 object-cover w-7/20 h-1/2 top-6 rounded-b-full' />
+            <Image src='/program-2.webp' alt='' width={300} height={500} className='absolute object-cover w-7/20 aspect-square right-6 rounded-bl-full top-6 rounded-t-full' />
+            <Image src='/program-3.webp' alt='' width={300} height={500} className='absolute object-cover w-7/20 h-1/2 bottom-6 rounded-t-full right-6' />
+            <Image src='/bagendit.webp' alt='' width={300} height={500} className='absolute object-cover h-7/20 w-9/20 bottom-6 rounded-r-full left-6' />
           </div>
 
 
@@ -69,7 +69,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section id='section-2' className='min-h-screen bg-cover bg-[url(/bagendit.jpg)] bg-no-repeat bg-center px-8 py-12 md:px-24 md:py-16 relative'>
+      <section id='section-2' className='min-h-screen bg-cover bg-[url(/bagendit.webp)] bg-no-repeat bg-center px-8 py-12 md:px-24 md:py-16 relative'>
         {/* overlay */}
         <div className="bg-fb-50/90 backdrop-opacity-40 w-full h-full left-0 top-0 absolute z-0 pointer-events-auto">
         </div>
@@ -107,7 +107,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8">
+      <section className="bg-cover min-h-screen bg-center bg-[url(/gf-1.webp)] grid place-items-center md:px-20 py-16 px-8">
         <div className="flex justify-between w-full items-center max-sm:flex-col max-sm:gap-12">
           <div className="max-w-md md:w-1/2 w-3/4">
             <Image

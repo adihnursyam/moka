@@ -9,6 +9,7 @@ export const newsUrls = [
     type: 'file',
     date: new Date('2025-06-22'),
   },
+  "https://www.garuters.id/2025/07/pasanggiri-mojang-jajaka-kabupaten-garut-2025.html",
   'https://hariangarutnews.com/2023/11/24/grand-final-pasanggiri-mojang-jajaka-kabupaten-garut-2023-sukses-digelar-berikut-nama-nama-pemenang/',
   'https://www.detik.com/jabar/berita/d-7055131/bupati-garut-hadiri-grand-final-pasanggiri-mojang-jajaka-ini-pemenangnya',
   // 'https://www.garutkab.go.id/berita/bupati-garut-ajak-anak-muda-ikut-pasanggiri-mojang-jajaka-2023',

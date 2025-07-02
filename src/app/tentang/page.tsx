@@ -32,7 +32,7 @@ export default function AboutUs() {
 
   return (
     <main className="min-h-screen relative">
-      <Image src='/hero-about.jpg' alt='' width='1920' height='768' className="z-0 isolate w-full h-[75vh] relative object-cover object-center opacity-40 top-0" />
+      <Image src='/hero-about.webp' alt='' width='1920' height='768' className="z-0 isolate w-full h-[75vh] relative object-cover object-center opacity-40 top-0" />
       <div className="absolute top-0 left-0 w-full h-[75vh] bg-linear-to-br from-dgb-400/80 to-90% to-fb-300/50 grid place-items-center">
         <typography.h1 className='max-w-[calc(16*24px)] text-white md:hidden'>To Get To Know Us, Come and Meet Us</typography.h1>
       </div>
@@ -41,7 +41,7 @@ export default function AboutUs() {
         {/* To get to know us ... */}
         <div className="flex flex-col items-center w-full relative gap-12 -translate-y-3/4 z-2 max-sm:hidden">
           <typography.h1 className='max-w-[calc(16*24px)] text-white'>To Get To Know Us, Come and Meet Us</typography.h1>
-          <Image src='/gf-about.png' alt='' width='1080' height='720' className='max-w-4xl w-[80vw] rounded-l-full rounded-br-full' />
+          <Image src='/gf-about.webp' alt='' width='1080' height='720' className='max-w-4xl w-[80vw] rounded-l-full rounded-br-full' />
         </div>
 
         <div className="md:absolute z-1 top-0 w-full md:h-[calc(100vh+4rem)] max-sm:min-h-[calc(100vh+4rem)]">

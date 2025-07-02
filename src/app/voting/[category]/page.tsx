@@ -23,7 +23,7 @@ export default async function VotingPage({ params }: Readonly<{ params: Promise<
     <main className="min-h-screen overflow-hidden relative">
       <BG />
       <div className='w-full h-[100lvh] fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
-      <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/dewasa.jpg)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)] text-sm">
+      <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/dewasa.webp)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)] text-sm">
         <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Star Voting {category?.name} 2025</typography.h1>
         <p className='max-w-3xl mt-4 text-[#ddd]'>
           STAR Voting memberi ruang bagi masyarakat untuk secara langsung memberi dukungan kepada para semifinalis favoritnya, dan turut andil dalam menentukan siapa yang layak melaju ke tahap Finalis. Melalui mekanisme ini, akan dipilih 1 pasang semifinalis dari masing-masing kategori (Rumaja dan Dewasa) yang memperoleh akumulasi voting tertinggi. Mereka akan melaju sebagai Finalis melalui jalur STAR VOTING, menjadi bagian dari Top 36 Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025.
