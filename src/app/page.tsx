@@ -16,14 +16,14 @@ export default async function Home() {
     <main className="min-h-screen">
       <section className='h-screen overflow-hidden bg-[url(/babancong.webp)] bg-cover relative bg-center' id='hero'>
         <div className='w-full h-full pointer-events-none absolute z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800' />
-        <div className="absolute top-9/20 md:left-20 left-12 text-white max-w-1/2">
-          <h1 className="font-montserrat">Paguyuban Mojang Jajaka Kabupaten Garut</h1>
+        <div className="absolute md:top-9/20 top-2/5 -translate-y-1/2 md:left-20 left-12 text-white max-w-1/2">
+          <h1 className="font-montserrat [font-display:swap]">Paguyuban Mojang Jajaka Kabupaten Garut</h1>
           <p className="italic mt-3 text-2xl">Nu Nyunda Tur Nyakola</p>
           {/* <Link href="https://instagram.com/mokagarut" className='rounded-full text-xl font-semibold px-6 py-1 bg-fb'>Get To Know Us</Link> */}
         </div>
 
         {/* people */}
-        <div className="bottom-0 absolute right-8 h-[60vh] max-sm:hidden">
+        <div className="bottom-4 md:bottom-0 absolute md:right-8 max-sm:w-8/10 h-auto right-0 md:h-[60vh]">
           <Image
             src="/hero.webp"
             alt=""
