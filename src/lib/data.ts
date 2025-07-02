@@ -95,18 +95,18 @@ const MD = [
       'Bagi saya menjadi bagian dari Mojang Jajaka bukan hanya tentang ajang representasi, tetapi juga sebagai agent of sosial control untuk budaya, pariwisata, serta ekonomi kreatif kabupaten Garut dengan cara yang inventif. Saya Puput Andini siap berkontribusi nyata menghubungkan kekayaan budaya daerah dengan pelestarian budaya lokal ditengah maraknya tantangan budaya global.',
     achievements: ['Winner Duta Matematika 2023'],
   },
-  {
-    no: 10,
-    name: 'Raani Yuliani',
-    description:
-      'Hallo Nama saya Raani Yuliani Biasa dipanggil Rara . Saya lulusan di smk negeri 1 garut tahun 2023. Saya seorang influenser sekaligus konten kreator yang aktif di sosial media , Saya suka berpetualang dan selalu ingin tahu hal hal yang baru , cepat beradaptasi. Siap untuk mengembangkan diri dan memperbaiki diri lebih kompeten .',
-    achievements: [
-      'Juara 1 lomba konten video eduwisata tingkat smk di kabupaten garut',
-      'Talent di Stasiun TV Trans 7',
-      'Mendapat sertifikat siswa terbaik pada kompetensi keahlian Bisnis Daring Pemasaran',
-      'Menjadi siswa terbaik pada kompetensi keahlian bisnis daring pemasaran',
-    ],
-  },
+  // {
+  //   no: 10,
+  //   name: 'Raani Yuliani',
+  //   description:
+  //     'Hallo Nama saya Raani Yuliani Biasa dipanggil Rara . Saya lulusan di smk negeri 1 garut tahun 2023. Saya seorang influenser sekaligus konten kreator yang aktif di sosial media , Saya suka berpetualang dan selalu ingin tahu hal hal yang baru , cepat beradaptasi. Siap untuk mengembangkan diri dan memperbaiki diri lebih kompeten .',
+  //   achievements: [
+  //     'Juara 1 lomba konten video eduwisata tingkat smk di kabupaten garut',
+  //     'Talent di Stasiun TV Trans 7',
+  //     'Mendapat sertifikat siswa terbaik pada kompetensi keahlian Bisnis Daring Pemasaran',
+  //     'Menjadi siswa terbaik pada kompetensi keahlian bisnis daring pemasaran',
+  //   ],
+  // },
   {
     no: 11,
     name: 'Rachil',
@@ -191,17 +191,17 @@ const JD = [
       'Menjadi Duta Kampus Universitas Pasundan',
     ],
   },
-  {
-    no: 3,
-    name: 'Arya Nugraha',
-    description:
-      'Nama saya Arya Nugraha, usia 19 tahun. Saat ini saya sedang menempuh pendidikan di Universitas Garut, Fakultas Kewirausahaan. Saya merupakan pribadi yang suka belajar hal-hal baru dan mudah beradaptasi dengan lingkungan. Oleh karena itu, saya sering mengikuti berbagai kegiatan sosial dan organisasi.',
-    achievements: [
-      'Juara Utama 1 Solo Vokal Tingkat Sekolah',
-      'Juara Utama 1 Solo Vokal Tingkat KKM MAN 2 Tasikmalaya',
-      'Juara Utama 1 Content Video FKWU UNIGA',
-    ],
-  },
+  // {
+  //   no: 3,
+  //   name: 'Arya Nugraha',
+  //   description:
+  //     'Nama saya Arya Nugraha, usia 19 tahun. Saat ini saya sedang menempuh pendidikan di Universitas Garut, Fakultas Kewirausahaan. Saya merupakan pribadi yang suka belajar hal-hal baru dan mudah beradaptasi dengan lingkungan. Oleh karena itu, saya sering mengikuti berbagai kegiatan sosial dan organisasi.',
+  //   achievements: [
+  //     'Juara Utama 1 Solo Vokal Tingkat Sekolah',
+  //     'Juara Utama 1 Solo Vokal Tingkat KKM MAN 2 Tasikmalaya',
+  //     'Juara Utama 1 Content Video FKWU UNIGA',
+  //   ],
+  // },
   {
     no: 4,
     name: 'Deka Arianda',
@@ -234,7 +234,7 @@ const JD = [
       'Juara 2 Da’i Remaja tingkat Nasional (Alfityah Ramadhan Fest)',
     ],
   },
-  { no: 7, name: 'M Habib An Nazar', description: '', achievements: [] },
+  // { no: 7, name: 'M Habib An Nazar', description: '', achievements: [] },
   {
     no: 8,
     name: 'Marcel Laksono Putra',
