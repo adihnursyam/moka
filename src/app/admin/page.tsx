@@ -72,7 +72,7 @@ export default async function ProtectedPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-center px-6 pt-24 md:px-20 md:pt-32 pb-8 font-montserrat text-white">
       <BG />
-      <div className='w-full h-full pointer-events-none fixed z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 left-0 top-0' />
+      <div className='w-full h-[100lvh] pointer-events-none fixed z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 left-0 top-0' />
       <AdminClient categories={categories} />
     </main>
   );

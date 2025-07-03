@@ -235,17 +235,17 @@ const JD = [
     ],
   },
   // { no: 7, name: 'M Habib An Nazar', description: '', achievements: [] },
-  {
-    no: 8,
-    name: 'Marcel Laksono Putra',
-    description:
-      'Saya pribadi yang disiplin, cepat belajar, dan suka tantangan. Terbiasa bekerja dalam tim maupun individu, serta selalu berusaha memberikan hasil terbaik dalam setiap tugas yang diemban',
-    achievements: [
-      'Medali Perak Taekwondo tingkat nasional UIN Championship 5 2023',
-      'Medali Perunggu Taekwondo tingkat nasional BTO OPEN 2023',
-      'Ranking 40 besar terbaik duta hukum ham jabar dari 2.410 pelajar se jawa barat',
-    ],
-  },
+  // {
+  //   no: 8,
+  //   name: 'Marcel Laksono Putra',
+  //   description:
+  //     'Saya pribadi yang disiplin, cepat belajar, dan suka tantangan. Terbiasa bekerja dalam tim maupun individu, serta selalu berusaha memberikan hasil terbaik dalam setiap tugas yang diemban',
+  //   achievements: [
+  //     'Medali Perak Taekwondo tingkat nasional UIN Championship 5 2023',
+  //     'Medali Perunggu Taekwondo tingkat nasional BTO OPEN 2023',
+  //     'Ranking 40 besar terbaik duta hukum ham jabar dari 2.410 pelajar se jawa barat',
+  //   ],
+  // },
   {
     no: 9,
     name: 'Mirza Raihan Pamugar',
