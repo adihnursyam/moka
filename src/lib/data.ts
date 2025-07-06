@@ -583,9 +583,11 @@ const MR = [
     name: 'Nazhira Putri Syawalina Oktaviani',
     description:
       'Sampurasun, Nepangkeun wasta simkuring Nazhira Putri Syawalina Oktaviani, padumukan simkuring di Perum Dano Asri Kacamatan Cikajang. Ayeuna simkuring nuju nyuprih elmu di SMA Negeri 4 Garut kelas 11. Hobi simkuring nyaeta tari, kukituna simkuring ngiringan organisasi kesenian di sakola khusus na dibidang tari. Sakitu wawanohan ti simkuring, haturnuhun..',
-    achievements: ['Juara Umum 2 Kelas 9',
+    achievements: [
+      'Juara Umum 2 Kelas 9',
       'Ranking 3 Kelas 10',
-      'Rangking 1 Kelas 11'],
+      'Rangking 1 Kelas 11',
+    ],
   },
   {
     no: 9,
@@ -957,12 +959,16 @@ export const misi = [
   'Mendorong anggota untuk berpikir global dan bertindak lokal, dengan mengedepankan nilai-nilai kasundaan yang adaptif terhadap tantangan zaman.',
 ];
 
-export const rangkaianKegiatan: { label: string; desc: string }[] = [
+export const rangkaianKegiatan: {
+  label: string;
+  desc: string;
+  isNew?: boolean;
+}[] = [
   {
     label: 'Audisi',
-    desc: 'Proses seleksi awal yang meliputi 3 tahapan seleksi. Tahapan pertama, peserta melakukan tes tulis sebanyak 100 soal kemudian peserta disaring menjadi 88 besar.',
+    desc: 'Proses seleksi awal yang meliputi 3 tahapan seleksi. Tahapan pertama, peserta melakukan tes tulis sebanyak 100 soal kemudian peserta disaring menjadi 64 besar.',
+    isNew: true,
   },
-
   {
     label: 'Semifinal',
     desc: 'Pembekalan materi umum kepada peserta dari pemateri pilihan. Berdasarkan nilai keaktifan beserta hasil interview peserta akan kembali diseleksi untuk kemudian diambil 44 calon Mojang dan Jajaka tercocok.',

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import ProfileGrid from './profile-grid';
 import YouTubeEmbed from '@/components/youtube-embed';
 import { misi } from '@/lib/data';
-import { pengurus } from '@/lib/organogram';
+import { ketua, pengurus } from '@/lib/organogram';
 
 export const metadata = {
   title: "Tentang Kami",
@@ -17,6 +17,13 @@ export default function AboutUs() {
     position: item.posisi,
     gender: item.gender
   }));
+
+  const ketuaData = ketua.map((item) => ({
+    imageUrl: `/ketua/${item.nama}.png`,
+    name: item.nama,
+    position: item.posisi,
+    gender: item.gender
+  }))
 
   const ytIds = [
     "5w0ORZ0XUkE",
@@ -33,11 +40,12 @@ export default function AboutUs() {
   return (
     <main className="min-h-screen relative">
       <Image src='/hero-about.webp' alt='' width='1920' height='768' className="z-0 isolate w-full h-[75vh] relative object-cover object-center opacity-40 top-0" />
-      <div className="absolute top-0 left-0 w-full h-[75vh] bg-linear-to-br from-dgb-400/80 to-90% to-fb-300/50 grid place-items-center">
+      <div className="absolute top-0 left-0 w-full h-[75vh] bg-linear-to-br from-dgb-800 via-dgb-600/60 via-65% to-95% to-fb-300/50 grid place-items-center">
+        {/* <div className="absolute top-0 left-0 w-full h-[75vh] bg-black/20 grid place-items-center" /> */}
         <typography.h1 className='max-w-[calc(16*24px)] text-white md:hidden'>To Get To Know Us, Come and Meet Us</typography.h1>
       </div>
 
-      <section id='visi-misi' className="relative w-full md:h-screen max-sm:bg-dgb-50">
+      <section id='visi-misi' className="relative w-full md:h-screen max-sm:bg-dgb-50 bg-[url(/gf-1.webp)]">
         {/* To get to know us ... */}
         <div className="flex flex-col items-center w-full relative gap-12 -translate-y-3/4 z-2 max-sm:hidden">
           <typography.h1 className='max-w-[calc(16*24px)] text-white'>To Get To Know Us, Come and Meet Us</typography.h1>
@@ -89,6 +97,14 @@ export default function AboutUs() {
           data={pengurusData}
           showOnMobile={6}
           showOnDesktop={9}
+        />
+
+        <typography.h1 className='md:w-1/2 isolate text-right place-self-end'>Para Ketua Paguyuban Mojang Jajaka Kabupaten Garut</typography.h1>
+        <ProfileGrid
+          data={ketuaData}
+          showOnMobile={6}
+          showOnDesktop={6}
+          isRight
         />
 
         {/* moka */}

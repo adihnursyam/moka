@@ -4,7 +4,6 @@ import { typography } from '@/components/custom/typography';
 import { NewsCard } from '@/components/news-card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Button } from '@/components/custom/button';
-// import { news } from '@/lib/data';
 import { newsUrls } from '@/lib/news';
 import { fetchAndParseNews } from '@/lib/metadata-fetcher';
 
@@ -19,11 +18,9 @@ export default async function Home() {
         <div className="absolute md:top-9/20 top-2/5 -translate-y-1/2 md:left-20 left-12 text-white max-w-1/2">
           <h1 className="font-montserrat [font-display:swap]">Paguyuban Mojang Jajaka Kabupaten Garut</h1>
           <p className="italic mt-3 text-2xl">Nu Nyunda Tur Nyakola</p>
-          {/* <Link href="https://instagram.com/mokagarut" className='rounded-full text-xl font-semibold px-6 py-1 bg-fb'>Get To Know Us</Link> */}
         </div>
-
         {/* people */}
-        <div className="bottom-4 md:bottom-0 absolute md:right-8 max-sm:w-8/10 h-auto right-0 md:h-[60vh]">
+        <div className="bottom-4 absolute md:right-8 max-sm:w-8/10 h-auto right-0 md:h-[60vh]">
           <Image
             src="/hero.webp"
             alt=""
@@ -52,8 +49,6 @@ export default async function Home() {
             <Image src='/program-3.webp' alt='' width={300} height={500} className='absolute object-cover w-7/20 h-1/2 bottom-6 rounded-t-full right-6' />
             <Image src='/bagendit.webp' alt='' width={300} height={500} className='absolute object-cover h-7/20 w-9/20 bottom-6 rounded-r-full left-6' />
           </div>
-
-
           {/* texts */}
           <div className="space-y-6">
             <typography.t1 className=''>Our Program</typography.t1>
@@ -69,6 +64,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
       <section id='section-2' className='min-h-screen bg-cover bg-[url(/bagendit.webp)] bg-no-repeat bg-center px-8 py-12 md:px-24 md:py-16 relative'>
         {/* overlay */}
         <div className="bg-fb-50/90 backdrop-opacity-40 w-full h-full left-0 top-0 absolute z-0 pointer-events-auto">
@@ -79,7 +75,6 @@ export default async function Home() {
           <div className="w-full"></div>
           <div className="space-y-6 min-w-1/2">
             <typography.p>Tetap terinformasi dengan perkembangan terkini agar Anda tetap terupdate.</typography.p>
-            {/* <Link href="/news" className='rounded-md font-semibold px-6 py-1.5 text-dgb border border-dgb'>Lihat Semua</Link> */}
           </div>
         </div>
         <div className="flex flex-col gap-8 isolate w-full items-center">
@@ -107,6 +102,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
       <section className="bg-cover min-h-screen bg-center bg-[url(/gf-1.webp)] grid place-items-center md:px-20 py-16 px-8">
         <div className="flex justify-between w-full items-center max-sm:flex-col max-sm:gap-12">
           <div className="max-w-md md:w-1/2 w-3/4">

@@ -33,9 +33,10 @@ export default function ProfileGrid({ data, showOnDesktop = 6, showOnMobile = 3,
                 />
               ))}
             </div>
-            <p onClick={handleShowAll} className={cn("font-montserrat w-fit flex text-xl gap-2 isolate items-center font-medium group cursor-pointer hover:underline hover:text-dgb transition-all", isRight && "ml-auto place-self-end")}>
-              {showAll ? "View less" : "View more"} <ArrowRight className={cn('w-6 h-6 group-hover:rotate-90 transition-transform', showAll && "group-hover:-rotate-90")} />
-            </p>
+            {data.length > (isMobile ? showOnMobile : showOnDesktop) &&
+              (<p onClick={handleShowAll} className={cn("font-montserrat w-fit flex text-xl gap-2 isolate items-center font-medium group cursor-pointer hover:underline hover:text-dgb transition-all", isRight && "ml-auto place-self-end")}>
+                {showAll ? "View less" : "View more"} <ArrowRight className={cn('w-6 h-6 group-hover:rotate-90 transition-transform', showAll && "group-hover:-rotate-90")} />
+              </p>)}
           </>
         )}
       {

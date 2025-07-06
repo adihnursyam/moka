@@ -1,3 +1,5 @@
+import BacksoundPlayer from '@/components/backsound-player';
+
 export const metadata = {
   title: "Rangkaian Kegiatan",
   description: "Daftar rangkaian kegiatan pada Pasanggiri Mojang Jajaka oleh Paguyuban Mojang Jajaka Kabupaten Garut.",
@@ -10,6 +12,7 @@ export default function RKLayout({
 }>) {
   return (
     <>
+      <BacksoundPlayer />
       {children}
     </>
   )
