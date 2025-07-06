@@ -48,7 +48,7 @@ export const pengurus: { posisi: string; nama: string; gender: 'L' | 'P' }[] = [
 export const ketua: { posisi: string; nama: string; gender: 'L' | 'P' }[] = [
   {
     posisi: '2008-2013',
-    nama: "Cecep Safa'atul Barkah",
+    nama: "Cecep Safaatul Barkah",
     gender: 'L',
   },
   {
