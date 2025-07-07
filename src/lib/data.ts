@@ -167,7 +167,6 @@ const MD = [
       'Peserta terbaik Sekolah konstitusi JABAR',
       'Garut Milenial Intrenship (ajudan bupati) bach 3',
       'Duta genre 2023',
-      'Pemuda berprestasi 2024',
     ],
   },
 ];

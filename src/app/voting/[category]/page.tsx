@@ -4,9 +4,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import BG from '@/components/next-image-bg';
 
-export const metadata = {
-  title: "Star Voting",
-  description: "Star Voting untuk Pasanggiri Mojang Jajaka Kabupaten Garut 2025",
+export async function generateMetadata({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
+  const { category: catt } = await params;
+  const category = categories.find(cat => cat.slug === catt);
+  if (!category) {
+    return {
+      title: "Kategori Tidak Ditemukan",
+      description: "Kategori yang Anda cari tidak ditemukan.",
+    };
+  }
+  return {
+    title: `Star Voting - ${category.name} 2025`,
+    description: `Star Voting untuk Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
+  };
 }
 
 export default async function VotingPage({ params }: Readonly<{ params: Promise<{ category: string }> }>) {

@@ -5,6 +5,7 @@ import ProfileGrid from './profile-grid';
 import YouTubeEmbed from '@/components/youtube-embed';
 import { misi } from '@/lib/data';
 import { ketua, pengurus } from '@/lib/organogram';
+import Link from 'next/link';
 
 export const metadata = {
   title: "Tentang Kami",
@@ -52,10 +53,10 @@ export default function AboutUs() {
           <Image src='/gf-about.webp' alt='' width='1080' height='720' className='max-w-4xl w-[80vw] rounded-l-full rounded-br-full' />
         </div>
 
-        <div className="md:absolute z-1 top-0 w-full md:h-[calc(100vh+4rem)] max-sm:min-h-[calc(100vh+4rem)]">
+        <div className="md:absolute z-1 top-0 w-full md:h-[calc(100vh+2rem)] max-sm:min-h-[calc(100vh+2rem)]">
           <div className="w-full md:h-1/2 relative flex">
 
-            <div className=" flex flex-col-reverse h-full relative z-1 md:left-1/8">
+            <div className="flex flex-col-reverse h-full relative z-1 md:left-1/8">
               <div className="flex items-center md:gap-24 h-min">
 
                 <div className="space-y-4 max-sm:px-6 max-sm:py-8">
@@ -88,8 +89,27 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className='min-h-screen bg-[url(/logogram-dg.png)] bg-contain bg-repeat-y bg-center relative px-8 md:px-20 pt-20 md:pt-32 pb-12 space-y-8 md:space-y-12'>
+      <section className='min-h-screen bg-[url(/logogram-dg.png)] bg-size-[65%] bg-repeat-y bg-center relative px-8 md:px-20 pt-20 md:pt-32 pb-12 space-y-8 md:space-y-12'>
         <div className="bg-fb-50/90 absolute top-0 w-full h-full left-0"></div>
+
+        <div className="w-full md:flex isolate md:gap-20 max-sm:space-y-8 mb-16 md:mb-24">
+          <Image src='/logo-dg.png' alt='' className='max-w-md object-contain max-sm:w-full' width={600} height={300} />
+          <div className="space-y-4">
+            <typography.p className="max-sm:text-justify font-medium">Paguyuban Mojang Jajaka Kabupaten Garut merupakan perkumpulan yang sah dan terdaftar secara hukum di Indonesia. Status badan hukum kami telah disahkan melalui Keputusan Menteri Hukum dan Hak Asasi Manusia Republik Indonesia Nomor AHU-0001483.AH.01.07.TAHUN 2024. Untuk detail lebih lanjut, silakan unduh dokumen resminya di bawah ini:</typography.p>
+            <div className="md:flex gap-4 text-dgb underline text-xs font-montserrat">
+              <div className="">
+                <Link href='/pdf/SK_MOKA.pdf' target='_blank' >
+                  Lihat Dokumen Legalitas Kami
+                </Link>
+              </div>
+              <div className="">
+                <Link href='/pdf/SK_MOKA.pdf' download='SK_MOKA.pdf' target='_blank' >
+                  Unduh Surat Keputusan Pengesahan Badan Hukum (PDF)
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* pamoka */}
         <typography.h1 className='md:w-1/2 isolate'>Pengurus Paguyuban Mojang Jajaka Kabupaten Garut</typography.h1>

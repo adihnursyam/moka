@@ -5,7 +5,30 @@ import { categories } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default async function Page({
+export async function generateMetadata({
+  params,
+}: Readonly<{ params: Promise<{ name: string, category: string }> }>) {
+  const { name: name_, category: catt } = await params;
+  const category = categories.find(cat => cat.slug === catt);
+  const name = name_.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+
+  if (!category) {
+    return {
+      title: "Kategori Tidak Ditemukan",
+      description: "Kategori yang Anda cari tidak ditemukan.",
+    };
+  }
+
+  return {
+    title: `Vote ${name} - ${category.name} 2025`,
+    openGraph: {
+      images: [`/peserta/${category.abrev}/${category.abrev}${String(category.list.find(f => f.name.split(" ").join("-").toLowerCase() === name_.toLowerCase())?.no).padStart(2, "0")}_${name_.split(" ").join("_")}/default.png`],
+    },
+    description: `STAR Vote untuk peserta ${name} pada kategori ${category.name} di Star Voting Pasanggiri Mojang Jajaka Kabupaten Garut 2025.`,
+  };
+}
+
+export default async function DetailVotingPage({
   params,
 }: Readonly<{
   params: Promise<{ name: string, category: string }>;
@@ -55,7 +78,7 @@ export default async function Page({
             <div className="flex max-sm:flex-col w-full justify-between gap-8 items-center md:mt-8 mt-6">
               <ScrollArea className="space-y-4 md:h-[35vh] h-[30vh]">
                 <p className="font-montserrat text-sm">{finalist.description}</p>
-                <ul className='list-["-"] list-inside font-montserrat mb-8 mt-4'>
+                <ul className='list-decimal list-inside font-montserrat mb-8 mt-4'>
                   {finalist.achievements.map((achievement, index) => (
                     <li key={index} className='text-sm text-justify'>{" " + achievement}</li>
                   ))}
