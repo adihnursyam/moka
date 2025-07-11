@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef, RefObject, ReactNode } from 'react';
 import Image from 'next/image';
 import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
-// import { Button } from './custom/button'; 
 import { motion } from 'motion/react';
 import {
   Accordion,
@@ -24,13 +23,17 @@ export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
+  // Set the exact cutoff time in ISO 8601 format with the GMT+7 offset
+  const votingEndTime = new Date('2025-07-11T23:59:59+07:00');
+  const now = new Date();
+  const isVotingActive = now < votingEndTime;
 
-  const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode }[] = [
+  const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode, ending?: boolean }[] = [
     { href: '/', label: 'Beranda' },
     { href: '/tentang', label: 'Tentang' },
-  // { href: '/kontak', label: 'Kontak Kami' },
+    // { href: '/kontak', label: 'Kontak Kami' },
     { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
-    { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
+    { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} />, ending: !isVotingActive },
   ];
 
   // State for navbar visibility on scroll (desktop)
@@ -80,10 +83,10 @@ export function Navbar() {
           transition={{ duration: 0.4, ease: 'easeInOut' }}
         >
           <Link href='/' className='h-full'>
-            <Image src='/logo-orange.png' alt='logo' width={100} height={60} className='h-full w-auto object-contain' priority/>
+            <Image src='/logo-orange.png' alt='logo' width={100} height={60} className='h-full w-auto object-contain' priority />
           </Link>
           <div className="flex gap-8 font-montserrat">
-            {navLinks.map((link) => link.isPopover ? (
+            {navLinks.map((link) => link.ending ? (<></>) : link.isPopover ? (
               <Popover key={link.label}>
                 <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all'>{link.label}</PopoverTrigger>
                 {link.content || <VotingPopover />}
@@ -98,20 +101,24 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <Popover>
-            <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all border border-fb py-1.5 px-3 rounded-md'>Hasil Voting</PopoverTrigger>
-            <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
-              {categories.map((category) => (
-                <Link
-                  key={category.slug + "-navbar-popover"}
-                  href={`/voting/hasil/${category.slug}`}
-                  className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
-                >
-                  <div className="">{category.name}</div>
-                </Link>
-              ))}
-            </PopoverContent>
-          </Popover>
+          {isVotingActive ? (
+            <Popover>
+              <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all border border-fb py-1.5 px-3 rounded-md'>Hasil Voting</PopoverTrigger>
+              <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
+                {categories.map((category) => (
+                  <Link
+                    key={category.slug + "-navbar-popover"}
+                    href={`/voting/hasil/${category.slug}`}
+                    className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+                  >
+                    <div className="">{category.name}</div>
+                  </Link>
+                ))}
+              </PopoverContent>
+            </Popover>
+          ) : (
+              <div className='w-32'></div>
+          )}
         </motion.nav>
       )}
 
@@ -120,7 +127,7 @@ export function Navbar() {
         <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref} key={pathname + "-mobile-navbar"}>
           <div className="w-full p-4 px-8 flex items-center justify-between h-16">
             <Link href='/' className='h-full'>
-              <Image src='/logo-orange.png' alt='logo' width={80} height={40} className='h-full w-auto object-contain' priority/>
+              <Image src='/logo-orange.png' alt='logo' width={80} height={40} className='h-full w-auto object-contain' priority />
             </Link>
             <button
               className='md:hidden w-8 h-8 flex flex-col justify-center items-center z-[60]'
@@ -167,7 +174,7 @@ export function Navbar() {
             <AccordionItem value='root-navbar'>
               <AccordionContent className='text-white px-8'>
                 <div className={`my-4 flex flex-col`}>
-                  {navLinks.map((link) => link.isPopover ?
+                  {navLinks.map((link) => link.ending ? (<></>) : link.isPopover ?
                     (<Accordion key={link.label} type='single' collapsible className='w-full'>
                       <AccordionItem value='voting' className='py-1.5'>
                         <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all p-0'>{link.label}</AccordionTrigger>
@@ -186,25 +193,27 @@ export function Navbar() {
                         {link.label}
                       </Link>
                     ))}
-                  <Accordion className='w-full' type='single' collapsible>
-                    <AccordionItem value='hasil-voting'>
-                      <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
-                      <AccordionContent className=''>
-                        {categories.map((category) => (
-                          <div className="*:py-1.5 px-4 w-full"
-                            key={category.slug + "-navbar-accordion"}>
-                            <Link
-                              href={`/voting/hasil/${category.slug}`}
-                              className="w-full flex"
-                              onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                            >
-                              <div className="">{category.name}</div>
-                            </Link>
-                          </div>
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                  {isVotingActive && (
+                    <Accordion className='w-full' type='single' collapsible>
+                      <AccordionItem value='hasil-voting'>
+                        <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
+                        <AccordionContent className=''>
+                          {categories.map((category) => (
+                            <div className="*:py-1.5 px-4 w-full"
+                              key={category.slug + "-navbar-accordion"}>
+                              <Link
+                                href={`/voting/hasil/${category.slug}`}
+                                className="w-full flex"
+                                onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
+                              >
+                                <div className="">{category.name}</div>
+                              </Link>
+                            </div>
+                          ))}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  )}
                 </div>
               </AccordionContent>
             </AccordionItem>
