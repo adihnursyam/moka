@@ -24,16 +24,16 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
   // Set the exact cutoff time in ISO 8601 format with the GMT+7 offset
-  const votingEndTime = new Date('2025-07-11T23:59:59+07:00');
-  const now = new Date();
-  const isVotingActive = now < votingEndTime;
+  // const votingEndTime = new Date('2025-07-11T23:59:59+07:00');
+  // const now = new Date();
+  // const isVotingActive = now < votingEndTime;
 
   const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode, ending?: boolean }[] = [
     { href: '/', label: 'Beranda' },
     { href: '/tentang', label: 'Tentang' },
     // { href: '/kontak', label: 'Kontak Kami' },
     { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
-    { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} />, ending: !isVotingActive },
+    // { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} />, ending: !isVotingActive },
   ];
 
   // State for navbar visibility on scroll (desktop)
