@@ -101,24 +101,20 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          {isVotingActive ? (
-            <Popover>
-              <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all border border-fb py-1.5 px-3 rounded-md'>Hasil Voting</PopoverTrigger>
-              <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
-                {categories.map((category) => (
-                  <Link
-                    key={category.slug + "-navbar-popover"}
-                    href={`/voting/hasil/${category.slug}`}
-                    className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
-                  >
-                    <div className="">{category.name}</div>
-                  </Link>
-                ))}
-              </PopoverContent>
-            </Popover>
-          ) : (
-              <div className='w-32'></div>
-          )}
+          <Popover>
+            <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all border border-fb py-1.5 px-3 rounded-md'>Hasil Voting</PopoverTrigger>
+            <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
+              {categories.map((category) => (
+                <Link
+                  key={category.slug + "-navbar-popover"}
+                  href={`/voting/hasil/${category.slug}`}
+                  className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
+                >
+                  <div className="">{category.name}</div>
+                </Link>
+              ))}
+            </PopoverContent>
+          </Popover>
         </motion.nav>
       )}
 
@@ -193,27 +189,25 @@ export function Navbar() {
                         {link.label}
                       </Link>
                     ))}
-                  {isVotingActive && (
-                    <Accordion className='w-full' type='single' collapsible>
-                      <AccordionItem value='hasil-voting'>
-                        <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
-                        <AccordionContent className=''>
-                          {categories.map((category) => (
-                            <div className="*:py-1.5 px-4 w-full"
-                              key={category.slug + "-navbar-accordion"}>
-                              <Link
-                                href={`/voting/hasil/${category.slug}`}
-                                className="w-full flex"
-                                onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                              >
-                                <div className="">{category.name}</div>
-                              </Link>
-                            </div>
-                          ))}
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  )}
+                  <Accordion className='w-full' type='single' collapsible>
+                    <AccordionItem value='hasil-voting'>
+                      <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
+                      <AccordionContent className=''>
+                        {categories.map((category) => (
+                          <div className="*:py-1.5 px-4 w-full"
+                            key={category.slug + "-navbar-accordion"}>
+                            <Link
+                              href={`/voting/hasil/${category.slug}`}
+                              className="w-full flex"
+                              onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
+                            >
+                              <div className="">{category.name}</div>
+                            </Link>
+                          </div>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
               </AccordionContent>
             </AccordionItem>

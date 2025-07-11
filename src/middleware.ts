@@ -2,26 +2,24 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Set the same cutoff time as the navigation component
+// The deadline remains the same
 const votingEndTime = new Date('2025-07-11T23:59:59+07:00');
 
 export function middleware(request: NextRequest) {
-  // Check if the request is for the voting page
-  if (request.nextUrl.pathname.startsWith('/voting')) {
-    const isVotingActive = new Date() < votingEndTime;
+  const { pathname } = request.nextUrl;
+  const isVotingActive = new Date() < votingEndTime;
 
-    // If voting is no longer active, redirect them
-    if (!isVotingActive) {
-      // Redirect to the homepage or a "voting closed" page
-      return NextResponse.redirect(new URL('/', request.url));
-    }
+  // If voting has ended AND the path is NOT for the results page
+  if (!isVotingActive && !pathname.startsWith('/voting/hasil')) {
+    // Redirect them from any other /voting/* path
+    return NextResponse.redirect(new URL('/404', request.url));
   }
 
-  // Allow the request to proceed if voting is active
+  // Otherwise, allow the request to proceed
   return NextResponse.next();
 }
 
-// Specify that this middleware should only run for the voting route
+// The matcher remains the same, as it needs to run for all /voting routes
 export const config = {
   matcher: '/voting/:path*',
 };
