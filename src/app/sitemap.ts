@@ -27,6 +27,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   });
 
+  const profilSemifinalisCattEntries = categories.map((category) => ({
+    url: `${baseUrl}/profil-semifinalis/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  })) as MetadataRoute.Sitemap;
+
+  const profilSemifinalisEntries = categories.map((category) => {
+    return category.list.map((item) => ({
+      url: `${baseUrl}/profil-semifinalis/${category.slug}/${item.name.split(' ').join('-').toLowerCase()}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    }))
+  }).flat() as MetadataRoute.Sitemap;
+
   const allVotingEntries = [...(votingEntries.flat()), ...votingCategoriesEntry, ...hasilVotingEntry] as MetadataRoute.Sitemap
 
   const activityEntries = rangkaianKegiatan.map((activity) => ({
@@ -45,6 +61,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     ...allVotingEntries,
-    ...activityEntries
+    ...activityEntries,
+    ...profilSemifinalisCattEntries,
+    ...profilSemifinalisEntries,
   ];
 }

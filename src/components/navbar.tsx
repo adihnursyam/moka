@@ -34,6 +34,7 @@ export function Navbar() {
     // { href: '/kontak', label: 'Kontak Kami' },
     { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
     // { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} />, ending: !isVotingActive },
+    { href: 'profil-semifinalis', label: 'Profil Semifinalis', isPopover: true, content: <VotingPopover setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-semifinalis' />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-semifinalis' /> },
   ];
 
   // State for navbar visibility on scroll (desktop)
@@ -218,13 +219,13 @@ export function Navbar() {
   );
 }
 
-function VotingPopover({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }) {
+function VotingPopover({ setIsMobileMenuOpen, page = 'voting' }: { setIsMobileMenuOpen?: (open: boolean) => void, page?: string }) {
   return (
     <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
       {categories.map((category) => (
         <Link
           key={category.slug + "-navbar-popover"}
-          href={`/voting/${category.slug}`}
+          href={`/${page}/${category.slug}`}
           className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
           onClick={() => {
             if (setIsMobileMenuOpen) {
@@ -241,12 +242,12 @@ function VotingPopover({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: b
 }
 
 function VotingAccordion(
-  { setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }
+  { setIsMobileMenuOpen, page = 'voting' }: { setIsMobileMenuOpen?: (open: boolean) => void, page?: string }
 ) {
   return (
     <>
       <div className='w-full'>
-        <Link href='/voting/mojang-rumaja' className="w-full flex"
+        <Link href={`/${page}/mojang-rumaja`} className="w-full flex"
           onClick={() => {
             if (setIsMobileMenuOpen) {
               setIsMobileMenuOpen(false);
@@ -257,7 +258,7 @@ function VotingAccordion(
         </Link>
       </div>
       <div className='w-full'>
-        <Link href='/voting/jajaka-rumaja' className="w-full flex"
+        <Link href={`/${page}/jajaka-rumaja`} className="w-full flex"
           onClick={() => {
             if (setIsMobileMenuOpen) {
               setIsMobileMenuOpen(false);
@@ -268,7 +269,7 @@ function VotingAccordion(
         </Link>
       </div>
       <div className='w-full'>
-        <Link href='/voting/mojang-dewasa' className="w-full flex"
+        <Link href={`/${page}/mojang-dewasa`} className="w-full flex"
           onClick={() => {
             if (setIsMobileMenuOpen) {
               setIsMobileMenuOpen(false);
@@ -279,7 +280,7 @@ function VotingAccordion(
         </Link>
       </div>
       <div className='w-full'>
-        <Link href='/voting/jajaka-dewasa' className="w-full flex"
+        <Link href={`/${page}/jajaka-dewasa`} className="w-full flex"
           onClick={() => {
             if (setIsMobileMenuOpen) {
               setIsMobileMenuOpen(false);
