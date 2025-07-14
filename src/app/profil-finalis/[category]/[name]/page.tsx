@@ -24,7 +24,7 @@ export async function generateMetadata({
     openGraph: {
       images: [`/peserta/${category.abrev}/${name_.split(" ").join("_")}/default.png`],
     },
-    description: `Profil semifinalis ${name} pada kategori ${category.name} di Pasanggiri Mojang Jajaka Kabupaten Garut 2025.`,
+    description: `Profil finalis ${name} pada kategori ${category.name} di Pasanggiri Mojang Jajaka Kabupaten Garut 2025.`,
   };
 }
 
@@ -41,7 +41,7 @@ export default async function DetailProfilPage({
     return <main className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8 font-montserrat">Kategori tidak ditemukan</main>;
   }
 
-  const finalist = category.list.find(f => f.name.split(" ").join("-").toLowerCase() === name);
+  const finalist = category.finalist.find(f => f.name.split(" ").join("-").toLowerCase() === name);
 
   if (!finalist) {
     return <main className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8 font-montserrat">Peserta tidak ditemukan</main>;

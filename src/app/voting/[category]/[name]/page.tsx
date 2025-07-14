@@ -22,7 +22,7 @@ export async function generateMetadata({
   return {
     title: `Vote ${name} - ${category.name} 2025`,
     openGraph: {
-      images: [`/peserta/${category.abrev}/${category.abrev}${String(category.list.find(f => f.name.split(" ").join("-").toLowerCase() === name_.toLowerCase())?.no).padStart(2, "0")}_${name_.split(" ").join("_")}/default.png`],
+      images: [`/peserta/${category.abrev}/${name_.split(" ").join("_")}/default.png`],
     },
     description: `STAR Vote untuk peserta ${name} pada kategori ${category.name} di Star Voting Pasanggiri Mojang Jajaka Kabupaten Garut 2025.`,
   };
@@ -56,7 +56,7 @@ export default async function DetailVotingPage({
       <div className="relative z-1 bg-white/50 backdrop-blur-[2px] md:h-3/4 min-h-[80vh] mx-6 rounded-3xl top-28 md:top-28 md:mx-20 md:rounded-[64px] overflow-hidden mb-36">
         <div className="absolute top-0 -z-1 bg-linear-120 from-black/50 via-black/50 to-fb-300/40 via-60% w-full h-full"></div>
         <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full space-y-4 max-sm:pb-8">
-          <Image src={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-84 max-sm:max-w-64 mx-auto' />
+          <Image src={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-84 max-sm:max-w-64 mx-auto' />
           <div className="text-white md:max-w-lg lg:max-w-xl space-y-2 md:space-y-4 mt-auto md:pb-20 max-sm:px-6 max-sm:text-sm">
             <div className="flex gap-6 items-center">
               <div className="flex flex-col justify-center gap-1.5">

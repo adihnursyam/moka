@@ -1,3 +1,5 @@
+import { JD_final, JR_final, MD_final, MR_final } from './finalist';
+
 const MD = [
   {
     no: 1,
@@ -943,11 +945,12 @@ export const categories: {
   slug: string;
   list: typeof MR;
   abrev: 'MR' | 'JR' | 'MD' | 'JD';
+  finalist: typeof MR_final;
 }[] = [
-  { name: 'Mojang Rumaja', slug: 'mojang-rumaja', list: MR, abrev: 'MR' },
-  { name: 'Jajaka Rumaja', slug: 'jajaka-rumaja', list: JR, abrev: 'JR' },
-  { name: 'Mojang Dewasa', slug: 'mojang-dewasa', list: MD, abrev: 'MD' },
-  { name: 'Jajaka Dewasa', slug: 'jajaka-dewasa', list: JD, abrev: 'JD' },
+  { name: 'Mojang Rumaja', slug: 'mojang-rumaja', list: MR, abrev: 'MR', finalist: MR_final },
+  { name: 'Jajaka Rumaja', slug: 'jajaka-rumaja', list: JR, abrev: 'JR', finalist: JR_final },
+  { name: 'Mojang Dewasa', slug: 'mojang-dewasa', list: MD, abrev: 'MD', finalist: MD_final },
+  { name: 'Jajaka Dewasa', slug: 'jajaka-dewasa', list: JD, abrev: 'JD', finalist: JD_final },
 ];
 
 export const misi = [

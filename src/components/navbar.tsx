@@ -34,7 +34,7 @@ export function Navbar() {
     // { href: '/kontak', label: 'Kontak Kami' },
     { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
     // { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} />, ending: !isVotingActive },
-    { href: 'profil-semifinalis', label: 'Profil Semifinalis', isPopover: true, content: <VotingPopover setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-semifinalis' />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-semifinalis' /> },
+    { href: 'profil-finalis', label: 'Profil Finalis', isPopover: true, content: <VotingPopover setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-finalis' />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-finalis' /> },
   ];
 
   // State for navbar visibility on scroll (desktop)

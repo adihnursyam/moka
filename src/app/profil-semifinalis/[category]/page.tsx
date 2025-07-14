@@ -48,7 +48,7 @@ export default async function ProfilSemifinalisPage({ params }: Readonly<{ param
           {finalists.map((finalist) => (
             <Link key={'voting-grid-' + finalist.name} href={category?.slug + "/" + finalist.name.split(" ").join("-").toLowerCase()} className="bg-[url(/feed-bg-cutted.jpg)] w-full aspect-square object-cover bg-cover rounded-2xl overflow-hidden relative flex flex-col group hover:shadow-[inset_0_0_0_500px] hover:shadow-dgb/50 transition-all duration-400">
               <div className=" w-full h-[calc(100%-24px)] flex overflow-hidden">
-                <Image src={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default.png`} alt='' width={300} height={500} className='w-3/5 object-cover object-top mt-4 group-hover:scale-105 transition-all duration-500' priority blurDataURL={`/peserta/${category?.abrev}/${category?.abrev}${String(finalist.no).padStart(2, "0")}_${finalist.name.split(" ").join("_")}/default_blur.webp`} />
+                <Image src={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default.png`} alt='' width={300} height={500} className='w-3/5 object-cover object-top mt-4 group-hover:scale-105 transition-all duration-500' priority blurDataURL={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default_blur.webp`} />
                 <div className="w-2/5 h-full flex flex-col">
                   <div className="pr-10 flex justify-end">
                     <div style={{

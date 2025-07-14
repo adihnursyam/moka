@@ -14,12 +14,12 @@ export async function generateMetadata({ params }: Readonly<{ params: Promise<{ 
     };
   }
   return {
-    title: `Star Voting - ${category.name} 2025`,
-    description: `Star Voting untuk Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
+    title: `Profil Finalis - ${category.name} 2025`,
+    description: `Profil Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
   };
 }
 
-export default async function VotingPage({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
+export default async function ProfilFinalisPage({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
   const { category: catt } = await params;
 
   if (categories.every(cat => cat.slug !== catt)) {
@@ -27,20 +27,20 @@ export default async function VotingPage({ params }: Readonly<{ params: Promise<
   }
 
   const category = categories.find(cat => cat.slug === catt);
-  const finalists = category?.list || [];
+  const finalists = category?.finalist || [];
 
   return (
     <main className="min-h-screen overflow-hidden relative">
       <BG />
       <div className='w-full h-[100lvh] fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
       <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/dewasa.webp)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)] text-sm">
-        <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Star Voting {category?.name} 2025</typography.h1>
-        <p className='max-w-3xl mt-4 text-[#ddd]'>
+        <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Profil Finalis {category?.name} 2025</typography.h1>
+        {/* <p className='max-w-3xl mt-4 text-[#ddd]'>
           STAR Voting memberi ruang bagi masyarakat untuk secara langsung memberi dukungan kepada para semifinalis favoritnya, dan turut andil dalam menentukan siapa yang layak melaju ke tahap Finalis. Melalui mekanisme ini, akan dipilih 1 pasang semifinalis dari masing-masing kategori (Rumaja dan Dewasa) yang memperoleh akumulasi voting tertinggi. Mereka akan melaju sebagai Finalis melalui jalur STAR VOTING, menjadi bagian dari Top 36 Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025.
           <br />
           <br />
           STAR Voting bersifat tidak memaksa, artinya masyarakat secara sukarela memberikan dukungan kepada semifinalis favoritnya. Setiap Rp2000,- akan memberikan 1 suara kepada semifinalis pilihan, berlaku kelipatan. STAR Voting dimulai pada tanggal <strong>29 Juni 2025 pukul 00.00 WIB</strong> dan berakhir pada tanggal <strong>11 Juli 2025 pukul 23.59 WIB.</strong>
-        </p>
+        </p> */}
       </div>
       <section className="md:px-20 md:py-16 relative px-8 py-12">
         <typography.h1 className='text-center md:mb-12 mb-8 text-white text-3xl md:text-5xl'>Pasanggiri Mojang Jajaka 2025 Mempersembahkan</typography.h1>
