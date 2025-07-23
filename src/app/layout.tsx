@@ -7,6 +7,7 @@ import { ScrollToTopButton } from '@/components/scroll-to-top';
 import Lenis from '@/components/lenis';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { Toaster } from '@/components/ui/sonner';
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +24,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      {/* Google Analytics Tag */}
+      <Script
+        async
+        strategy='afterInteractive'
+        src="https://www.googletagmanager.com/gtag/js?id=G-SW6MQS7GD4"
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SW6MQS7GD4');
+          `,
+        }}
+      />
       <body
         className={`${montserrat.variable} ${inter.variable} antialiased font-inter`}
       >
