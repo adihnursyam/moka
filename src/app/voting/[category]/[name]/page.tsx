@@ -2,8 +2,10 @@ import BG from '@/components/next-image-bg';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { categories } from '@/lib/data';
+import ImageMaskFade from './image-mask';
 import Image from 'next/image';
 import Link from 'next/link';
+// import Link from 'next/link';
 
 export async function generateMetadata({
   params,
@@ -20,15 +22,15 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Vote ${name} - ${category.name} 2025`,
+    title: `Profil ${name} - ${category.name} 2025`,
     openGraph: {
       images: [`/peserta/${category.abrev}/${name_.split(" ").join("_")}/default.png`],
     },
-    description: `STAR Vote untuk peserta ${name} pada kategori ${category.name} di Star Voting Pasanggiri Mojang Jajaka Kabupaten Garut 2025.`,
+    description: `Profil finalis ${name} pada kategori ${category.name} di Pasanggiri Mojang Jajaka Kabupaten Garut 2025.`,
   };
 }
 
-export default async function DetailVotingPage({
+export default async function DetailProfilPage({
   params,
 }: Readonly<{
   params: Promise<{ name: string, category: string }>;
@@ -41,7 +43,7 @@ export default async function DetailVotingPage({
     return <main className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8 font-montserrat">Kategori tidak ditemukan</main>;
   }
 
-  const finalist = category.list.find(f => f.name.split(" ").join("-").toLowerCase() === name);
+  const finalist = category.finalist.find(f => f.name.split(" ").join("-").toLowerCase() === name);
 
   if (!finalist) {
     return <main className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8 font-montserrat">Peserta tidak ditemukan</main>;
@@ -55,14 +57,15 @@ export default async function DetailVotingPage({
       <div className='w-full h-[100lvh] pointer-events-none z-0 bg-radial-[at_50%_50%] fixed top-0 left-0 from-transparent to-90% to-dgb-800' />
       <div className="relative z-1 bg-white/50 backdrop-blur-[2px] md:h-3/4 min-h-[80vh] mx-6 rounded-3xl top-28 md:top-28 md:mx-20 md:rounded-[64px] overflow-hidden mb-36">
         <div className="absolute top-0 -z-1 bg-linear-120 from-black/50 via-black/50 to-fb-300/40 via-60% w-full h-full"></div>
-        <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full space-y-4 max-sm:pb-8">
-          <Image src={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-84 max-sm:max-w-64 mx-auto' />
-          <div className="text-white md:max-w-lg lg:max-w-xl space-y-2 md:space-y-4 mt-auto md:pb-20 max-sm:px-6 max-sm:text-sm">
-            <div className="flex gap-6 items-center">
+        <div className="md:flex md:flex-row-reverse justify-end md:pl-20 lg:pl-24 max-h-full max-sm:space-y-4 max-sm:pb-8">
+          {/* <Image src={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default.png`} alt='' width={400} height={1000} blurDataURL={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default_blur.webp`} className='object-top object-cover md:max-h-full max-h-84 max-sm:max-w-64 mx-auto' /> */}
+          <ImageMaskFade src={`/finalis/${category?.abrev}/${category?.abrev}${finalist.no}.webp`} alt='' width={400} height={1000} className='object-top md:h-max max-sm:max-h-84 md:mx-auto' />
+          <div className="text-white w-full md:max-w-lg lg:max-w-xl space-y-2 md:space-y-4 mt-auto md:pb-20 max-sm:px-6 max-sm:text-sm relative z-1">
+            <div className="flex gap-6 items-center w-full justify-between">
               <div className="flex flex-col justify-center gap-1.5">
                 <div className="">
                   <p className="font-montserrat text-[#DCDCDC] capitalize">{category.name}</p>
-                  <h2 className="capitalize md:text-5xl text-xl font-semibold mb-1.5">{name.split("-").join(" ")}</h2>
+                  <h2 className="capitalize md:text-5xl text-xl font-semibold mb-1.5">{name.split("-").slice(0, 2).join(" ")}</h2>
                   <Separator className='bg-white'/>
                 </div>
                 <p className="text-center mt-1.5 md:hidden">Pindai QR untuk Vote</p>
@@ -70,7 +73,7 @@ export default async function DetailVotingPage({
                 <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md md:hidden' href={qrPath} download={`qr-${finalist.name}`}>Unduh QR</Link>
               </div>
               <div className="">
-                <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-32 h-32 border border-dgb md:hidden' />
+                <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-32 h-32 border border-dgb md:hidden aspect-square' />
                 <p className="w-full text-center md:hidden">1 poin: Rp2000,-</p>
                 <p className="w-full text-center md:hidden">(berlaku kelipatan)</p>
               </div>
@@ -86,7 +89,7 @@ export default async function DetailVotingPage({
               </ScrollArea>
               <div className="min-w-40 flex flex-col items-center justify-center gap-2 max-sm:hidden">
                 <p className="">Pindai QR untuk Vote</p>
-                <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-40 h-40 border border-dgb' />
+                <Image height={200} width={200} alt='qr-code' src={qrPath} className='bg-white rounded-2xl w-40 h-40 border border-dgb aspect-square' />
                 <Link className='w-full bg-fb font-medium px-6 text-center py-1.5 rounded-md mt-2' href={qrPath} download={`qr-${finalist.name}`}>Unduh</Link>
               </div>
             </div>

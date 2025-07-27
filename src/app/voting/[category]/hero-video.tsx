@@ -22,9 +22,9 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ children, fallbackImageSrc, video
 
     const handleCanPlayThrough = () => {
       // console.log('Video canplaythrough event fired. Setting videoReady to true.');
-      setVideoReady(true);
+      setVideoReady(false);
       setTimeout(() => {
-        setShowFallback(false);
+        setShowFallback(true);
       }, 300); // Give a slight delay for smooth visual transition
     };
 

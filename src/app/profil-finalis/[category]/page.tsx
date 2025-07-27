@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import BG from '@/components/next-image-bg'; // Assuming this is for your main page background
 import HeroVideo from './hero-video';
+import HeroTextWrapper from './hero-text';
 
 // Make sure your FinalisCard component is also properly typed for TSX
 interface FinalisCardProps {
@@ -78,10 +79,12 @@ export default async function ProfilFinalisPage({ params }: Readonly<{ params: P
         videoWebMSrc={videoData.webm}
         videoMp4Src={videoData.mp4}
       >
-        <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Profil Finalis {category?.name} 2025</typography.h1>
+        <HeroTextWrapper>
+          <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Profil Finalis {category?.name} 2025</typography.h1>
+        </HeroTextWrapper>
       </HeroVideo>
 
-      <section className="md:px-20 md:py-16 relative px-8 py-12">
+      <section className="md:px-20 md:py-20 relative px-8 py-8">
         <typography.h1 className='text-center md:mb-12 mb-8 text-white text-3xl md:text-5xl'>Pasanggiri Mojang Jajaka 2025 Mempersembahkan</typography.h1>
         <div className="grid md:gap-6 gap-3 grid-cols-1 md:grid-cols-3">
           {finalists.map((finalist) => (

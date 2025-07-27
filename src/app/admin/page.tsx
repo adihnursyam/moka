@@ -15,9 +15,9 @@ export default async function ProtectedPage() {
   const cookieStore = await cookies(); // Get the cookie store on the server
   const hasAccessCookie = cookieStore.get(process.env.PASSWORD_COOKIE_NAME || 'hasPageAccess');
   const hasAccess = hasAccessCookie?.value === 'true';
-  const semifinalists_ = await unstable_cache(
+  const finalist_ = await unstable_cache(
     async () => {
-      return prisma.semifinalist.findMany({
+      return prisma.finalist.findMany({
         orderBy: {
           name: 'asc', // Sort by name in ascending order
         },
@@ -30,36 +30,36 @@ export default async function ProtectedPage() {
         },
       });
     },
-    ['semifinalists'],
+    ['finalists'],
     {
-      tags: ['semifinalist-admin'], // Cache tag for revalidation
+      tags: ['finalist-admin'], // Cache tag for revalidation
       revalidate: 5 * 60, // Revalidate every 5 mins
     }
   )();
 
-  const semifinalists = semifinalists_.map((semifinalist) => {
-    semifinalist.votePerDate = semifinalist.votePerDate.map((date) => ({
+  const finalists = finalist_.map((finalist) => {
+    finalist.votePerDate = finalist.votePerDate.map((date) => ({
       ...date,
       date: new Date(date.date), // Ensure date is a Date object
     }));
-    return semifinalist;
+    return finalist;
   });
 
   // Group semifinalists by category
-  const categories = semifinalists.reduce((acc, semifinalist) => {
-    const category = acc.find(cat => cat.abrev === semifinalist.category);
+  const categories = finalists.reduce((acc, finalist) => {
+    const category = acc.find(cat => cat.abrev === finalist.category);
     if (category) {
-      category.list.push(semifinalist);
+      category.list.push(finalist);
     } else {
       acc.push({
-        abrev: semifinalist.category,
-        list: [semifinalist],
+        abrev: finalist.category,
+        list: [finalist],
       });
     }
     return acc;
   }, [] as {
-    abrev: typeof semifinalists[0]['category'];
-    list: typeof semifinalists;
+    abrev: typeof finalists[0]['category'];
+    list: typeof finalists;
   }[]);
 
   if (!hasAccess) {

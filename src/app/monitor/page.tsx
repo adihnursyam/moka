@@ -14,9 +14,9 @@ export default async function MonitorPage() {
     return <PasswordPrompt />;
   }
 
-  const semifinalists = await unstable_cache(
+  const finalists = await unstable_cache(
     async () => {
-      return prisma.semifinalist.findMany({
+      return prisma.finalist.findMany({
         orderBy: {
           name: 'asc', // Sort by name in ascending order
         },
@@ -29,27 +29,27 @@ export default async function MonitorPage() {
         },
       });
     },
-    ['semifinalists'],
+    ['finalist'],
     {
-      tags: ['semifinalist-monitor'], // Cache tag for revalidation
+      tags: ['finalist-monitor'], // Cache tag for revalidation
       revalidate: 5 * 60, // Revalidate every 5 mins
     }
   )();
 
-  const categories = semifinalists.reduce((acc, semifinalist) => {
-    const category = acc.find(cat => cat.abrev === semifinalist.category);
+  const categories = finalists.reduce((acc, finalist) => {
+    const category = acc.find(cat => cat.abrev === finalist.category);
     if (category) {
-      category.list.push(semifinalist);
+      category.list.push(finalist);
     } else {
       acc.push({
-        abrev: semifinalist.category,
-        list: [semifinalist],
+        abrev: finalist.category,
+        list: [finalist],
       });
     }
     return acc;
   }, [] as {
-    abrev: typeof semifinalists[0]['category'];
-    list: typeof semifinalists;
+    abrev: typeof finalists[0]['category'];
+    list: typeof finalists;
   }[]);
 
   return (

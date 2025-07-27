@@ -974,10 +974,12 @@ export const rangkaianKegiatan: {
   {
     label: 'Semifinal',
     desc: 'Pembekalan materi umum kepada peserta dari pemateri pilihan. Berdasarkan nilai keaktifan beserta hasil interview peserta akan kembali diseleksi untuk kemudian diambil 44 calon Mojang dan Jajaka tercocok.',
+    isNew: true,
   },
   {
     label: 'Karantina',
-    desc: 'Proses pembinaan karakter agar dapat menanamkan nilai-nilai Ki sunda, serta memberikan materi berkenaan dengan Pariwisata, Kebudayaan, Ekonomi Kreatif, Public Speaking, Personal Branding ',
+    desc: 'Proses pembinaan karakter agar dapat menanamkan nilai-nilai Ki sunda, serta memberikan materi berkenaan dengan Pariwisata, Kebudayaan, Ekonomi Kreatif, Public Speaking, Personal Branding',
+    isNew: true,
   },
   {
     label: 'Unjuk Kabisa',

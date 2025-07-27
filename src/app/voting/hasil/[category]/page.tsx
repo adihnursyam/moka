@@ -5,7 +5,7 @@ import { chartConfig } from './chart';
 import { useMediaQuery } from 'usehooks-ts';
 import { startTransition, use, useEffect, useState } from 'react';
 import { categories } from '@/lib/data';
-import { getSemifinalistData } from './action';
+import { getFinalistsData } from './action';
 import BG from '@/components/next-image-bg';
 
 export default function HasilPage({
@@ -20,7 +20,7 @@ export default function HasilPage({
   useEffect(() => {
     startTransition(async () => {
       try {
-        const data = await getSemifinalistData(category?.abrev || '');
+        const data = await getFinalistsData(category?.abrev || '');
         setChartData(data.sort((a, b) => b.vote - a.vote));
       } catch (error) {
         console.error("Error fetching semifinalist data:", error);

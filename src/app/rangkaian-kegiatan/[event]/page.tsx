@@ -35,7 +35,8 @@ export default function Page({
 
   return (
     <main className="relative text-white max-sm:overflow-x-hidden">
-      <BG src='/art-center-1.webp' />
+      <BG src='/finalis/hero.webp' />
+      <div className='w-full h-[100lvh] fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
       <section className='relative h-[90vh] text-white font-montserrat'>
         <Carousel setApi={setApi} opts={{
           loop: true,
@@ -45,7 +46,7 @@ export default function Page({
           <CarouselContent className="relative w-screen h-[90vh] ml-0 cursor-grab active:cursor-grabbing">
             {Array.from({ length: kegiatan?.isNew ? 10 : 6 }, (_, i) => (
               <CarouselItem key={"rk-" + event + "-" + i} className="relative w-screen h-full pl-0">
-                <Image src={'/rangkaian-kegiatan/' + event + "/" + (i + 1) + ".webp"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover' />
+                <Image src={'/rangkaian-kegiatan/' + event + "/" + (i + 1) + ".webp"} alt='image' width={1000} height={1000} className='w-screen h-full object-cover' priority />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -67,7 +68,7 @@ export default function Page({
         </div>
       </section>
 
-      <section className="md:px-20 md:py-20 px-6 py-8">
+      <section className="md:px-20 md:py-20 px-6 py-8 isolate">
         <h2 className="uppercase font-semibold text-3xl md:text-6xl font-montserrat mb-8 md:mb-16 md:place-self-center">Sponsor Kami</h2>
         <div className="w-full flex flex-wrap gap-6 md:gap-12 justify-center">
           {logoNames.map((sponsor, index) => (

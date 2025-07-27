@@ -29,9 +29,9 @@ export default function AdminClient({ categories }: {
     })[];
   }[]
 }) {
-  // Create an array of dates from June 29, 2025 to July 11, 2025
+
   const dates = Array.from({ length: 13 }, (_, index) => {
-    const date = new Date(2025, 5, 29); // Month is 0-indexed (5 = June)
+    const date = new Date(2025, 6, 28); // Month is 0-indexed (5 = June)
     date.setDate(date.getDate() + index);
     return date;
   });

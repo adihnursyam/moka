@@ -1,8 +1,36 @@
+// app/profil/[category]/page.tsx
 import { categories } from '@/lib/data';
 import { typography } from '@/components/custom/typography';
 import Link from 'next/link';
 import Image from 'next/image';
-import BG from '@/components/next-image-bg';
+import BG from '@/components/next-image-bg'; // Assuming this is for your main page background
+import HeroVideo from './hero-video';
+import HeroTextWrapper from './hero-text';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+
+// Make sure your FinalisCard component is also properly typed for TSX
+interface FinalisCardProps {
+  src: string;
+  name: string;
+  no: string;
+  catt: string;
+  href: string;
+}
+
+// Ensure category and finalist types are defined somewhere, e.g., in '@/lib/data'
+interface Category {
+  slug: string;
+  name: string;
+  abrev: string;
+  finalist: Finalist[];
+  videoPath?: { webm: string; mp4: string; fallbackImage: string }; // Add video paths
+}
+
+interface Finalist {
+  no: string;
+  name: string;
+}
+
 
 export async function generateMetadata({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
   const { category: catt } = await params;
@@ -14,64 +42,111 @@ export async function generateMetadata({ params }: Readonly<{ params: Promise<{ 
     };
   }
   return {
-    title: `Star Voting - ${category.name} 2025`,
-    description: `Star Voting untuk Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
+    title: `Profil Finalis - ${category.name} 2025`,
+    description: `Profil Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
   };
 }
 
-export default async function VotingPage({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
+export default async function VotingKameumeutPage({ params }: Readonly<{ params: Promise<{ category: string }> }>) {
   const { category: catt } = await params;
 
-  if (categories.every(cat => cat.slug !== catt)) {
-    return <main className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8 font-montserrat">Kategori tidak ditemukan</main>;
+  // Type guard for categories array if not already typed
+  const typedCategories: Category[] = categories as Category[];
+
+  if (typedCategories.every(cat => cat.slug !== catt)) {
+    return (
+      <main className="bg-cover min-h-screen bg-center bg-[url(/gf-1.png)] grid place-items-center md:px-20 py-16 px-8 font-montserrat">
+        Kategori tidak ditemukan
+      </main>
+    );
   }
 
-  const category = categories.find(cat => cat.slug === catt);
-  const finalists = category?.list || [];
+  const category = typedCategories.find(cat => cat.slug === catt);
+  const finalists = category?.finalist || [];
+
+  const videoData = {
+    webm: '/finalis/hero.webm', // Provide your default video path
+    mp4: '/videos/default-background.mp4',   // Provide your default video path
+    fallbackImage: '/finalis/hero.webp', // Use your existing fallback image
+  };
 
   return (
     <main className="min-h-screen overflow-hidden relative">
-      <BG />
+      <BG /> {/* Your existing global background component */}
       <div className='w-full h-[100lvh] fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
-      <div className="w-full h-[75lvh] bg-center bg-cover bg-no-repeat bg-[url(/dewasa.webp)] relative flex justify-center flex-col text-white md:px-20 px-8 shadow-[inset_0_0_0_50vw_rgba(0,0,0,0.5)] text-sm">
-        <typography.h1 className='capitalize max-w-xl text-3xl md:text-5xl'>Star Voting {category?.name} 2025</typography.h1>
-        <p className='max-w-3xl mt-4 text-[#ddd]'>
-          STAR Voting memberi ruang bagi masyarakat untuk secara langsung memberi dukungan kepada para semifinalis favoritnya, dan turut andil dalam menentukan siapa yang layak melaju ke tahap Finalis. Melalui mekanisme ini, akan dipilih 1 pasang semifinalis dari masing-masing kategori (Rumaja dan Dewasa) yang memperoleh akumulasi voting tertinggi. Mereka akan melaju sebagai Finalis melalui jalur STAR VOTING, menjadi bagian dari Top 36 Finalis Pasanggiri Mojang Jajaka Kabupaten Garut 2025.
-          <br />
-          <br />
-          STAR Voting bersifat tidak memaksa, artinya masyarakat secara sukarela memberikan dukungan kepada semifinalis favoritnya. Setiap Rp2000,- akan memberikan 1 suara kepada semifinalis pilihan, berlaku kelipatan. STAR Voting dimulai pada tanggal <strong>29 Juni 2025 pukul 00.00 WIB</strong> dan berakhir pada tanggal <strong>11 Juli 2025 pukul 23.59 WIB.</strong>
-        </p>
-      </div>
-      <section className="md:px-20 md:py-16 relative px-8 py-12">
+      {/* Replace the old div with HeroVideo component */}
+      <HeroVideo
+        fallbackImageSrc={videoData.fallbackImage}
+        videoWebMSrc={videoData.webm}
+        videoMp4Src={videoData.mp4}
+      >
+        <HeroTextWrapper>
+          <typography.h1 className='capitalize max-w-2xl text-3xl md:text-5xl'>Voting Kameumeut {category?.name} 2025</typography.h1>
+          <div className='max-w-3xl mt-4 text-[#ddd] text-justify'>
+            <strong className="text-fb">Voting Kameumeut</strong> adalah bentuk apresiasi dan partisipasi publik dalam rangkaian Pasanggiri Mojang Jajaka Kabupaten Garut 2025. Melalui voting ini, masyarakat dapat memberikan dukungan langsung kepada <strong className="text-fb">Finalis Mojang Jajaka Kab Garut 2025</strong> yang paling dikagumi, baik dari segi kepribadian, potensi, maupun keterlibatannya dalam pelestarian pariwisata, kebudayaan dan ekonomi kreatif. <br />
+            <br />
+            Voting ini akan menentukan <strong className="text-fb">1 pasang Finalis dari masing-masing kategori (Rumaja dan Dewasa)</strong> yang meraih suara terbanyak untuk dianugerahi gelar <strong className="text-fb">Mojang Jajaka Kameumeut 2025</strong> sebuah gelar kehormatan sebagai representasi favorit masyarakat Garut.
+            <br />
+            <br />
+            <Table className='w-min'>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    📅 Periode Voting
+                  </TableCell>
+                  <TableCell>
+                    : <strong className="text-fb">28 Juli – 9 Agustus 2025</strong>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    💸 Biaya Voting
+                  </TableCell>
+                  <TableCell>
+                    : <strong className="text-fb">1 Vote = Rp 2.000,-</strong> <span className="italic">(berlaku kelipatan)</span>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+            <br />
+            Tunjukkan dukunganmu, jadilah bagian dari sejarah Pasanggiri 2025, dan bantu favoritmu meraih gelar Mojang Jajaka Kameumeut pilihan masyarakat!
+          </div>
+        </HeroTextWrapper>
+      </HeroVideo>
+
+      <section className="md:px-20 md:py-20 relative px-8 py-8">
         <typography.h1 className='text-center md:mb-12 mb-8 text-white text-3xl md:text-5xl'>Pasanggiri Mojang Jajaka 2025 Mempersembahkan</typography.h1>
         <div className="grid md:gap-6 gap-3 grid-cols-1 md:grid-cols-3">
           {finalists.map((finalist) => (
-            <Link key={'voting-grid-' + finalist.name} href={category?.slug + "/" + finalist.name.split(" ").join("-").toLowerCase()} className="bg-[url(/feed-bg-cutted.jpg)] w-full aspect-square object-cover bg-cover rounded-2xl overflow-hidden relative flex flex-col group hover:shadow-[inset_0_0_0_500px] hover:shadow-dgb/50 transition-all duration-400">
-              <div className=" w-full h-[calc(100%-24px)] flex overflow-hidden">
-                <Image src={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default.png`} alt='' width={300} height={500} className='w-3/5 object-cover object-top mt-4 group-hover:scale-105 transition-all duration-500' priority blurDataURL={`/peserta/${category?.abrev}/${finalist.name.split(" ").join("_")}/default_blur.webp`} />
-                <div className="w-2/5 h-full flex flex-col">
-                  <div className="pr-10 flex justify-end">
-                    <div style={{
-                      clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 90%, 0 100%)',
-                      textOrientation: 'upright',
-                      writingMode: 'vertical-rl',
-                    }} className="bg-fb-400 w-10 h-32 flex items-center text-sm font-semibold pt-2">{`${category?.abrev}-${String(finalist.no).padStart(2, "0")}`}</div>
-                  </div>
-
-                  <div className="flex items-center md:pl-4 text-black flex-1 font-medium">
-                    <p className="font-montserrat pr-6 group-hover:text-white transition duration-500 font-semibold leading-4">{finalist.name}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="h-6 w-full bg-dgb-300 px-4 text-[10px] flex items-center gap-10 justify-center text-white">
-                <p className="">mokagarut</p>
-                <p className="">mokagarut</p>
-                <p className="">mokagarut</p>
-              </div>
-            </Link>
+            <FinalisCard key={finalist.no + finalist.name + "-card"} name={finalist.name} catt={category?.abrev ?? ""} no={finalist.no} href={category?.slug + "/" + finalist.name.split(" ").join("-").toLowerCase()} src={`/finalis/${category?.abrev}/${category?.abrev}${finalist.no}.webp`} />
           ))}
         </div>
       </section>
     </main>
-  )
+  );
+}
+
+function FinalisCard({ src, name, catt, no, href }: FinalisCardProps) { // Use the defined interface
+  return (
+    <Link href={href} className="aspect-[3/3] relative rounded-md overflow-hidden group">
+      <Image src={src} alt={name} className='object-cover w-full h-full object-center transition-all group-hover:scale-102 duration-500' width={300} height={400} priority blurDataURL={src.replace(".jpg", "_blur.webp")} />
+      <div className="absolute bottom-0 w-full text-white transition-all duration-500 group-hover:opacity-0">
+        <div className="leading-tight p-6 bg-gradient-to-t from-black/90 to-transparent z-0">
+          <div className="flex justify-between font-bold text-2xl">
+            <p className="">{catt}</p>
+            <p className="">{name.split(" ")[0]}</p>
+          </div>
+          <div className="flex justify-between text-2xl">
+            <p className="">{no}</p>
+            <p className="">{name.split(" ")[1]}</p>
+          </div>
+        </div>
+        <div className="h-6 w-full bg-gradient-to-r from-fb to-fb via-fb-200 px-4 text-[10px] flex items-center gap-10 justify-center text-black z-10">
+          <p className="">mokagarut</p>
+          <p className="">#nyundaturnyakola</p>
+          <p className="">#kayakarya</p>
+        </div>
+      </div>
+    </Link>
+  );
 }

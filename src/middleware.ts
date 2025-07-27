@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // The deadline remains the same
-const votingEndTime = new Date('2025-07-11T23:59:59+07:00');
+const votingEndTime = new Date('2025-08-09T23:59:59+07:00');
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

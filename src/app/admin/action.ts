@@ -31,3 +31,27 @@ export const updateSemifinalistIncome = actionClient
       throw new Error('Failed to update finalist data');
     }
   });
+
+export const updateFinalistIncome = actionClient
+  .inputSchema(incomeSubmissionSchema)
+  .action(async ({ parsedInput: { id, income } }) => {
+    const data = await prisma.incomePerDate.update({
+      where: { id },
+      data: {
+        income,
+      },
+    });
+
+    revalidatePath('/admin');
+    revalidatePath('/monitor');
+    revalidatePath('/voting/hasil/mojang-rumaja');
+    revalidatePath('/voting/hasil/jajaka-rumaja');
+    revalidatePath('/voting/hasil/mojang-dewasa');
+    revalidatePath('/voting/hasil/jajaka-dewasa');
+    revalidateTag('finalist-admin');
+    revalidateTag('finalist-monitor');
+
+    if (!data) {
+      throw new Error('Failed to update finalist data');
+    }
+  });

@@ -3,14 +3,14 @@
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import { useAction } from "next-safe-action/hooks";
-import { updateSemifinalistIncome } from './action';
+import { updateFinalistIncome } from './action';
 import { toast } from 'sonner';
 import { TableCell } from '@/components/ui/table';
 
 export default function InputForm({ name, id, value, total }: { name: string, id: string, value: number, total: number }) {
   const [income, setInput] = useState<number>(value);
 
-  const { execute } = useAction(updateSemifinalistIncome, {
+  const { execute } = useAction(updateFinalistIncome, {
     onSuccess: () => {
       toast.success(`Vote ${name} berhasil diperbarui!`);
     },
