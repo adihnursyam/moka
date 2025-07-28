@@ -43,12 +43,12 @@ export default function AboutUs() {
       <Image src='/hero-about.webp' alt='' width='1920' height='768' className="z-0 isolate w-full h-[75vh] relative object-cover object-center opacity-40 top-0" />
       <div className="absolute top-0 left-0 w-full h-[75vh] bg-linear-to-br from-dgb-800 via-dgb-600/60 via-65% to-95% to-fb-300/50 grid place-items-center">
         {/* <div className="absolute top-0 left-0 w-full h-[75vh] bg-black/20 grid place-items-center" /> */}
-        <typography.h1 className='max-w-[calc(16*24px)] text-white md:hidden'>To Get To Know Us, Come and Meet Us</typography.h1>
+        <typography.h1 className='max-w-[calc(16*24px)] text-white md:hidden animate-fade-in'>To Get To Know Us, Come and Meet Us</typography.h1>
       </div>
 
       <section id='visi-misi' className="relative w-full md:h-screen max-sm:bg-dgb-50 bg-[url(/gf-1.webp)]">
         {/* To get to know us ... */}
-        <div className="flex flex-col items-center w-full relative gap-12 -translate-y-3/4 z-2 max-sm:hidden">
+        <div className="flex flex-col items-center w-full relative gap-12 -translate-y-3/4 z-2 max-sm:hidden animate-fade-in">
           <typography.h1 className='max-w-[calc(16*24px)] text-white'>To Get To Know Us, Come and Meet Us</typography.h1>
           <Image src='/gf-about.webp' alt='' width='1080' height='720' className='max-w-4xl w-[80vw] rounded-l-full rounded-br-full' />
         </div>

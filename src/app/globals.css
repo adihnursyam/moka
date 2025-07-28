@@ -68,6 +68,7 @@
   --color-fb-800: rgba(51, 33, 8, 1);
   --color-fb-900: rgba(25, 16, 4, 1);
   /* --color-muted: rgba(112, 112, 112, 1); */
+  --animate-fade-in: fade-in 300ms ease-in-out;
 }
 
 :root {
@@ -153,5 +154,14 @@ h1 {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

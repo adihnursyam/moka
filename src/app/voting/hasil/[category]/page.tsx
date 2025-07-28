@@ -37,7 +37,7 @@ export default function HasilPage({
     <main className="min-h-screen overflow-hidden relative">
       <BG />
       <div className='w-full h-[100lvh] pointer-events-none fixed top-0 left-0 z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800' />
-      <h2 className="uppercase font-semibold text-2xl md:text-5xl font-montserrat mb-4 text-center mt-24 md:mt-32 text-white isolate md:max-w-lg max-w-3/5 mx-auto">Hasil Voting {category.name}</h2>
+      <h2 className="uppercase font-semibold text-2xl md:text-5xl font-montserrat mb-4 text-center mt-24 md:mt-32 text-white isolate md:max-w-lg max-w-3/5 mx-auto animate-fade-in">Hasil Voting Kameumeut {category.name}</h2>
       <section id='' className='px-6 py-4'>
         <ChartContainer config={chartConfig} className="w-full h-[70vh]">
           <BarChart accessibilityLayer data={chartData} layout='vertical' margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>

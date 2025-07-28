@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Readonly<{ params: Promise<{ 
   }
   return {
     title: `Hasil Voting - ${category.name} 2025`,
-    description: `Hasil STAR Voting untuk Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
+    description: `Hasil Voting Mojang Jajaka Kameumeut Pasanggiri Mojang Jajaka Kabupaten Garut 2025 pada kategori ${category.name}.`,
   };
 }
 
