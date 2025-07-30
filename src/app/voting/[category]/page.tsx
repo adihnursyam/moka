@@ -8,7 +8,6 @@ import HeroVideo from './hero-video';
 import HeroTextWrapper from './hero-text';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
-// Make sure your FinalisCard component is also properly typed for TSX
 interface FinalisCardProps {
   src: string;
   name: string;
@@ -17,13 +16,12 @@ interface FinalisCardProps {
   href: string;
 }
 
-// Ensure category and finalist types are defined somewhere, e.g., in '@/lib/data'
 interface Category {
   slug: string;
   name: string;
   abrev: string;
   finalist: Finalist[];
-  videoPath?: { webm: string; mp4: string; fallbackImage: string }; // Add video paths
+  videoPath?: { webm: string; mp4: string; fallbackImage: string };
 }
 
 interface Finalist {
@@ -65,16 +63,16 @@ export default async function VotingKameumeutPage({ params }: Readonly<{ params:
   const finalists = category?.finalist || [];
 
   const videoData = {
-    webm: '/finalis/hero.webm', // Provide your default video path
-    mp4: '/videos/default-background.mp4',   // Provide your default video path
-    fallbackImage: '/finalis/hero.webp', // Use your existing fallback image
+    webm: '/finalis/hero.webm',
+    mp4: '/videos/default-background.mp4',
+    fallbackImage: '/finalis/hero.webp',
   };
 
   return (
     <main className="min-h-screen overflow-hidden relative">
-      <BG /> {/* Your existing global background component */}
+      <BG />
       <div className='w-full h-[100lvh] fixed pointer-events-none z-0 bg-radial-[at_50%_50%] from-transparent to-90% to-dgb-800 backdrop-blur-sm' />
-      {/* Replace the old div with HeroVideo component */}
+
       <HeroVideo
         fallbackImageSrc={videoData.fallbackImage}
         videoWebMSrc={videoData.webm}
@@ -126,7 +124,7 @@ export default async function VotingKameumeutPage({ params }: Readonly<{ params:
   );
 }
 
-function FinalisCard({ src, name, catt, no, href }: FinalisCardProps) { // Use the defined interface
+function FinalisCard({ src, name, catt, no, href }: FinalisCardProps) {
   return (
     <Link href={href} className="aspect-[3/3] relative rounded-md overflow-hidden group">
       <Image src={src} alt={name} className='object-cover w-full h-full object-center transition-all group-hover:scale-102 duration-500' width={300} height={400} priority blurDataURL={src.replace(".jpg", "_blur.webp")} />

@@ -1,4 +1,3 @@
-// components/HeroVideo.tsx
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -7,8 +6,8 @@ import { motion, AnimatePresence } from 'motion/react';
 
 interface HeroVideoProps {
   children: React.ReactNode;
-  fallbackImageSrc: string; // Add prop for dynamic fallback image
-  videoWebMSrc: string;    // Add prop for video source paths
+  fallbackImageSrc: string;
+  videoWebMSrc: string;
   videoMp4Src: string;
 }
 
@@ -22,9 +21,9 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ children, fallbackImageSrc, video
 
     const handleCanPlayThrough = () => {
       // console.log('Video canplaythrough event fired. Setting videoReady to true.');
-      setVideoReady(false);
+      setVideoReady(true);
       setTimeout(() => {
-        setShowFallback(true);
+        setShowFallback(false);
       }, 300); // Give a slight delay for smooth visual transition
     };
 
