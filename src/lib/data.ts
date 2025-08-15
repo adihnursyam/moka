@@ -984,14 +984,17 @@ export const rangkaianKegiatan: {
   {
     label: 'Unjuk Kabisa',
     desc: 'Proses penilaian kemahiran/bakat para finalis dalam bentuk kesenian yang berkarakter sunda. Unjuk kabisa disaksikan oleh masyarakat umum dan dinilai langsung oleh dewan juri yang berkompeten dengan format penilaian tertulis',
+    isNew: true,
   },
   {
     label: 'Gala Dinner',
     desc: 'Peserta akan mengikuti acara makan malam dalam suasana elegan dan eksklusif sebagai bentuk penerapan pribadi yang beretika, menaati norma dan aturan tak tertulis yang berlaku.',
-  },
+    isNew: true,
+    },
   {
     label: 'Grand Final',
     desc: 'Puncak dari rangkaian Pasanggiri Mojang Jajaka Kabupaten Garut Tahun 2025. Finalis dengan nilai dan penampilan terbaik akan dipilih dan dinobatkan sebagai Mojang dan Jajaka Pinilih Kabupaten Garut tahun 2025 serta gelar kategori lainnya yang nantinya akan menjalankan tugas selama kurang lebih 1 tahun secara formal dan terstruktur sesuai dengan AD/ART dan atau aturan Paguyuban Mojang Jajaka Kabupaten Garut.',
+    isNew: true,
   },
 ];
 
