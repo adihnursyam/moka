@@ -1,7 +1,7 @@
 import BG from '@/components/next-image-bg';
 import PasswordPrompt from '@/components/PasswordPrompt';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { prisma } from '@/server/prisma';
+import { getFinalistsWithIncome } from '@/server/db/queries';
 import { unstable_cache } from 'next/cache';
 import { cookies } from 'next/headers';
 
@@ -16,18 +16,7 @@ export default async function MonitorPage() {
 
   const finalists = await unstable_cache(
     async () => {
-      return prisma.finalist.findMany({
-        orderBy: {
-          name: 'asc', // Sort by name in ascending order
-        },
-        include: {
-          votePerDate: {
-            orderBy: {
-              date: 'asc', // Sort by date in ascending order
-            },
-          },
-        },
-      });
+      return getFinalistsWithIncome();
     },
     ['finalist'],
     {

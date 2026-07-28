@@ -40,7 +40,7 @@ const fixtures: Candidate[] = [
   },
 ];
 
-function prismaFindManyShape(category?: Category): Candidate[] {
+function legacyFindManyShape(category?: Category): Candidate[] {
   return fixtures
     .filter((candidate) => category === undefined || candidate.category === category)
     .toSorted((a, b) => a.name.localeCompare(b.name))
@@ -74,16 +74,16 @@ function percentageShape(candidates: Candidate[]) {
   }));
 }
 
-test('candidate and child ordering matches Prisma callers', () => {
-  const result = prismaFindManyShape();
+test('candidate and child ordering matches legacy callers', () => {
+  const result = legacyFindManyShape();
 
   assert.deepEqual(result.map((candidate) => candidate.name), ['Alpha', 'Beta', 'Zeta']);
   assert.deepEqual(result[0].votePerDate.map((row) => row.id), ['income-early', 'income-late']);
 });
 
 test('empty relations remain empty arrays and category filters are exact', () => {
-  const all = prismaFindManyShape();
-  const jd = prismaFindManyShape('JD');
+  const all = legacyFindManyShape();
+  const jd = legacyFindManyShape('JD');
 
   assert.deepEqual(all.find((candidate) => candidate.id === 'candidate-z')?.votePerDate, []);
   assert.deepEqual(jd.map((candidate) => candidate.id), ['candidate-a', 'candidate-b']);
@@ -101,7 +101,7 @@ test('update changes exactly one row, returns updatedAt, and rejects missing ids
 });
 
 test('percentage output keeps the public nested-input projection', () => {
-  assert.deepEqual(percentageShape(prismaFindManyShape('JD')), [
+  assert.deepEqual(percentageShape(legacyFindManyShape('JD')), [
     { name: 'Alpha', vote: 80 },
     { name: 'Beta', vote: 20 },
   ]);

@@ -1,24 +1,19 @@
 'use server';
 
 import { actionClient } from '@/lib/safe-action';
+import { updateIncomeById } from '@/server/db/mutations';
 import { z } from 'zod';
-import { prisma } from '../../server/prisma';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 const incomeSubmissionSchema = z.object({
   id: z.string(),
-  income: z.number(),
+  income: z.number().int().min(-2_147_483_648).max(2_147_483_647),
 });
 
 export const updateSemifinalistIncome = actionClient
   .inputSchema(incomeSubmissionSchema)
   .action(async ({ parsedInput: { id, income } }) => {
-    const data = await prisma.incomePerDate.update({
-      where: { id },
-      data: {
-        income
-      },
-    });
+    const data = await updateIncomeById(id, income);
 
     revalidatePath('/admin');
     revalidatePath('/voting/hasil/mojang-rumaja');
@@ -35,12 +30,7 @@ export const updateSemifinalistIncome = actionClient
 export const updateFinalistIncome = actionClient
   .inputSchema(incomeSubmissionSchema)
   .action(async ({ parsedInput: { id, income } }) => {
-    const data = await prisma.incomePerDate.update({
-      where: { id },
-      data: {
-        income,
-      },
-    });
+    const data = await updateIncomeById(id, income);
 
     revalidatePath('/admin');
     revalidatePath('/monitor');

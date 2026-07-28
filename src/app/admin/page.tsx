@@ -1,7 +1,7 @@
 // app/your-protected-page/page.tsx
 import { cookies } from 'next/headers'; // This works only in Server Components/Server Actions/Route Handlers
 import PasswordPrompt from '@/components/PasswordPrompt'; // Adjust path if needed
-import { prisma } from '../../server/prisma';
+import { getFinalistsWithIncome } from '@/server/db/queries';
 import { unstable_cache } from 'next/cache';
 import BG from '@/components/next-image-bg';
 import AdminClient from './client';
@@ -17,18 +17,7 @@ export default async function ProtectedPage() {
   const hasAccess = hasAccessCookie?.value === 'true';
   const finalist_ = await unstable_cache(
     async () => {
-      return prisma.finalist.findMany({
-        orderBy: {
-          name: 'asc', // Sort by name in ascending order
-        },
-        include: {
-          votePerDate: {
-            orderBy: {
-              date: 'asc', // Sort by date in ascending order
-            },
-          },
-        },
-      });
+      return getFinalistsWithIncome();
     },
     ['finalists'],
     {
@@ -37,13 +26,7 @@ export default async function ProtectedPage() {
     }
   )();
 
-  const finalists = finalist_.map((finalist) => {
-    finalist.votePerDate = finalist.votePerDate.map((date) => ({
-      ...date,
-      date: new Date(date.date), // Ensure date is a Date object
-    }));
-    return finalist;
-  });
+  const finalists = finalist_;
 
   // Group semifinalists by category
   const categories = finalists.reduce((acc, finalist) => {

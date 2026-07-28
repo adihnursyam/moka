@@ -1,24 +1,11 @@
 'use server';
 
-import { prisma } from '@/server/prisma';
+import { getFinalistsWithIncome, getSemifinalistsWithIncome } from '@/server/db/queries';
+import { parseCategory } from '@/server/db/schema';
 import { unstable_cache } from 'next/cache';
 
 export async function getSemifinalistData(category: string) {
-  const data = await prisma.semifinalist.findMany({
-    where: {
-      category: category as 'JD' | 'MD' | 'MR' | 'JR', // Filter by the provided category
-    },
-    orderBy: {
-      name: 'asc', // Sort by name in ascending order
-    },
-    include: {
-      votePerDate: {
-        orderBy: {
-          date: 'asc', // Sort by date in ascending order
-        },
-      },
-    },
-  });
+  const data = await getSemifinalistsWithIncome(undefined, parseCategory(category));
 
   const totalIncomes = data.reduce((sum, item) => {
     return (
@@ -41,21 +28,7 @@ export async function getSemifinalistData(category: string) {
 }
 
 export const getFinalistsData = unstable_cache(async (category: string) => {
-  const data = await prisma.finalist.findMany({
-    where: {
-      category: category as 'JD' | 'MD' | 'MR' | 'JR', // Filter by the provided category
-    },
-    orderBy: {
-      name: 'asc', // Sort by name in ascending order
-    },
-    include: {
-      votePerDate: {
-        orderBy: {
-          date: 'asc', // Sort by date in ascending order
-        },
-      },
-    },
-  });
+  const data = await getFinalistsWithIncome(undefined, parseCategory(category));
 
   const totalIncomes = data.reduce((sum, item) => {
     return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table } from '@/components/ui/table';
-import { $Enums } from '@prisma/client';
+import { categoryValues, type Category, type FinalistWithIncome } from '@/server/db/schema';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import InputForm from './input-form';
 import { useState } from 'react';
@@ -9,24 +9,8 @@ import { useState } from 'react';
 export default function AdminClient({ categories }: {
   categories:
   {
-    abrev: $Enums.Category;
-    list: ({
-      votePerDate: {
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        date: Date;
-        semifinalistId: string | null;
-        finalistId: string | null;
-        income: number;
-      }[];
-    } & {
-      name: string;
-      id: string;
-      category: $Enums.Category;
-      createdAt: Date;
-      updatedAt: Date;
-    })[];
+    abrev: Category;
+    list: FinalistWithIncome[];
   }[]
 }) {
 
@@ -40,18 +24,18 @@ export default function AdminClient({ categories }: {
   const todayIndex = dates.findIndex(date => date.toDateString() === today.toDateString());
 
   const [date, setDate] = useState<Date>(dates[todayIndex >= 0 ? todayIndex : 0]);
-  const [catt, setCatt] = useState<$Enums.Category>(categories[0].abrev);
+  const [catt, setCatt] = useState<Category>(categories[0].abrev);
   const category = categories.find(cat => cat.abrev === catt) || categories[0];
 
   return (
     <>
       <div className="px-4 mb-4 flex gap-4 isolate">
-        <Select value={catt} onValueChange={(v) => setCatt(v as $Enums.Category)}>
+        <Select value={catt} onValueChange={(v) => setCatt(v as Category)}>
           <SelectTrigger>
             <SelectValue placeholder='Pilih Kategori' />
           </SelectTrigger>
           <SelectContent>
-            {Object.keys($Enums.Category).map(cattt => (
+            {categoryValues.map(cattt => (
               <SelectItem key={'select-element-' + cattt} value={cattt}>{cattt}</SelectItem>
             ))}
           </SelectContent>
