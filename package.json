@@ -7,7 +7,9 @@
     "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:db": "tsx --test src/server/db/**/*.test.ts scripts/**/*.test.ts",
+    "db:transfer": "tsx scripts/migrate-postgres-to-turso.ts"
   },
   "prisma": {
     "schema": "prisma/schema.prisma",
@@ -52,10 +54,13 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "pg": "^8.22.0",
     "prisma": "^6.10.1",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
