@@ -41,5 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 prisma/seed.ts
+.local-migration/
 
 generate_hash.js

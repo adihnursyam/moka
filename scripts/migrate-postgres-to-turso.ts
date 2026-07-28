@@ -1,7 +1,10 @@
 import 'dotenv/config';
 
 import { createHash } from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
 import process from 'node:process';
+import { pathToFileURL } from 'node:url';
 import { Client, type QueryResultRow } from 'pg';
 
 const categoryValues = ['JD', 'MD', 'JR', 'MR'] as const;
@@ -43,13 +46,39 @@ const expectedColumns: Record<SourceTable, Omit<ColumnDescription, 'table_name'>
   ],
 };
 
-function digestRows(rows: QueryResultRow[], columns: string[]) {
+export function digestRows(rows: QueryResultRow[], columns: string[]) {
   const hash = createHash('sha256');
-  for (const row of rows) {
+  const rowsById = rows.toSorted((a, b) => String(a.id).localeCompare(String(b.id)));
+  for (const row of rowsById) {
     hash.update(JSON.stringify(columns.map((column) => row[column] ?? null)));
     hash.update('\n');
   }
   return hash.digest('hex');
+}
+
+export function parseInspectArgs(args: string[]) {
+  if (args[0] !== '--inspect-source') {
+    throw new Error('Usage: npm run db:transfer -- --inspect-source [--report <path>]');
+  }
+  if (args.length === 1) {
+    return { reportPath: undefined };
+  }
+  if (args.length === 3 && args[1] === '--report' && args[2].trim() !== '') {
+    return { reportPath: args[2] };
+  }
+  throw new Error('Usage: npm run db:transfer -- --inspect-source [--report <path>]');
+}
+
+export function safeErrorDetails(error: unknown) {
+  return error instanceof Error
+    ? { name: error.name, code: 'code' in error ? String(error.code) : undefined }
+    : { name: 'UnknownError' };
+}
+
+export async function writeRedactedReport(reportPath: string, report: unknown) {
+  const absolutePath = resolve(reportPath);
+  await mkdir(dirname(absolutePath), { recursive: true });
+  await writeFile(absolutePath, `${JSON.stringify(report, null, 2)}\n`, { encoding: 'utf8', flag: 'w' });
 }
 
 function schemaMismatches(actual: ColumnDescription[]) {
@@ -66,7 +95,7 @@ function schemaMismatches(actual: ColumnDescription[]) {
   return mismatches;
 }
 
-async function inspectSource() {
+async function inspectSource(reportPath?: string) {
   const connectionString = process.env.SOURCE_DATABASE_URL;
   if (!connectionString) {
     throw new Error('SOURCE_DATABASE_URL is required');
@@ -152,6 +181,8 @@ async function inspectSource() {
       orphan_semifinalists: string;
       duplicate_finalist_names: string;
       duplicate_semifinalist_names: string;
+      duplicate_finalist_dates: string;
+      duplicate_semifinalist_dates: string;
     }>(`
       SELECT
         (
@@ -164,7 +195,17 @@ async function inspectSource() {
         (SELECT COUNT(*) FROM "IncomePerDate" i LEFT JOIN "Finalist" f ON f."id" = i."finalistId" WHERE i."finalistId" IS NOT NULL AND f."id" IS NULL)::text AS orphan_finalists,
         (SELECT COUNT(*) FROM "IncomePerDate" i LEFT JOIN "Semifinalist" s ON s."id" = i."semifinalistId" WHERE i."semifinalistId" IS NOT NULL AND s."id" IS NULL)::text AS orphan_semifinalists,
         (SELECT COUNT(*) FROM (SELECT "name" FROM "Finalist" GROUP BY "name" HAVING COUNT(*) > 1) d)::text AS duplicate_finalist_names,
-        (SELECT COUNT(*) FROM (SELECT "name" FROM "Semifinalist" GROUP BY "name" HAVING COUNT(*) > 1) d)::text AS duplicate_semifinalist_names
+        (SELECT COUNT(*) FROM (SELECT "name" FROM "Semifinalist" GROUP BY "name" HAVING COUNT(*) > 1) d)::text AS duplicate_semifinalist_names,
+        (SELECT COUNT(*) FROM (
+          SELECT "finalistId", "date" FROM "IncomePerDate"
+          WHERE "finalistId" IS NOT NULL
+          GROUP BY "finalistId", "date" HAVING COUNT(*) > 1
+        ) d)::text AS duplicate_finalist_dates,
+        (SELECT COUNT(*) FROM (
+          SELECT "semifinalistId", "date" FROM "IncomePerDate"
+          WHERE "semifinalistId" IS NOT NULL
+          GROUP BY "semifinalistId", "date" HAVING COUNT(*) > 1
+        ) d)::text AS duplicate_semifinalist_dates
     `, [categoryValues]);
 
     const finalistRows = await client.query(`
@@ -213,7 +254,12 @@ async function inspectSource() {
       },
     };
 
-    console.log(JSON.stringify(report, null, 2));
+    if (reportPath) {
+      await writeRedactedReport(reportPath, report);
+      console.log(JSON.stringify({ status: 'SOURCE_INVENTORY_REPORTED' }));
+    } else {
+      console.log(JSON.stringify(report, null, 2));
+    }
 
     if (mismatchedTables.length > 0) {
       throw new Error('Source schema differs from the planned Prisma schema');
@@ -227,16 +273,14 @@ async function inspectSource() {
 }
 
 async function main() {
-  if (process.argv.length !== 3 || process.argv[2] !== '--inspect-source') {
-    throw new Error('Usage: npm run db:transfer -- --inspect-source');
-  }
-  await inspectSource();
+  const { reportPath } = parseInspectArgs(process.argv.slice(2));
+  await inspectSource(reportPath);
 }
 
-main().catch((error: unknown) => {
-  const safeError = error instanceof Error
-    ? { name: error.name, code: 'code' in error ? String(error.code) : undefined }
-    : { name: 'UnknownError' };
-  console.error(JSON.stringify({ status: 'SOURCE_INVENTORY_FAILED', error: safeError }));
-  process.exitCode = 1;
-});
+const isMain = process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
+if (isMain) {
+  main().catch((error: unknown) => {
+    console.error(JSON.stringify({ status: 'SOURCE_INVENTORY_FAILED', error: safeErrorDetails(error) }));
+    process.exitCode = 1;
+  });
+}
