@@ -42,5 +42,16 @@ yarn-error.log*
 next-env.d.ts
 
 .local-migration/
+/.tmp/
+.temp/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
 
 generate_hash.js
+/.worktrees/
+
+/scripts/*.log
+/scripts/output/
+/scripts/artifacts/

@@ -93,7 +93,7 @@ export default async function VotingKameumeutPage({ params }: Readonly<{ params:
                     📅 Periode Voting
                   </TableCell>
                   <TableCell>
-                    : <strong className="text-fb">28 Juli – 9 Agustus 2025</strong>
+                    : <strong className="text-fb">28 Juli sampai 9 Agustus 2025</strong>
                   </TableCell>
                 </TableRow>
                 <TableRow>

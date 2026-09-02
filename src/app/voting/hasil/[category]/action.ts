@@ -17,14 +17,13 @@ export async function getSemifinalistData(category: string) {
     );
   }, 0);
 
-  return data.map((item) => ({
-    name: item.name,
-    vote:
-      Math.round(
-        (item.votePerDate.reduce((a, b) => a + b.income, 0) / totalIncomes) *
-          10000
-      ) / 100, // Calculate percentage of total incomes
-  }));
+  return data.map((item) => {
+    const income = item.votePerDate.reduce((a, b) => a + b.income, 0);
+    return {
+      name: item.name,
+      vote: totalIncomes > 0 ? Math.round((income / totalIncomes) * 10000) / 100 : 0,
+    };
+  });
 }
 
 export const getFinalistsData = unstable_cache(async (category: string) => {
@@ -40,12 +39,11 @@ export const getFinalistsData = unstable_cache(async (category: string) => {
     );
   }, 0);
 
-  return data.map((item) => ({
-    name: item.name,
-    vote:
-      Math.round(
-        (item.votePerDate.reduce((a, b) => a + b.income, 0) / totalIncomes) *
-          10000
-      ) / 100, // Calculate percentage of total incomes
-  }));
+  return data.map((item) => {
+    const income = item.votePerDate.reduce((a, b) => a + b.income, 0);
+    return {
+      name: item.name,
+      vote: totalIncomes > 0 ? Math.round((income / totalIncomes) * 10000) / 100 : 0,
+    };
+  });
 });

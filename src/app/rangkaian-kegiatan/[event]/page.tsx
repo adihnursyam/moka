@@ -25,10 +25,13 @@ export default function Page({
     if (!api) {
       return
     }
-    setCurrent(api.selectedScrollSnap())
-    api.on("select", () => {
+    const handleSelect = () => {
       setCurrent(api.selectedScrollSnap())
-    })
+    }
+    api.on("select", handleSelect)
+    return () => {
+      api.off("select", handleSelect)
+    }
   }, [api])
 
   const kegiatan = rangkaianKegiatan.find(k => k.label.toLowerCase().replace(" ", "-") === event);

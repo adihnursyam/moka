@@ -1,336 +1,198 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState, useEffect, useRef, RefObject, ReactNode } from 'react';
-import Image from 'next/image';
-import { useMediaQuery, useOnClickOutside } from 'usehooks-ts';
-import { motion } from 'motion/react';
+import { ChevronDown, LogIn, MoveUpRight } from "lucide-react";
+import { motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { type RefObject, useEffect, useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { categories, rangkaianKegiatan } from '@/lib/data';
+} from "@/components/ui/accordion";
+import { categories as staticCategories, rangkaianKegiatan } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
-export function Navbar() {
+type NavbarCategory = { name: string; slug: string };
+type NavbarEvent = { label: string; slug: string };
+type DesktopMenuItem = { href: string; label: string };
+
+export function Navbar({
+  categories = staticCategories,
+  events,
+  votingActive,
+}: {
+  categories?: NavbarCategory[];
+  events?: NavbarEvent[];
+  votingActive?: boolean;
+}) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  // Set the exact cutoff time in ISO 8601 format with the GMT+7 offset
-  const votingEndTime = new Date('2025-08-09T23:59:59+07:00');
-  const now = new Date();
-  const isVotingActive = now < votingEndTime;
+  const votingEndTime = new Date("2025-08-09T23:59:59+07:00");
+  const isVotingActive = votingActive ?? new Date() < votingEndTime;
+  const eventItems = (events ?? rangkaianKegiatan.map((item) => ({ label: item.label, slug: item.label.toLowerCase().replace(/\s+/g, "-") })))
+    .map((item) => ({ href: `/rangkaian-kegiatan/${item.slug}`, label: item.label }));
+  const categoryItems = (page: string) => categories.map((category) => ({ href: `/${page}/${category.slug}`, label: category.name }));
 
-  const navLinks: { href: string, label: string, isPopover?: boolean, content?: ReactNode, accordion?: ReactNode, ending?: boolean }[] = [
-    { href: '/', label: 'Beranda' },
-    { href: '/tentang', label: 'Tentang' },
-    // { href: '/kontak', label: 'Kontak Kami' },
-    { href: 'rangkaian-kegiatan', label: 'Rangkaian Kegiatan', isPopover: true, content: <RangkaianKegiatanPopover />, accordion: <RangkaianKegiatanAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} /> },
-    { href: 'voting', label: 'Voting', isPopover: true, content: <VotingPopover />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} />, ending: !isVotingActive },
-    { href: 'profil-finalis', label: 'Profil Finalis', isPopover: true, content: <VotingPopover setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-finalis' />, accordion: <VotingAccordion setIsMobileMenuOpen={setIsMobileMenuOpen} page='profil-finalis' />, ending: isVotingActive },
+  const desktopLinks: Array<
+    | { href: string; label: string }
+    | { label: string; menu: DesktopMenuItem[]; match: string }
+  > = [
+    { href: "/", label: "Beranda" },
+    { href: "/tentang", label: "Tentang" },
+    { label: "Rangkaian Kegiatan", menu: eventItems, match: "/rangkaian-kegiatan" },
+    ...(isVotingActive
+      ? [{ label: "Voting", menu: categoryItems("voting"), match: "/voting" }]
+      : [{ label: "Profil Finalis", menu: categoryItems("profil-finalis"), match: "/profil-finalis" }]),
+    { label: "Hasil Voting", menu: categoryItems("voting/hasil"), match: "/voting/hasil" },
   ];
 
-  // State for navbar visibility on scroll (desktop)
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const lastScrollY = useRef(0); // Using useRef to persist lastScrollY across renders without causing re-renders
-  const navbarHeightThreshold = 80; // Roughly the height of your navbar
-
+  const lastScrollY = useRef(0);
   const ref = useRef<HTMLDivElement>(null);
+
   useOnClickOutside(ref as RefObject<HTMLDivElement>, () => {
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
-  })
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+  });
 
   useEffect(() => {
-    if (isMobile) {
-      setIsNavbarVisible(true); // Always visible on mobile for this logic
-      return;
-    }
-
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY <= navbarHeightThreshold) { // Always show if near top
+      if (window.matchMedia("(max-width: 768px)").matches) {
         setIsNavbarVisible(true);
-      } else if (currentScrollY > lastScrollY.current) { // Scrolling down
-        setIsNavbarVisible(false);
-      } else { // Scrolling up
-        setIsNavbarVisible(true);
+        return;
       }
+      const currentScrollY = window.scrollY;
+      setIsNavbarVisible(currentScrollY <= 80 || currentScrollY < lastScrollY.current);
       lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]); // Re-run if isMobile changes
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      {/* Desktop Navbar */}
-      {!isMobile && (
-        <motion.nav
-          key={pathname + "-navbar"} // Ensure it re-renders on route change
-          className="flex fixed max-sm:hidden w-[calc(100vw-4rem)] items-center justify-between px-8 py-4 shadow-md rounded-full mx-8 mt-2 bg-white/20 backdrop-blur-sm h-20 z-[999]" // Ensure z-index is high
-          initial={{ y: 0 }}
-          animate={{ y: isNavbarVisible ? 0 : '-120%' }} // Slide up more than 100% to be fully hidden
-          transition={{ duration: 0.4, ease: 'easeInOut' }}
-        >
-          <Link href='/' className='h-full'>
-            <Image src='/logo-orange.png' alt='logo' width={100} height={60} className='h-full w-auto object-contain' priority />
-          </Link>
-          <div className="flex gap-8 font-montserrat">
-            {navLinks.map((link) => link.ending ? (<></>) : link.isPopover ? (
-              <Popover key={link.label}>
-                <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all'>{link.label}</PopoverTrigger>
-                {link.content || <VotingPopover />}
-              </Popover>
-            ) : (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="font-medium text-fb hover:text-fb-500 transition-all"
-              >
+      <motion.nav
+        key={`${pathname}-navbar`}
+        className="fixed left-8 right-8 top-2 z-40 hidden h-16 items-center justify-between rounded-full border border-white/15 bg-dgb-900/45 px-8 py-3 shadow-lg shadow-black/15 backdrop-blur-md backdrop-saturate-150 md:flex"
+        initial={{ y: 0 }}
+        animate={{ y: isNavbarVisible ? 0 : "-120%" }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        aria-label="Navigasi utama"
+      >
+        <Link href="/" className="h-full shrink-0" aria-label="Beranda MOKA Garut">
+          <Image src="/logo-orange.png" alt="MOKA Garut" width={100} height={60} className="h-full w-auto object-contain" priority />
+        </Link>
+        <div className="flex h-full items-center gap-3 font-montserrat lg:gap-5 xl:gap-7">
+          {desktopLinks.map((link) => {
+            if ("menu" in link) {
+              return <DesktopNavMenu key={link.label} label={link.label} items={link.menu} active={pathname.startsWith(link.match)} />;
+            }
+            const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+            return (
+              <Link key={link.label} href={link.href} className={desktopLinkClass(active)} aria-current={active ? "page" : undefined}>
                 {link.label}
+              </Link>
+            );
+          })}
+          <Link
+            href="/admin/login"
+            className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-md border border-fb px-3 text-sm font-semibold text-fb transition-colors hover:bg-fb hover:text-dgb-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fb-200 focus-visible:ring-offset-2 focus-visible:ring-offset-dgb-900"
+            aria-label="Masuk ke ruang kerja PAMOKA"
+            title="Masuk"
+          >
+            <LogIn className="size-4" aria-hidden="true" />
+            <span className="hidden lg:inline">Masuk</span>
+          </Link>
+        </div>
+      </motion.nav>
+
+      <nav className="fixed top-0 z-40 w-full bg-white/20 shadow-md backdrop-blur-md md:hidden" ref={ref} aria-label="Navigasi utama seluler">
+        <div className="flex h-16 w-full items-center justify-between px-6">
+          <Link href="/" className="h-9" aria-label="Beranda MOKA Garut">
+            <Image src="/logo-orange.png" alt="MOKA Garut" width={100} height={44} className="h-full w-auto object-contain" priority />
+          </Link>
+          <button className="relative z-[60] flex size-9 items-center justify-center" onClick={() => setIsMobileMenuOpen((open) => !open)} aria-label={isMobileMenuOpen ? "Tutup menu" : "Buka menu"} aria-expanded={isMobileMenuOpen}>
+            <motion.span className="absolute h-0.5 w-6 bg-fb" animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -7 }} />
+            <motion.span className="absolute h-0.5 w-5 bg-fb" animate={{ opacity: isMobileMenuOpen ? 0 : 1 }} />
+            <motion.span className="absolute h-0.5 bg-fb" animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 7, width: isMobileMenuOpen ? 24 : 16 }} />
+          </button>
+        </div>
+        <Accordion type="single" collapsible value={isMobileMenuOpen ? "root-navbar" : ""} onValueChange={(value) => setIsMobileMenuOpen(value === "root-navbar")}>
+          <AccordionItem value="root-navbar" className="border-0">
+            <AccordionContent className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-white/10 bg-dgb-900/78 px-6 pb-6 text-white backdrop-blur-md">
+              <div className="flex flex-col pt-3 font-montserrat">
+                <MobileLink href="/" label="Beranda" close={() => setIsMobileMenuOpen(false)} />
+                <MobileLink href="/tentang" label="Tentang" close={() => setIsMobileMenuOpen(false)} />
+                <MobileMenu label="Rangkaian Kegiatan" items={eventItems} close={() => setIsMobileMenuOpen(false)} />
+                {isVotingActive ? <MobileMenu label="Voting" items={categoryItems("voting")} close={() => setIsMobileMenuOpen(false)} /> : <MobileMenu label="Profil Finalis" items={categoryItems("profil-finalis")} close={() => setIsMobileMenuOpen(false)} />}
+                <MobileMenu label="Hasil Voting" items={categoryItems("voting/hasil")} close={() => setIsMobileMenuOpen(false)} />
+                <Link
+                  href="/admin/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-fb bg-fb px-4 py-2.5 text-sm font-semibold text-dgb-900 transition-colors hover:bg-fb-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-dgb-900"
+                  aria-label="Masuk ke ruang kerja PAMOKA"
+                >
+                  <LogIn className="size-4" aria-hidden="true" />
+                  Masuk
+                </Link>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </nav>
+    </>
+  );
+}
+
+function desktopLinkClass(active: boolean) {
+  return cn(
+    "relative inline-flex h-full items-center whitespace-nowrap text-sm font-medium drop-shadow-[0_1px_1px_rgba(0,0,0,0.45)] transition-colors after:absolute after:bottom-0.5 after:left-1/2 after:h-0.5 after:-translate-x-1/2 after:rounded-full after:bg-fb after:transition-all",
+    active ? "text-fb-300 after:w-5" : "text-fb after:w-0 hover:text-fb-500 hover:after:w-3",
+  );
+}
+
+function DesktopNavMenu({ label, items, active }: { label: string; items: DesktopMenuItem[]; active: boolean }) {
+  return (
+    <div className="group relative flex h-full items-center">
+      <button className={cn(desktopLinkClass(active), "gap-1")} aria-haspopup="menu">
+        {label}<ChevronDown className="size-3.5 text-fb transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+      </button>
+      <div className="invisible absolute left-1/2 top-full w-72 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+        <div className="rounded-xl border border-white/15 bg-dgb-900/48 p-2 text-white shadow-xl shadow-black/20 backdrop-blur-md backdrop-saturate-150" role="menu">
+          <p className="px-3 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.17em] text-fb">Pilih halaman</p>
+          <div className="space-y-0.5">
+            {items.map((item) => (
+              <Link key={item.href} href={item.href} role="menuitem" className="group/item flex min-h-10 items-center justify-between rounded-md border border-transparent px-3 py-2 text-sm font-medium text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.45)] transition-colors hover:border-fb hover:bg-white/10 focus:border-fb focus:bg-white/10 focus:outline-none">
+                {item.label}<MoveUpRight className="size-3.5 text-fb opacity-0 transition-opacity group-hover/item:opacity-100 group-focus/item:opacity-100" />
               </Link>
             ))}
           </div>
-          <Popover>
-            <PopoverTrigger className='font-medium capitalize text-fb hover:text-fb-500 transition-all border border-fb py-1.5 px-3 rounded-md'>Hasil Voting</PopoverTrigger>
-            <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
-              {categories.map((category) => (
-                <Link
-                  key={category.slug + "-navbar-popover"}
-                  href={`/voting/hasil/${category.slug}`}
-                  className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
-                >
-                  <div className="">{category.name}</div>
-                </Link>
-              ))}
-            </PopoverContent>
-          </Popover>
-        </motion.nav>
-      )}
-
-      {/* Mobile Navbar */}
-      {isMobile && (
-        <nav className="fixed top-0 w-full z-[999] bg-white/20 backdrop-blur-md shadow-md md:hidden" ref={ref} key={pathname + "-mobile-navbar"}>
-          <div className="w-full p-4 px-8 flex items-center justify-between h-16">
-            <Link href='/' className='h-full'>
-              <Image src='/logo-orange.png' alt='logo' width={80} height={40} className='h-full w-auto object-contain' priority />
-            </Link>
-            <button
-              className='md:hidden w-8 h-8 flex flex-col justify-center items-center z-[60]'
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle mobile menu"
-            >
-              <motion.span
-                className='w-8 h-0.5 bg-linear-to-br to-90% from-dgb to-fb block absolute'
-                animate={{
-                  rotate: isMobileMenuOpen ? 45 : 0,
-                  y: isMobileMenuOpen ? 0 : -8,
-                  width: isMobileMenuOpen ? 24 : 24,
-                }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.span
-                className='w-6 h-0.5 bg-fb block absolute'
-                animate={{
-                  opacity: isMobileMenuOpen ? 0 : 1,
-                  x: isMobileMenuOpen ? 20 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.span
-                className='w-4 h-0.5 bg-linear-to-tl to-90% from-fb to-dgb block absolute'
-                animate={{
-                  rotate: isMobileMenuOpen ? -45 : 0,
-                  y: isMobileMenuOpen ? 0 : 8,
-                  width: isMobileMenuOpen ? 24 : 16,
-                }}
-                transition={{ duration: 0.3 }}
-              />
-            </button>
-          </div>
-          <Accordion
-            type='single'
-            collapsible
-            value={isMobileMenuOpen ? 'root-navbar' : ''}
-            onValueChange={(value: string) => {
-              setIsMobileMenuOpen(value === 'root-navbar');
-            } // Close menu when not selected
-            }
-          >
-            <AccordionItem value='root-navbar'>
-              <AccordionContent className='text-white px-8'>
-                <div className={`my-4 flex flex-col`}>
-                  {navLinks.map((link) => link.ending ? (<></>) : link.isPopover ?
-                    (<Accordion key={link.label} type='single' collapsible className='w-full'>
-                      <AccordionItem value='voting' className='py-1.5'>
-                        <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all p-0'>{link.label}</AccordionTrigger>
-                        <AccordionContent className='pb-0 pt-1.5 *:*:py-1.5 *:px-4 w-full'>
-                          {link.accordion || <VotingAccordion />}
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                    ) : (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="font-medium text-fb hover:text-fb-500 transition-all py-1.5"
-                        onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  <Accordion className='w-full' type='single' collapsible>
-                    <AccordionItem value='hasil-voting'>
-                      <AccordionTrigger className='font-medium text-fb hover:text-fb-500 transition-all py-1.5'>Hasil Voting</AccordionTrigger>
-                      <AccordionContent className=''>
-                        {categories.map((category) => (
-                          <div className="*:py-1.5 px-4 w-full"
-                            key={category.slug + "-navbar-accordion"}>
-                            <Link
-                              href={`/voting/hasil/${category.slug}`}
-                              className="w-full flex"
-                              onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                            >
-                              <div className="">{category.name}</div>
-                            </Link>
-                          </div>
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </nav>
-      )}
-    </>
-  );
-}
-
-function VotingPopover({ setIsMobileMenuOpen, page = 'voting' }: { setIsMobileMenuOpen?: (open: boolean) => void, page?: string }) {
-  return (
-    <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
-      {categories.map((category) => (
-        <Link
-          key={category.slug + "-navbar-popover"}
-          href={`/${page}/${category.slug}`}
-          className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
-          onClick={() => {
-            if (setIsMobileMenuOpen) {
-              setIsMobileMenuOpen(false); // Close mobile menu if applicable
-            }
-          }
-          }
-        >
-          <div className="">{category.name}</div>
-        </Link>
-      ))}
-    </PopoverContent>
-  );
-}
-
-function VotingAccordion(
-  { setIsMobileMenuOpen, page = 'voting' }: { setIsMobileMenuOpen?: (open: boolean) => void, page?: string }
-) {
-  return (
-    <>
-      <div className='w-full'>
-        <Link href={`/${page}/mojang-rumaja`} className="w-full flex"
-          onClick={() => {
-            if (setIsMobileMenuOpen) {
-              setIsMobileMenuOpen(false);
-            }
-          }}
-        >
-          Mojang Rumaja
-        </Link>
-      </div>
-      <div className='w-full'>
-        <Link href={`/${page}/jajaka-rumaja`} className="w-full flex"
-          onClick={() => {
-            if (setIsMobileMenuOpen) {
-              setIsMobileMenuOpen(false);
-            }
-          }}
-        >
-          Jajaka Rumaja
-        </Link>
-      </div>
-      <div className='w-full'>
-        <Link href={`/${page}/mojang-dewasa`} className="w-full flex"
-          onClick={() => {
-            if (setIsMobileMenuOpen) {
-              setIsMobileMenuOpen(false);
-            }
-          }}
-        >
-          Mojang Dewasa
-        </Link>
-      </div>
-      <div className='w-full'>
-        <Link href={`/${page}/jajaka-dewasa`} className="w-full flex"
-          onClick={() => {
-            if (setIsMobileMenuOpen) {
-              setIsMobileMenuOpen(false);
-            }
-          }}
-        >
-          Jajaka Dewasa
-        </Link>
-      </div>
-    </>
-  )
-}
-
-function RangkaianKegiatanPopover({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }) {
-  return (
-    <PopoverContent sideOffset={24} className='z-[1000] bg-white/20 backdrop-blur-sm grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[400px] text-white border-0'>
-      {rangkaianKegiatan.map((kegiatan, index) => (
-        <Link
-          key={index + "-navbar-popover"}
-          href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`}
-          className="px-4 py-2 rounded-lg transition-all hover:bg-white/10 border border-fb text-center"
-          onClick={() => {
-            if (setIsMobileMenuOpen) {
-              setIsMobileMenuOpen(false);
-            }
-          }}
-        >
-          <div className="">{kegiatan.label}</div>
-        </Link>
-      ))}
-    </PopoverContent>
-  );
-}
-
-function RangkaianKegiatanAccordion({ setIsMobileMenuOpen }: { setIsMobileMenuOpen?: (open: boolean) => void }) {
-  return (
-    <>
-      {rangkaianKegiatan.map((kegiatan, index) => (
-        <div key={index + "-accordion"} className="w-full">
-          <Link href={`/rangkaian-kegiatan/${kegiatan.label.toLowerCase().replace(/\s+/g, '-')}`} className="flex"
-            onClick={() => {
-              if (setIsMobileMenuOpen) {
-                setIsMobileMenuOpen(false);
-              }
-            }}
-          >
-            {kegiatan.label}
-          </Link>
         </div>
-      ))}
-    </>
+      </div>
+    </div>
+  );
+}
+
+function MobileLink({ href, label, close }: { href: string; label: string; close: () => void }) {
+  return <Link href={href} onClick={close} className="border-b border-white/8 py-3 text-sm font-medium text-white/82 hover:text-white">{label}</Link>;
+}
+
+function MobileMenu({ label, items, close }: { label: string; items: DesktopMenuItem[]; close: () => void }) {
+  return (
+    <Accordion type="single" collapsible>
+      <AccordionItem value={label} className="border-white/8">
+        <AccordionTrigger className="py-3 text-sm font-medium text-white/82 hover:text-white hover:no-underline">{label}</AccordionTrigger>
+        <AccordionContent className="pb-2">
+          <div className="border-l border-fb/45 pl-3">
+            {items.map((item) => <Link key={item.href} href={item.href} onClick={close} className="block rounded-md px-3 py-2 text-sm text-white/68 hover:bg-white/8 hover:text-white">{item.label}</Link>)}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }

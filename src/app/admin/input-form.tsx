@@ -1,14 +1,16 @@
 "use client";
 
 import { Input } from '@/components/ui/input';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAction } from "next-safe-action/hooks";
 import { updateFinalistIncome } from './action';
 import { toast } from 'sonner';
 import { TableCell } from '@/components/ui/table';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function InputForm({ name, id, value, total }: { name: string, id: string, value: number, total: number }) {
-  const [income, setInput] = useState<number>(value);
+  const [draftIncome, setDraftIncome] = useState<number | null>(null);
+  const income = draftIncome ?? value;
 
   const { execute } = useAction(updateFinalistIncome, {
     onSuccess: () => {
@@ -19,29 +21,23 @@ export default function InputForm({ name, id, value, total }: { name: string, id
     },
   })
 
-  useEffect(() => {
-    setInput(value);
-  }, [value]);
-
   return (
     <>
-      <TableCell>
-        <form className="flex gap-2 h-8 items-center" onSubmit={(e) => {
+      <TableCell className="px-4 py-3">
+        <form className="flex h-9 items-center gap-2" onSubmit={(e) => {
           e.preventDefault();
           execute({ id, income: income || 0 })
         }}>
-          <Input type='number' value={income} onChange={(v) => setInput(parseInt(v.target.value))} placeholder='Vote' required
-            className='w-20'
+          <Input type='number' value={income} onChange={(v) => setDraftIncome(v.target.value === "" ? 0 : Number(v.target.value))} placeholder='Vote' required
+            className='h-9 w-24 rounded-lg border-slate-200 bg-white text-sm focus-visible:border-dgb-300 focus-visible:ring-dgb-50'
           />
-          <button className="bg-green-500 rounded-md grid place-items-center h-8 w-10 cursor-pointer" onClick={() => {
-            execute({ id, income: income || 0 })
-          }}>
-            {">"}
+          <button type="submit" aria-label={`Simpan vote ${name}`} className="grid h-9 w-9 place-items-center rounded-lg bg-dgb text-white transition hover:bg-dgb-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-dgb-100">
+            <ArrowUpRight size={16} />
           </button>
         </form>
       </TableCell >
-      <TableCell className='text-center'>
-        {total}
+      <TableCell className='px-4 text-center font-semibold text-dgb-900'>
+        {total.toLocaleString('id-ID')}
       </TableCell>
     </>
   );

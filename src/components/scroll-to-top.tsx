@@ -38,8 +38,8 @@ export function ScrollToTopButton() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.9 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed bottom-8 right-8 z-50 p-3 bg-white/30 backdrop-blur-md text-slate-700 hover:bg-white/50 hover:text-slate-900 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-fb-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200"
-          aria-label="Scroll to top"
+          className="fixed bottom-8 right-8 z-50 rounded-full bg-white/30 p-3 text-slate-700 shadow-lg backdrop-blur-md transition-all duration-200 hover:bg-white/50 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-fb-500 focus:ring-offset-2 focus:ring-offset-transparent"
+          aria-label="Kembali ke atas"
         >
           <ArrowUp size={24} />
         </motion.button>

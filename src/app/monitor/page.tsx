@@ -1,18 +1,18 @@
 import BG from '@/components/next-image-bg';
-import PasswordPrompt from '@/components/PasswordPrompt';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getFinalistsWithIncome } from '@/server/db/queries';
 import { unstable_cache } from 'next/cache';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { auth } from '@/server/auth/config';
+import { ensurePendingAdminProfile, getEffectivePermissions } from '@/server/auth/authorization';
 
 export default async function MonitorPage() {
-  const cookieStore = await cookies();
-  const hasAccessCookie = cookieStore.get(process.env.PASSWORD_COOKIE_NAME || 'hasPageAccess');
-  const hasAccess = hasAccessCookie?.value === 'true';
-
-  if (!hasAccess) {
-    return <PasswordPrompt />;
-  }
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) redirect('/admin/login');
+  await ensurePendingAdminProfile(session.user.id);
+  const effectivePermissions = await getEffectivePermissions(session.user.id);
+  if (!effectivePermissions.has('voting.view')) redirect('/admin/request-access');
 
   const finalists = await unstable_cache(
     async () => {

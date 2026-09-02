@@ -4,6 +4,7 @@ import { actionClient } from '@/lib/safe-action';
 import { updateIncomeById } from '@/server/db/mutations';
 import { z } from 'zod';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import { requirePermission } from '@/server/auth/authorization';
 
 const incomeSubmissionSchema = z.object({
   id: z.string(),
@@ -13,6 +14,7 @@ const incomeSubmissionSchema = z.object({
 export const updateSemifinalistIncome = actionClient
   .inputSchema(incomeSubmissionSchema)
   .action(async ({ parsedInput: { id, income } }) => {
+    await requirePermission('voting.tally');
     const data = await updateIncomeById(id, income);
 
     revalidatePath('/admin');
@@ -20,7 +22,7 @@ export const updateSemifinalistIncome = actionClient
     revalidatePath('/voting/hasil/jajaka-rumaja');
     revalidatePath('/voting/hasil/mojang-dewasa');
     revalidatePath('/voting/hasil/jajaka-dewasa');
-    revalidateTag('semifinalist-admin');
+    revalidateTag('semifinalist-admin', 'max');
 
     if (!data) {
       throw new Error('Failed to update finalist data');
@@ -30,6 +32,7 @@ export const updateSemifinalistIncome = actionClient
 export const updateFinalistIncome = actionClient
   .inputSchema(incomeSubmissionSchema)
   .action(async ({ parsedInput: { id, income } }) => {
+    await requirePermission('voting.tally');
     const data = await updateIncomeById(id, income);
 
     revalidatePath('/admin');
@@ -38,8 +41,8 @@ export const updateFinalistIncome = actionClient
     revalidatePath('/voting/hasil/jajaka-rumaja');
     revalidatePath('/voting/hasil/mojang-dewasa');
     revalidatePath('/voting/hasil/jajaka-dewasa');
-    revalidateTag('finalist-admin');
-    revalidateTag('finalist-monitor');
+    revalidateTag('finalist-admin', 'max');
+    revalidateTag('finalist-monitor', 'max');
 
     if (!data) {
       throw new Error('Failed to update finalist data');

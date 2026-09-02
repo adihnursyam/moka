@@ -8,6 +8,8 @@ import Lenis from '@/components/lenis';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { Toaster } from '@/components/ui/sonner';
 import Script from "next/script";
+import { SiteChrome } from '@/components/site-chrome';
+import { categories, rangkaianKegiatan } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: {
@@ -17,13 +19,13 @@ export const metadata: Metadata = {
   description: "Official website Paguyuban Mojang Jajaka Kabupaten Garut",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       {/* Google Analytics Tag */}
       <Script
         async
@@ -45,12 +47,23 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${inter.variable} antialiased font-inter`}
       >
-        <Navbar />
-        <Lenis />
-        {children}
-        <ScrollToTopButton />
+        <SiteChrome
+          top={
+            <>
+              <Navbar categories={categories} events={rangkaianKegiatan.map((item) => ({ label: item.label, slug: item.label.toLowerCase().replace(/\s+/g, '-') }))} />
+              <Lenis />
+            </>
+          }
+          bottom={
+            <>
+              <ScrollToTopButton />
+              <Footer />
+            </>
+          }
+        >
+          {children}
+        </SiteChrome>
         <Toaster />
-        <Footer />
       </body>
     </html>
   );

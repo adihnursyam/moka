@@ -1,0 +1,1 @@
+ALTER TABLE `participant` ADD `qrisMediaId` text REFERENCES mediaAsset(id);

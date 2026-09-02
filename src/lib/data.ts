@@ -673,7 +673,7 @@ const MR = [
     description:
       'seorang pribadi aktif yang suka mempelajari hal-hal baru dan suka mencoba tantangan baru. Memiliki ketertarikan terhadap budaya sunda, bidang pariwisata, bidang kreatif dan tertarik pada berbagai kegiatan sosial. Berpengalaman aktif dalam berbagai organisasi serta memiliki semangat untuk menjadi representasi positif bagi generasi muda.',
     achievements: [
-      'Juara 1 Umum Lomba Short Movie– Sutradara (2025)',
+      'Juara 1 Umum Lomba Short Movie, Sutradara (2025)',
       'Juara 2 Akademik (2021-2023)',
       'Talent Terpilih Video Klip Band Five Minutes (2023)',
     ],
